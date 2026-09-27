@@ -1,6 +1,6 @@
 ---
 title: Explorer
-description: File tree explorer sidebar.
+description: 文件树浏览侧边栏。
 tags:
   - plugin/component
 image:
@@ -12,13 +12,13 @@ required: false
 File tree explorer sidebar.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[plugins/Explorer]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 **YAML options** (in `quartz.config.yaml`):
 
@@ -34,7 +34,7 @@ This plugin accepts the following configuration options:
 - `mapFn`: Custom map function to transform node properties (e.g. display names).
 - `order`: Array controlling the order of operations. Defaults to `["filter", "map", "sort"]`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/explorer
@@ -66,5 +66,5 @@ See [[features/explorer#Advanced customization]] for more examples.
 
 - Category: Component
 - Function name: `ExternalPlugin.Explorer()`.
-- Source: [`quartz-community/explorer`](https://github.com/quartz-community/explorer)
-- Install: `npx quartz plugin add github:quartz-community/explorer`
+- 源码： [`quartz-community/explorer`](https://github.com/quartz-community/explorer)
+- 安装： `npx quartz plugin add github:quartz-community/explorer`

@@ -1,16 +1,16 @@
 ---
-title: Wikilinks
+title: 双链
 ---
 
-Wikilinks were pioneered by earlier internet wikis to make it easier to write links across pages without needing to write Markdown or HTML links each time.
+双链最早由早期互联网维基提出，目的是更方便地在页面之间写链接，而不必每次都写 Markdown 或 HTML 链接。
 
-Quartz supports Wikilinks by default and these links are resolved by Quartz using the [[CrawlLinks]] plugin. See the [Obsidian Help page on Internal Links](https://help.obsidian.md/Linking+notes+and+files/Internal+links) for more information on Wikilink syntax.
+Quartz 默认支持双链，这些链接由 [[CrawlLinks]] 插件解析。双链语法的更多说明见 [Obsidian 关于内部链接的帮助页](https://help.obsidian.md/Linking+notes+and+files/Internal+links)。
 
-This is enabled as a part of [[Obsidian compatibility]] and can be configured and enabled/disabled from that plugin.
+该功能作为 [[Obsidian compatibility|Obsidian 兼容]] 的一部分启用，可以在该插件中配置、启用或禁用。
 
-Wikilink matching is case-insensitive to mirror Obsidian: `[[My Note]]`, `[[my note]]`, and `[[MY NOTE]]` all resolve to the same file. The generated URL is lowercased (e.g. `my-note`).
+为了与 Obsidian 保持一致，双链匹配不区分大小写：`[[My Note]]`、`[[my note]]` 和 `[[MY NOTE]]` 都会解析到同一个文件。生成的 URL 会转为小写（例如 `my-note`）。
 
-## Syntax
+## 语法
 
 - `[[Path to file]]`: produces a link to `Path to file.md` (or `Path-to-file.md`) with the text `Path to file`
 - `[[Path to file | Here's the title override]]`: produces a link to `Path to file.md` with the text `Here's the title override`

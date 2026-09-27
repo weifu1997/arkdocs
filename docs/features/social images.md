@@ -1,5 +1,5 @@
 ---
-title: "Social Media Preview Cards"
+title: 社交媒体预览卡片
 ---
 
 A lot of social media platforms can display a rich preview for your website when sharing a link (most notably, a cover image, a title and a description).
@@ -14,6 +14,6 @@ After enabling the [[CustomOgImages]] emitter plugin, the social media link prev
 | ----------------------------------- | ---------------------------------- |
 | ![[social-image-preview-light.png]] | ![[social-image-preview-dark.png]] |
 
-## Configuration
+## 配置
 
 This functionality is provided by the [[CustomOgImages]] plugin. See the plugin page for customization options.

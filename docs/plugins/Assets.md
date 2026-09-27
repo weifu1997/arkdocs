@@ -10,7 +10,7 @@ This plugin emits all non-Markdown static assets in your content folder (like im
 Note that all static assets will then be accessible through its path on your generated site, i.e: `host.me/path/to/static.pdf`
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 This plugin has no configuration options.
 
@@ -18,4 +18,4 @@ This plugin has no configuration options.
 
 - Category: Emitter
 - Function name: `Plugin.Assets()` (internal plugin).
-- Source: [`quartz/plugins/emitters/assets.ts`](https://github.com/jackyzha0/quartz/blob/v5/quartz/plugins/emitters/assets.ts).
+- 源码： [`quartz/plugins/emitters/assets.ts`](https://github.com/jackyzha0/quartz/blob/v5/quartz/plugins/emitters/assets.ts).

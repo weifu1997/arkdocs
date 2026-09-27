@@ -1,34 +1,34 @@
 ---
-title: "Upgrading Quartz"
+title: "升级 Quartz"
 aliases:
   - upgrading
 ---
 
 > [!note]
-> This is specifically a guide for upgrading your Quartz to a more recent update. If you are coming from Quartz 4 or Quartz 3, check out the [[migrating|migration guide]] for more info.
+> 本指南专门用于将 Quartz 升级到更新版本。如果你来自 Quartz 4 或 Quartz 3，请参阅 [[migrating|迁移指南]]。
 
-To fetch the latest Quartz updates, simply run
+要获取最新的 Quartz 更新，只需运行
 
 ```bash
 npx quartz upgrade
 ```
 
-As Quartz uses [git](https://git-scm.com/) under the hood for versioning, upgrading effectively 'pulls' in the updates from the official Quartz GitHub repository. Merge conflicts in `quartz.lock.json` are handled automatically — Quartz backs up your lockfile before pulling and restores it afterward. For other files with local changes that conflict with the updates, you may need to resolve these manually yourself (or, pull manually using `git pull origin upstream`).
+Quartz 底层使用 [git](https://git-scm.com/) 进行版本管理，因此升级实际上就是从官方 Quartz GitHub 仓库拉取更新。`quartz.lock.json` 中的合并冲突会自动处理 — Quartz 会在拉取前备份锁定文件，并在之后恢复。对于其他与更新冲突的本地修改文件，你可能需要自行手动解决（或者使用 `git pull origin upstream` 手动拉取）。
 
 > [!hint]
-> Quartz will try to cache your content before upgrading to try and prevent merge conflicts. If you get a conflict mid-merge, you can stop the merge and then run `npx quartz restore` to restore your content from the cache.
+> Quartz 会在升级前尽量缓存你的内容，以减少合并冲突。如果在合并过程中出现冲突，可以停止合并，然后运行 `npx quartz restore` 从缓存恢复内容。
 
-If you have the [GitHub desktop app](https://desktop.github.com/), this will automatically open to help you resolve the conflicts. Otherwise, you will need to resolve this in a text editor like VSCode. For more help on resolving conflicts manually, check out the [GitHub guide on resolving merge conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line#competing-line-change-merge-conflicts).
+如果你安装了 [GitHub desktop app](https://desktop.github.com/)，它会自动打开以帮助解决冲突。否则，你需要在 VSCode 这类文本编辑器中解决。手动解决冲突的更多说明见 [GitHub 的合并冲突指南](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line#competing-line-change-merge-conflicts)。
 
-To update your installed plugins separately, use:
+要单独更新已安装的插件，请使用：
 
 ```bash
 npx quartz plugin install --latest
 ```
 
-See the [[upgrade|CLI reference for upgrade]] for more details on available flags.
+可用参数的更多细节见 [[upgrade|upgrade 的 CLI 参考]]。
 
-### Layout System Changes
+### 布局系统变更
 
 The `footer` layout slot is now an array of components, consistent with other layout slots like `header`, `left`, and `right`. Additionally, `header` and `footer` are now configurable layout positions — plugins can declare `layout: { position: header }` or `layout: { position: footer }` in their YAML config.
 

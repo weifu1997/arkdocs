@@ -1,5 +1,5 @@
 ---
-title: Making your own plugins
+title: 制作自己的插件
 ---
 
 > [!warning]

@@ -1,5 +1,5 @@
 ---
-title: Syntax Highlighting
+title: 语法高亮
 tags:
   - feature/transformer
 ---
@@ -138,6 +138,6 @@ const [name, setName] = useState('Taylor');
 ````
 `````
 
-## Customization
+## 自定义
 
 Syntax highlighting is a functionality of the [[SyntaxHighlighting]] plugin. See the plugin page for customization options.

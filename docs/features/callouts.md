@@ -1,35 +1,35 @@
 ---
-title: Callouts
+title: 标注
 tags:
   - feature/transformer
 ---
 
-Quartz supports the same Admonition-callout syntax as Obsidian.
+Quartz 支持与 Obsidian 相同的标注（Admonition/callout）语法。
 
-This includes
+这包括：
 
-- 12 Distinct callout types (each with several aliases)
-- Collapsable callouts
+- 12 种不同的标注类型（每种都有若干别名）
+- 可折叠标注
 
 ```
 > [!info] Title
 > This is a callout!
 ```
 
-See [documentation on supported types and syntax here](https://help.obsidian.md/Editing+and+formatting/Callouts).
+支持的类型和语法见[这里的文档](https://help.obsidian.md/Editing+and+formatting/Callouts)。
 
 > [!warning]
-> Wondering why callouts may not be showing up even if you have them enabled? You may need to reorder your plugins so that [[ObsidianFlavoredMarkdown]] is _after_ [[SyntaxHighlighting]].
+> 已经启用标注却没有显示？你可能需要调整插件顺序，让 [[ObsidianFlavoredMarkdown]] 位于 [[SyntaxHighlighting]] _之后_。
 
-## Customization
+## 自定义
 
-The callouts are a functionality of the [[ObsidianFlavoredMarkdown]] plugin. See the plugin page for how to enable or disable them.
+标注功能由 [[ObsidianFlavoredMarkdown]] 插件提供。如何启用或禁用见该插件页面。
 
-You can edit the icons by customizing `quartz/styles/callouts.scss`.
+你可以通过自定义 `quartz/styles/callouts.scss` 来编辑图标。
 
-### Add custom callouts
+### 添加自定义标注
 
-By default, custom callouts are handled by applying the `note` style. To make fancy ones, you have to add these lines to `custom.scss`.
+默认情况下，自定义标注会套用 `note` 样式。要做出更精致的效果，需要把以下内容加入 `custom.scss`。
 
 ```scss title="quartz/styles/custom.scss"
 .callout {

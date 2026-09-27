@@ -1,28 +1,28 @@
 ---
-title: Troubleshooting
+title: 故障排查
 ---
 
-Common issues and solutions when working with Quartz.
+使用 Quartz 时的常见问题和解决方法。
 
-## Build Errors
+## 构建错误
 
-### `Could not resolve ...` or missing module errors
+### `Could not resolve ...` 或缺少模块错误
 
-This usually means a plugin is not installed. Run:
+这通常表示插件尚未安装。请运行：
 
 ```bash
 npx quartz plugin install
 ```
 
-This restores all plugins from your `quartz.lock.json` to `.quartz/plugins/`.
+这会根据 `quartz.lock.json` 把所有插件恢复到 `.quartz/plugins/`。
 
-### `tsc` type errors after updating
+### 更新后出现 `tsc` 类型错误
 
-After running `npx quartz upgrade`, type errors can occur if the update changed internal APIs that your `quartz.ts` overrides depend on. Check the changelog for breaking changes and update your overrides accordingly.
+运行 `npx quartz upgrade` 后，如果更新改动了 `quartz.ts` 覆盖所依赖的内部 API，就可能出现类型错误。请查看更新日志中的破坏性变更，并相应更新你的覆盖。
 
-### Build is slow
+### 构建很慢
 
-Try increasing concurrency:
+可以尝试提高并发数：
 
 ```bash
 npx quartz build --concurrency 8

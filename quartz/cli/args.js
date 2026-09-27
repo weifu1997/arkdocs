@@ -3,18 +3,18 @@ export const CommonArgv = {
     string: true,
     alias: ["d"],
     default: "content",
-    describe: "directory to look for content files",
+    describe: "用于查找内容文件的目录",
   },
   verbose: {
     boolean: true,
     alias: ["v"],
     default: false,
-    describe: "print out extra logging information",
+    describe: "输出更详细的日志信息",
   },
   concurrency: {
     number: true,
     alias: ["c"],
-    describe: "max parallel operations (default: number of CPU cores)",
+    describe: "最大并行操作数（默认：CPU 核心数）",
   },
 }
 
@@ -24,29 +24,29 @@ export const CreateArgv = {
     string: true,
     alias: ["t"],
     choices: ["default", "obsidian", "ttrpg", "blog"],
-    describe: "template to use for initial configuration",
+    describe: "初始化配置时使用的模板",
   },
   source: {
     string: true,
     alias: ["s"],
-    describe: "source directory to copy/create symlink from",
+    describe: "用于复制或创建符号链接的源目录",
   },
   strategy: {
     string: true,
     alias: ["X"],
     choices: ["new", "copy", "symlink"],
-    describe: "strategy for content folder setup",
+    describe: "内容目录的初始化策略",
   },
   baseUrl: {
     string: true,
     alias: ["b"],
-    describe: "base URL for your Quartz site (e.g. mysite.github.io/quartz)",
+    describe: "站点的基础 URL（例如 mysite.github.io/quartz）",
   },
   links: {
     string: true,
     alias: ["l"],
     choices: ["absolute", "shortest", "relative"],
-    describe: "strategy to resolve links",
+    describe: "链接解析策略",
   },
 }
 
@@ -55,22 +55,22 @@ export const SyncArgv = {
   commit: {
     boolean: true,
     default: true,
-    describe: "create a git commit for your unsaved changes",
+    describe: "为尚未保存的更改创建 git 提交",
   },
   message: {
     string: true,
     alias: ["m"],
-    describe: "option to override the default Quartz commit message",
+    describe: "覆盖默认的 Quartz 提交说明",
   },
   push: {
     boolean: true,
     default: true,
-    describe: "push updates to your Quartz fork",
+    describe: "将更新推送到你的 Quartz 仓库",
   },
   pull: {
     boolean: true,
     default: true,
-    describe: "pull updates from your Quartz fork",
+    describe: "从你的 Quartz 仓库拉取更新",
   },
 }
 
@@ -80,41 +80,41 @@ export const BuildArgv = {
     string: true,
     alias: ["o"],
     default: "public",
-    describe: "output folder for files",
+    describe: "构建输出目录",
   },
   serve: {
     boolean: true,
     default: false,
-    describe: "run a local server to live-preview your Quartz",
+    describe: "启动本地服务器以实时预览站点",
   },
   watch: {
     boolean: true,
     default: false,
-    describe: "watch for changes and rebuild automatically",
+    describe: "监听文件变化并自动重新构建",
   },
   baseDir: {
     string: true,
     default: "",
-    describe: "base path to serve your local server on",
+    describe: "本地服务器使用的基础路径",
   },
   port: {
     number: true,
     default: 8080,
-    describe: "port to serve Quartz on",
+    describe: "本地预览服务的端口",
   },
   wsPort: {
     number: true,
     default: 3001,
-    describe: "port to use for WebSocket-based hot-reload notifications",
+    describe: "用于热更新通知的 WebSocket 端口",
   },
   remoteDevHost: {
     string: true,
     default: "",
-    describe: "A URL override for the websocket connection if you are not developing on localhost",
+    describe: "非 localhost 开发时覆盖 WebSocket 连接地址",
   },
   bundleInfo: {
     boolean: true,
     default: false,
-    describe: "show detailed bundle information",
+    describe: "显示详细的打包信息",
   },
 }

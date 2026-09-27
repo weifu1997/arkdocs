@@ -19,6 +19,6 @@ export function filterContent(ctx: BuildCtx, content: ProcessedContent[]): Proce
     content = updatedContent
   }
 
-  console.log(`Filtered out ${initialLength - content.length} files in ${perf.timeSince()}`)
+  console.log(`已在 ${perf.timeSince()} 内过滤掉 ${initialLength - content.length} 个文件`)
   return content
 }

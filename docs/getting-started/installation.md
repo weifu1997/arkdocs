@@ -1,32 +1,32 @@
 ---
-title: "Installation"
+title: "安装"
 aliases:
   - "setting up your GitHub repository"
 ---
 
-This page walks you through the full Quartz setup: from getting the source code to previewing your site locally, then pushing it to GitHub.
+本页会带你完成完整的 Quartz 设置：从获取源码、在本地预览，到推送到 GitHub。
 
-## 1. Get Quartz
+## 1. 获取 Quartz
 
-There are two ways to get started. Pick whichever you prefer:
+有两种开始方式，按你的偏好选择即可：
 
-### Option A: Use the GitHub Template (Recommended)
+### 选项 A：使用 GitHub 模板（推荐）
 
-> [!tip] Why this option?
-> Using the template creates your own repository in one click — no need to reconfigure Git remotes later.
+> [!tip] 为什么推荐这个选项？
+> 使用模板可以一键创建你自己的仓库，之后不必再重新配置 Git 远程仓库。
 
-1. Go to the [Quartz repository](https://github.com/jackyzha0/quartz) and click **Use this template** → **Create a new repository**
-2. Give your repository a name (e.g. `quartz`, `notes`, `garden`), choose public or private, then click **Create repository**
-3. Clone **your new repository** and enter the folder:
+1. 打开 [Quartz 仓库](https://github.com/jackyzha0/quartz)，点击 **Use this template** → **Create a new repository**
+2. 给仓库起一个名字（例如 `quartz`、`notes`、`garden`），选择公开或私有，然后点击 **Create repository**
+3. 克隆**你的新仓库**并进入目录：
 
 ```bash
 git clone https://github.com/<your-username>/<your-repo>.git
 cd <your-repo>
 ```
 
-### Option B: Clone Directly
+### 选项 B：直接克隆
 
-If you don't use GitHub or prefer a manual setup:
+如果你不使用 GitHub，或更喜欢手动设置：
 
 ```bash
 git clone https://github.com/jackyzha0/quartz.git
@@ -34,128 +34,128 @@ cd quartz
 ```
 
 > [!note]
-> With this option, you'll need to [[#Connect Your Local Clone|point the `origin` remote]] to your own repository later when you're ready to publish.
+> 使用此选项时，准备发布前需要把 `origin` 远程仓库 [[#连接本地克隆|指向你自己的仓库]]。
 
-## 2. Install Dependencies
+## 2. 安装依赖
 
 > [!important]
-> Quartz requires **Node.js 22** or later. Check your version with `node -v` and upgrade at [nodejs.org](https://nodejs.org/) if needed.
+> Quartz 需要 **Node.js 22** 或更高版本。用 `node -v` 检查版本，如有需要请到 [nodejs.org](https://nodejs.org/) 升级。
 
 ```bash
 npm i
 ```
 
 > [!note]
-> On subsequent clones of your own repository (e.g. on a new machine), use `npm ci` instead for a faster, reproducible install from the lockfile.
+> 之后在其他机器上克隆自己的仓库时，请改用 `npm ci`，这样会按锁定文件更快、更可复现地安装依赖。
 
-## 3. Initialize Your Site
+## 3. 初始化站点
 
-Run the interactive setup wizard:
+运行交互式设置向导：
 
 ```bash
 npx quartz create
 ```
 
-This will prompt you for:
+它会询问你：
 
-- A **template** (`default`, `obsidian`, `ttrpg`, `blog`) — pick the one that matches your use case. See [[create#Templates]] for details on each.
-- A **content strategy** — choose how to populate the `content/` folder:
-  - **new**: Start with an empty folder
-  - **copy**: Copy files from an existing folder (e.g. your Obsidian vault)
-  - **symlink**: Link to an existing folder so changes sync automatically
-- A **base URL** — the URL where your site will be deployed (e.g. `mysite.github.io/quartz`). Don't include `https://`.
-- A **link resolution** strategy — how to resolve internal links (`shortest`, `absolute`, or `relative`). Skipped for Obsidian and TTRPG templates.
+- **模板**（`default`、`obsidian`、`ttrpg`、`blog`）— 选择符合你用途的模板。各模板说明见 [[create#模板]]。
+- **内容策略** — 选择如何填充 `content/` 文件夹：
+  - **new**：从空白文件夹开始
+  - **copy**：从已有文件夹复制文件（例如你的 Obsidian 仓库）
+  - **symlink**：链接到已有文件夹，使更改自动同步
+- **基础 URL** — 站点部署后的地址（例如 `mysite.github.io/quartz`）。不要包含 `https://`。
+- **链接解析** 策略 — 如何解析内部链接（`shortest`、`absolute` 或 `relative`）。Obsidian 和 TTRPG 模板会跳过此项。
 
-For non-interactive usage and more details, see the [[create|`quartz create` CLI reference]].
+非交互用法和更多细节见 [[create|`quartz create` CLI 参考]]。
 
-## 4. Install Plugins
+## 4. 安装插件
 
-The template you chose references community plugins that need to be installed:
+你选择的模板会引用需要安装的社区插件：
 
 ```bash
 npx quartz plugin install --from-config
 ```
 
-This downloads and builds all plugins listed in `quartz.config.yaml` into `.quartz/plugins/`.
+这会把 `quartz.config.yaml` 中列出的所有插件下载并构建到 `.quartz/plugins/`。
 
 > [!tip]
-> If some plugins fail to build, try refreshing them to their latest versions:
+> 如果部分插件构建失败，可以尝试刷新到最新版本：
 >
 > ```bash
 > npx quartz plugin install --latest
 > ```
 >
-> See [[troubleshooting#Plugins fail to build on a fresh clone]] for more details.
+> 详见 [[troubleshooting#全新克隆后插件构建失败]]。
 
-## 5. Preview Your Site
+## 5. 预览站点
 
 ```bash
 npx quartz build --serve
 ```
 
-Your site is now running at `http://localhost:8080`. The dev server watches for file changes and reloads automatically.
+站点现在会运行在 `http://localhost:8080`。开发服务器会监听文件变化并自动重新加载。
 
-At this point you can [[authoring-content|start writing content]] in the `content/` folder. When you're ready to publish, continue below to push your site to GitHub and [[hosting|deploy it]].
+此时你可以在 `content/` 文件夹中 [[authoring-content|开始撰写内容]]。准备发布时，继续下面的步骤，把站点推送到 GitHub 并 [[hosting|部署]]。
 
 ---
 
-## Setting Up Your GitHub Repository
+## 设置 GitHub 仓库
 
 > [!note]
-> If you used **Option A** (GitHub Template) in step 1, your repository already exists and `origin` is already set. You can skip straight to [[#Push Your Site]].
+> 如果第 1 步使用了 **选项 A**（GitHub 模板），仓库已经存在，且 `origin` 也已设置好。可以直接跳到 [[#推送站点]]。
 
-To publish your site, you'll need your own GitHub repository. This section is for **Option B** (direct clone) users.
+要发布站点，你需要自己的 GitHub 仓库。本节面向 **选项 B**（直接克隆）的用户。
 
-### Create the Repository
+### 创建仓库
 
-Create a new repository on [GitHub.com](https://github.com/new). Do **not** initialize it with a README, license, or `.gitignore` — Quartz already includes these files, and duplicating them will cause merge conflicts on your first push.
+在 [GitHub.com](https://github.com/new) 创建一个新仓库。**不要**用 README、许可证或 `.gitignore` 初始化它 — Quartz 已经包含这些文件，重复添加会在首次推送时产生合并冲突。
 
 ![[github-init-repo-options.png]]
 
-Copy the repository URL from the Quick Setup page:
+从 Quick Setup 页面复制仓库 URL：
 
 ![[github-quick-setup.png]]
 
-### Connect Your Local Clone
+### 连接本地克隆
 
-Point your local Quartz at your new repository:
+把本地 Quartz 指向你的新仓库：
 
 ```bash
-# Check current remotes
+# 查看当前远程仓库
 git remote -v
 
-# Point origin to your repository
+# 将 origin 指向你的仓库
 git remote set-url origin REMOTE-URL
 ```
 
 > [!tip]
-> You don't need to add an `upstream` remote manually — `npx quartz create` already configured it for you. The upstream remote is used by `npx quartz upgrade` to pull in future Quartz updates.
+> 你不必手动添加 `upstream` 远程仓库 — `npx quartz create` 已经为你配置好了。`npx quartz upgrade` 会使用 upstream 拉取后续 Quartz 更新。
 
-### Push Your Site
+### 推送站点
 
 ```bash
 npx quartz sync --no-pull
 ```
 
-This commits your content and pushes everything to your repository. For subsequent updates, just run:
+这会提交内容并把所有内容推送到你的仓库。之后更新时，只需运行：
 
 ```bash
 npx quartz sync
 ```
 
-> [!hint] Flags and options
-> For full help options, you can run `npx quartz sync --help`.
+> [!hint] 参数与选项
+> 完整帮助信息可以运行 `npx quartz sync --help`。
 >
-> Most of these have sensible defaults but you can override them if you have a custom setup:
+> 大多数选项都有合理默认值，但如果你有自定义设置，也可以覆盖它们：
 >
-> - `-d` or `--directory`: the content folder. This is normally just `content`
-> - `-v` or `--verbose`: print out extra logging information
-> - `--commit` or `--no-commit`: whether to make a `git` commit for your changes
-> - `--push` or `--no-push`: whether to push updates to your GitHub fork of Quartz
-> - `--pull` or `--no-pull`: whether to try and pull in any updates from your GitHub fork (i.e. from other devices) before pushing
+> - `-d` 或 `--directory`：内容文件夹。通常就是 `content`
+> - `-v` 或 `--verbose`：输出更详细的日志信息
+> - `--commit` 或 `--no-commit`：是否为更改创建 `git` 提交
+> - `--push` 或 `--no-push`：是否将更新推送到你的 GitHub Quartz 仓库
+> - `--pull` 或 `--no-pull`：推送前是否尝试从 GitHub 仓库拉取更新（例如来自其他设备的更改）
 
-## Next Steps
+## 下一步
 
-- **[[authoring-content|Authoring Content]]** — Write and organize your notes
-- **[[hosting|Hosting]]** — Deploy your site to GitHub Pages, Cloudflare, Netlify, or Vercel
-- **[[configuration|Configuration]]** — Customize your site's appearance and behavior
+- **[[authoring-content|撰写内容]]** — 编写和组织笔记
+- **[[hosting|部署]]** — 将站点部署到 GitHub Pages、Cloudflare、Netlify 或 Vercel
+- **[[configuration|配置]]** — 自定义站点外观和行为

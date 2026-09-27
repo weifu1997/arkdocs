@@ -1,19 +1,19 @@
 ---
-title: "Migrating to Quartz 5"
+title: "迁移到 Quartz 5"
 aliases:
   - "migrating from Quartz 3"
   - "migrating from Quartz 4"
 ---
 
-This guide covers migrating to Quartz 5 from previous versions. If you're already on Quartz 5 and want to update to the latest version, see [[upgrading|Upgrading Quartz]] instead.
+本指南介绍如何从旧版本迁移到 Quartz 5。如果你已经在使用 Quartz 5，只是想更新到最新版本，请改看 [[upgrading|升级 Quartz]]。
 
-If you're new to Quartz entirely, skip this guide and follow the [[installation|installation guide]] instead.
+如果你是第一次使用 Quartz，请跳过本指南，直接按照 [[installation|安装指南]] 操作。
 
-## Before You Start: Save Your Content
+## 开始之前：保存内容
 
-Before switching branches, make sure your content is safe. Switching to v5 will replace the files in your working directory with the v5 codebase, so your v4 content folder won't be visible until you restore it.
+切换分支前，请先确保内容安全。切换到 v5 会用 v5 代码替换工作目录中的文件，因此在恢复之前，你的 v4 内容文件夹将不可见。
 
-Copy your content folder somewhere outside the repo before switching:
+切换前，把内容文件夹复制到仓库之外：
 
 ```bash
 # macOS / Linux
@@ -23,12 +23,12 @@ cp -r content /tmp/quartz-content
 Copy-Item -Recurse content $env:TEMP\quartz-content
 ```
 
-> [!note] Your old branch is preserved
-> Switching branches does **not** delete your v4 (or v3/hugo) branch. You can always switch back with `git checkout v4` to access your old content and configuration.
+> [!note] 旧分支仍然保留
+> 切换分支**不会**删除你的 v4（或 v3/hugo）分支。你随时可以用 `git checkout v4` 切回去，访问旧内容和配置。
 
-## Getting the v5 Branch
+## 获取 v5 分支
 
-Whether you're coming from Quartz 4 or Quartz 3, the first step is the same: get the v5 branch onto your machine and push it to your repository.
+无论你来自 Quartz 4 还是 Quartz 3，第一步都一样：把 v5 分支拉到本机，并推送到你的仓库。
 
 ```bash
 # Add the official Quartz repository as a remote called "upstream" (skip if already set)

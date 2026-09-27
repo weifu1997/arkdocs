@@ -8,7 +8,7 @@ configuration:
   enablePopovers: true
   analytics:
     provider: plausible
-  locale: en-US
+  locale: zh-CN
   baseUrl: quartz.jzhao.xyz
   ignorePatterns:
     - private
@@ -18,8 +18,8 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
+      header: Noto Serif SC
+      body: Noto Sans SC
       code: IBM Plex Mono
     colors:
       lightMode:
@@ -163,6 +163,8 @@ plugins:
     enabled: true
   - source: "@quartz-community/explorer"
     enabled: true
+    options:
+      title: 文件浏览
     layout:
       position: left
       priority: 50
@@ -218,6 +220,8 @@ plugins:
       group: toolbar
   - source: "@quartz-community/breadcrumbs"
     enabled: true
+    options:
+      rootName: 首页
     layout:
       position: beforeBody
       priority: 5
@@ -235,7 +239,7 @@ plugins:
     options:
       links:
         GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        Discord 社区: https://discord.gg/cRFFHYye7t
     layout:
       position: footer
       priority: 50

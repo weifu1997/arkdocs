@@ -1,6 +1,6 @@
 ---
 title: RecentNotes
-description: Displays a list of recently modified notes.
+description: 显示最近修改的笔记列表。
 tags:
   - plugin/component
 image:
@@ -12,13 +12,13 @@ required: false
 Shows recently modified notes.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[recent notes]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `title`: The title of the recent notes section. Defaults to `Recent notes`.
 - `limit`: The maximum number of recent notes to display. Defaults to `3`.
@@ -27,7 +27,7 @@ This plugin accepts the following configuration options:
 - `hideTagPages`: Whether to hide tag index pages from the list. Defaults to `false`.
 - `hideFolderPages`: Whether to hide folder index pages from the list. Defaults to `false`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/recent-notes
@@ -43,5 +43,5 @@ This plugin accepts the following configuration options:
 
 - Category: Component
 - Function name: `ExternalPlugin.RecentNotes()`.
-- Source: [`quartz-community/recent-notes`](https://github.com/quartz-community/recent-notes)
-- Install: `npx quartz plugin add github:quartz-community/recent-notes`
+- 源码： [`quartz-community/recent-notes`](https://github.com/quartz-community/recent-notes)
+- 安装： `npx quartz plugin add github:quartz-community/recent-notes`

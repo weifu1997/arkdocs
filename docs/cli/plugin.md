@@ -2,15 +2,15 @@
 title: quartz plugin
 ---
 
-The `plugin` command is the heart of the Quartz v5 plugin management system. it allows you to install, configure, and update plugins directly from the command line.
+`plugin` 命令是 Quartz v5 插件管理系统的核心。它允许你直接从命令行安装、配置和更新插件。
 
-All plugins are stored in the `.quartz/plugins/` directory, and their versions are tracked in `quartz.lock.json`.
+所有插件都存放在 `.quartz/plugins/` 目录中，版本由 `quartz.lock.json` 跟踪。
 
-## Subcommands
+## 子命令
 
 ### list
 
-List all currently installed plugins and their versions.
+列出当前已安装的插件及其版本。
 
 ```shell
 npx quartz plugin list
@@ -18,13 +18,13 @@ npx quartz plugin list
 
 ### add
 
-Add a new plugin from a Git repository.
+从 Git 仓库添加新插件。
 
 ```shell
 npx quartz plugin add github:username/repo
 ```
 
-To install from a specific branch or ref, append `#ref` to the source:
+要从特定分支或引用安装，在源后面追加 `#ref`：
 
 ```shell
 npx quartz plugin add github:username/repo#my-branch
@@ -32,7 +32,7 @@ npx quartz plugin add git+https://github.com/username/repo.git#my-branch
 npx quartz plugin add https://github.com/username/repo.git#my-branch
 ```
 
-You can also add a plugin from a local directory. This is useful for local development or airgapped environments:
+也可以从本地目录添加插件。这适合本地开发或离线环境：
 
 ```shell
 npx quartz plugin add ./path/to/my-plugin
@@ -40,16 +40,16 @@ npx quartz plugin add ../sibling-plugin
 npx quartz plugin add /absolute/path/to/plugin
 ```
 
-Local plugins are symlinked into `.quartz/plugins/`, so any changes you make to the source directory are reflected immediately without re-installing.
+本地插件会以符号链接的方式放入 `.quartz/plugins/`，因此你对源目录的更改会立即生效，无需重新安装。
 
-When a branch is specified, it is stored in the lockfile. All subsequent commands (`install`, `prune`) will respect that branch automatically. Use `install --latest` to fetch the latest commit from that branch.
+指定分支后，该分支会写入锁定文件。之后的命令（`install`、`prune`）会自动遵循该分支。使用 `install --latest` 可获取该分支的最新提交。
 
 > [!tip]
-> `plugin add` also accepts `--concurrency` / `-c` to limit how many remote repositories are cloned and built at the same time. This is the same flag documented under [[#install]] and is useful when adding several plugins at once on low-end hardware.
+> `plugin add` 也接受 `--concurrency` / `-c`，用于限制同时克隆和构建的远程仓库数量。这与 [[#install]] 中记录的参数相同，适合在低配硬件上一次添加多个插件。
 
 ### remove
 
-Remove an installed plugin.
+移除已安装的插件。
 
 ```shell
 npx quartz plugin remove plugin-name
@@ -57,35 +57,35 @@ npx quartz plugin remove plugin-name
 
 ### install
 
-Install plugins for your Quartz project. By default, this installs all plugins listed in your `quartz.lock.json` file.
+为 Quartz 项目安装插件。默认会安装 `quartz.lock.json` 中列出的所有插件。
 
 ```shell
 npx quartz plugin install
 ```
 
-#### Flags
+#### 参数
 
-- `--from-config`: Synchronize plugins with `quartz.config.yaml` instead of the lockfile. This will install missing plugins and prune orphaned ones.
-- `--latest`: Fetch the latest version of plugins from their remote sources instead of using the version in the lockfile.
-- `--clean`: Skip existing directories and perform a fresh installation.
-- `--dry-run`: Preview the changes without actually installing or removing any files.
-- `--concurrency`, `-c`: Maximum number of plugins to clone, fetch, and build in parallel. Defaults to the number of CPU cores. Lower this (e.g. `-c 1` or `-c 2`) on memory- or CPU-constrained machines where the default parallelism causes failures, OOMs, or hangs. See [[#Installing on low-end hardware]] below.
+- `--from-config`：与 `quartz.config.yaml` 同步插件，而不是锁定文件。这会安装缺失的插件，并清理孤立插件。
+- `--latest`：从远程源获取插件最新版本，而不是使用锁定文件中的版本。
+- `--clean`：跳过已存在的目录，执行全新安装。
+- `--dry-run`：预览更改，不实际安装或删除任何文件。
+- `--concurrency`、`-c`：并行克隆、获取和构建插件的最大数量。默认为 CPU 核心数。在内存或 CPU 受限的机器上，可以把该值调低（例如 `-c 1` 或 `-c 2`），以避免默认并行导致失败、内存不足或卡住。见下方 [[#在低配硬件上安装]]。
 
-#### Positional Arguments
+#### 位置参数
 
-- `[names..]`: Optional list of specific plugin names to install or update.
+- `[names..]`：可选的插件名称列表，用于安装或更新指定插件。
 
 ```shell
-# Update specific plugins to latest
+# 将指定插件更新到最新版本
 npx quartz plugin install --latest plugin-a plugin-b
 
-# Preview what would be installed from config
+# 预览将根据配置安装的内容
 npx quartz plugin install --from-config --dry-run
 ```
 
 ### enable / disable
 
-Toggle a plugin's status in your `quartz.config.yaml` without removing its files.
+在 `quartz.config.yaml` 中切换插件状态，而不删除其文件。
 
 ```shell
 npx quartz plugin enable plugin-name
@@ -94,140 +94,140 @@ npx quartz plugin disable plugin-name
 
 ### config
 
-View or modify the configuration for a specific plugin.
+查看或修改指定插件的配置。
 
 ```shell
-# View config
+# 查看配置
 npx quartz plugin config plugin-name
 
-# Set a value
+# 设置一个值
 npx quartz plugin config plugin-name --set key=value
 ```
 
 ### prune
 
-Remove installed plugins that are no longer referenced in your `quartz.config.yaml`. This is useful for cleaning up after removing plugin entries from your configuration.
+移除 `quartz.config.yaml` 中不再引用的已安装插件。适合在从配置中删除插件条目后进行清理。
 
 > [!note]
-> Running `plugin install --from-config` also removes orphaned plugins as part of its synchronization. Use `prune` when you only want to clean up without installing anything new.
+> 运行 `plugin install --from-config` 时，同步过程也会移除孤立插件。如果你只想清理、而不安装新插件，请使用 `prune`。
 
 ```shell
 npx quartz plugin prune
 ```
 
-Use `--dry-run` to preview which plugins would be removed without making changes:
+使用 `--dry-run` 可预览将要移除的插件，而不做实际更改：
 
 ```shell
 npx quartz plugin prune --dry-run
 ```
 
-## Common Workflows
+## 常见工作流
 
-### Adding and Enabling a Plugin
+### 添加并启用插件
 
-To add a new plugin and start using it:
+要添加新插件并开始使用：
 
-1. Add the plugin: `npx quartz plugin add github:quartz-community/example`
-2. Enable it: `npx quartz plugin enable example`
+1. 添加插件：`npx quartz plugin add github:quartz-community/example`
+2. 启用它：`npx quartz plugin enable example`
 
-### Updating Everything
+### 更新全部插件
 
-To keep your plugins fresh:
+要保持插件为最新：
 
 ```shell
 npx quartz plugin install --latest
 ```
 
-### Installing on low-end hardware
+### 在低配硬件上安装
 
-By default, `plugin install` and `plugin add` clone, fetch, and build plugins in parallel across all your CPU cores. On memory-constrained machines (low-end laptops, Raspberry Pi, small VPS instances, restrictive CI runners) this can exhaust RAM or overwhelm the system because each worker may kick off its own `npm install` / `npm run build` at the same time.
+默认情况下，`plugin install` 和 `plugin add` 会在所有 CPU 核心上并行克隆、获取和构建插件。在内存受限的机器上（低配笔记本、树莓派、小型 VPS、受限的 CI 运行器），这可能会耗尽内存或让系统过载，因为每个工作线程都可能同时启动自己的 `npm install` / `npm run build`。
 
 > [!note]
-> Most community plugins now ship with a pre-built `dist/` directory. When Quartz finds this, it skips the installation and build steps entirely, making the process much faster and lighter on resources. This section is primarily relevant for plugins in development or those that don't provide pre-built distribution.
+> 大多数社区插件现在都会附带预构建的 `dist/` 目录。Quartz 发现该目录后会跳过安装和构建步骤，从而更快、更省资源。本节主要适用于开发中的插件，或未提供预构建发行包的插件。
 
-If `plugin install` fails, hangs, or OOMs on your machine, lower the concurrency with `--concurrency` / `-c`:
+如果 `plugin install` 在你的机器上失败、卡住或内存不足，请用 `--concurrency` / `-c` 降低并发：
 
 ```shell
-# Install one plugin at a time (safest, slowest)
+# 一次只安装一个插件（最稳妥，也最慢）
 npx quartz plugin install --latest -c 1
 
-# Two at a time — usually a good balance on 4 GB machines
+# 一次两个 — 在 4 GB 内存的机器上通常是较好的平衡
 npx quartz plugin install --latest --concurrency 2
 ```
 
-The same flag works on `plugin add` and the other plugin subcommands that perform parallel work:
+同一参数也适用于 `plugin add` 以及其他会执行并行工作的插件子命令：
 
 ```shell
 npx quartz plugin add github:quartz-community/some-plugin -c 1
 ```
 
-### Managing Configuration
+### 管理配置
 
-If you want to change a plugin setting without opening the YAML file:
+如果你想在不打开 YAML 文件的情况下更改插件设置：
 
 ```shell
 npx quartz plugin config explorer --set useSavedState=true
 ```
 
-### Cleaning Up Unused Plugins
+### 清理未使用的插件
 
-If you've removed plugins from your config and want to clean up leftover files:
+如果你已经从配置中移除了插件，并希望清理残留文件：
 
 ```shell
-npx quartz plugin prune --dry-run  # preview first
-npx quartz plugin prune            # remove orphaned plugins
+npx quartz plugin prune --dry-run  # 先预览
+npx quartz plugin prune            # 移除孤立插件
 ```
 
-### Setting Up from Config
+### 根据配置进行设置
 
-When setting up on a new machine or in CI, `install --from-config` ensures your installed plugins match your config — installing missing plugins and removing any that are no longer referenced:
+在新机器或 CI 中设置时，`install --from-config` 会确保已安装插件与配置一致 — 安装缺失插件，并移除不再引用的插件：
 
 ```shell
 npx quartz plugin install --from-config
 ```
 
-### Testing with Branches
+### 使用分支进行测试
 
-If a plugin author has a fix or feature on a separate branch, you can install it directly without waiting for a release to the default branch:
+如果插件作者在单独分支上提供了修复或新功能，你可以直接安装，而不必等待它合并到默认分支：
 
 ```shell
-# Install from a feature branch
+# 从功能分支安装
 npx quartz plugin add github:username/repo#fix/some-bug
 
-# Later, switch back to the default branch by re-adding without a ref
+# 之后，去掉引用后重新添加，即可切回默认分支
 npx quartz plugin remove repo
 npx quartz plugin add github:username/repo
 ```
 
-The branch ref is tracked in `quartz.lock.json`, so `install --latest` will continue to follow the specified branch until the plugin is re-added without one.
+分支引用会记录在 `quartz.lock.json` 中，因此在插件被重新添加且不再带引用之前，`install --latest` 会继续跟踪指定分支。
 
-Both `prune` and `install --from-config` will fall back to `quartz.config.default.yaml` if no `quartz.config.yaml` is present.
+如果没有 `quartz.config.yaml`，`prune` 和 `install --from-config` 都会回退到 `quartz.config.default.yaml`。
 
-### Local Plugin Development
+### 本地插件开发
 
-For local plugin development or airgapped environments, you can add a plugin from a local directory:
+对于本地插件开发或离线环境，可以从本地目录添加插件：
 
 ```shell
 npx quartz plugin add ./my-local-plugin
 ```
 
-Local plugins are symlinked into `.quartz/plugins/`, so changes reflect immediately. When you run `install --latest`, local plugins are rebuilt (npm install + npm run build) without any git operations.
+本地插件会以符号链接的方式放入 `.quartz/plugins/`，因此更改会立即生效。运行 `install --latest` 时，本地插件会重新构建（npm install + npm run build），而不会执行任何 git 操作。
 
 > [!note]
-> Local symlinked plugins typically use this build-on-install fallback because the `dist/` directory is usually gitignored during development.
+> 本地符号链接的插件通常会使用这种安装时构建的回退方式，因为开发期间 `dist/` 目录通常会被 gitignore。
 
-The `install --latest --dry-run` command will show local plugins with a "local" status instead of checking for remote updates.
+`install --latest --dry-run` 命令会把本地插件显示为「本地」状态，而不是检查远程更新。
 
-To switch a local plugin back to a git source:
+要把本地插件切回 git 源：
 
 ```shell
 npx quartz plugin remove my-local-plugin
 npx quartz plugin add github:username/my-local-plugin
 ```
 
-### Subdirectory (Monorepo) Plugins
+### 子目录（Monorepo）插件
 
-Some plugins live in a subdirectory of a larger repository rather than at the root. For these, you can specify the plugin source as an object in `quartz.config.yaml` with a `subdir` field:
+有些插件位于更大仓库的子目录中，而不是仓库根目录。对这些插件，可以在 `quartz.config.yaml` 中把插件源指定为带 `subdir` 字段的对象：
 
 ```yaml title="quartz.config.yaml"
 plugins:
@@ -237,9 +237,9 @@ plugins:
     enabled: true
 ```
 
-This tells Quartz to clone the full repository but install only the contents of the specified subdirectory.
+这会让 Quartz 克隆整个仓库，但只安装指定子目录中的内容。
 
-You can combine `subdir` with `ref` to pin a branch or tag, and `name` to override the plugin directory name:
+可以把 `subdir` 与 `ref` 组合使用，以固定分支或标签，并用 `name` 覆盖插件目录名：
 
 ```yaml title="quartz.config.yaml"
 plugins:
@@ -251,31 +251,31 @@ plugins:
     enabled: true
 ```
 
-See [[configuration#Advanced Source Options|Advanced Source Options]] for the full reference on object source fields.
+对象源字段的完整参考见 [[configuration#高级源选项|高级源选项]]。
 
 > [!note]
-> The `plugin add` CLI command works with string sources. To use the object source format with `subdir`, edit `quartz.config.yaml` directly, then run `npx quartz plugin install --from-config` to install it.
+> `plugin add` CLI 命令适用于字符串源。要使用带 `subdir` 的对象源格式，请直接编辑 `quartz.config.yaml`，然后运行 `npx quartz plugin install --from-config` 进行安装。
 
-## Migration from Deprecated Commands
+## 从已弃用命令迁移
 
-| Old command                           | New equivalent                                      |
-| ------------------------------------- | --------------------------------------------------- |
-| `npx quartz plugin restore`           | `npx quartz plugin install --clean`                 |
-| `npx quartz plugin update`            | `npx quartz plugin install --latest`                |
-| `npx quartz plugin update my-plugin`  | `npx quartz plugin install --latest my-plugin`      |
-| `npx quartz plugin check`             | `npx quartz plugin install --latest --dry-run`      |
-| `npx quartz plugin resolve`           | `npx quartz plugin install --from-config`           |
-| `npx quartz plugin resolve --dry-run` | `npx quartz plugin install --from-config --dry-run` |
-| `npx quartz update`                   | `npx quartz plugin install --latest`                |
+| 旧命令                                | 新的等价命令                                            |
+| ------------------------------------- | ------------------------------------------------------- |
+| `npx quartz plugin restore`           | `npx quartz plugin install --clean`                     |
+| `npx quartz plugin update`            | `npx quartz plugin install --latest`                    |
+| `npx quartz plugin update my-plugin`  | `npx quartz plugin install --latest my-plugin`          |
+| `npx quartz plugin check`             | `npx quartz plugin install --latest --dry-run`          |
+| `npx quartz plugin resolve`           | `npx quartz plugin install --from-config`               |
+| `npx quartz plugin resolve --dry-run` | `npx quartz plugin install --from-config --dry-run`     |
+| `npx quartz update`                   | `npx quartz plugin install --latest`                    |
 
-The old commands still work as hidden aliases but will print a deprecation warning.
+旧命令仍可作为隐藏别名使用，但会打印弃用警告。
 
-## Plugin Status
+## 插件状态
 
-Running the plugin command without any subcommand shows a status dashboard of all installed plugins, including whether updates are available:
+不带子命令运行 plugin 命令时，会显示所有已安装插件的状态面板，包括是否有可用更新：
 
 ```shell
 npx quartz plugin
 ```
 
-This displays each plugin with its source, commit, enabled/disabled status, and checks for available updates in parallel. For the full interactive management interface, use [[tui|npx quartz tui]] instead.
+这会显示每个插件的来源、提交、启用/禁用状态，并并行检查可用更新。完整的交互式管理界面请改用 [[tui|npx quartz tui]]。

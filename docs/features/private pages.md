@@ -1,5 +1,5 @@
 ---
-title: Private Pages
+title: 私有页面
 tags:
   - feature/filter
 ---

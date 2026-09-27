@@ -1,6 +1,6 @@
 ---
 title: Breadcrumbs
-description: Breadcrumb navigation trail.
+description: 面包屑导航路径。
 tags:
   - plugin/component
 image:
@@ -12,20 +12,20 @@ required: false
 Navigation breadcrumb trail.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[plugins/Breadcrumbs]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `spacerSymbol`: The symbol to use between breadcrumb items. Defaults to `"❯"`.
 - `rootName`: The name of the root page. Defaults to `Home`.
 - `resolveFrontmatterTitle`: Whether to use the `title` frontmatter field for breadcrumb items. Defaults to `true`.
 - `showCurrentPage`: Whether to show the current page in the breadcrumb trail. Defaults to `true`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/breadcrumbs
@@ -41,5 +41,5 @@ This plugin accepts the following configuration options:
 
 - Category: Component
 - Function name: `ExternalPlugin.Breadcrumbs()`.
-- Source: [`quartz-community/breadcrumbs`](https://github.com/quartz-community/breadcrumbs)
-- Install: `npx quartz plugin add github:quartz-community/breadcrumbs`
+- 源码： [`quartz-community/breadcrumbs`](https://github.com/quartz-community/breadcrumbs)
+- 安装： `npx quartz plugin add github:quartz-community/breadcrumbs`

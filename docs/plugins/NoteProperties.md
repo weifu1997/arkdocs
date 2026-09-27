@@ -1,6 +1,6 @@
 ---
 title: NoteProperties
-description: Displays frontmatter properties in a collapsible panel.
+description: 在可折叠面板中显示 frontmatter 属性。
 tags:
   - plugin/component
 image:
@@ -13,11 +13,11 @@ required: true
 The NoteProperties plugin is documented under [[Frontmatter]].
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 ## API
 
 - Category: Component
 - Function name: `ExternalPlugin.NoteProperties()`.
-- Source: [`quartz-community/note-properties`](https://github.com/quartz-community/note-properties)
-- Install: `npx quartz plugin add github:quartz-community/note-properties`
+- 源码： [`quartz-community/note-properties`](https://github.com/quartz-community/note-properties)
+- 安装： `npx quartz plugin add github:quartz-community/note-properties`

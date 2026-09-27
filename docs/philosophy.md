@@ -1,8 +1,8 @@
 ---
-title: Philosophy of Quartz
+title: Quartz 的设计理念
 ---
 
-## A garden should be a true hypertext
+## 花园应当是真正的超文本
 
 > The garden is the web as topology. Every walk through the garden creates new paths, new meanings, and when we add things to the garden we add them in a way that allows many future, unpredicted relationships.
 >
@@ -18,7 +18,7 @@ Quartz embraces the inherent rhizomatic and web-like nature of our thinking and 
 
 ---
 
-## A garden should be shared
+## 花园应当被分享
 
 The goal of digital gardening should be to tap into your network’s collective intelligence to create constructive feedback loops. If done well, I have a shareable representation of my thoughts that I can send out into the world and people can respond. Even for my most half-baked thoughts, this helps me create a feedback cycle to strengthen and fully flesh out that idea.
 
@@ -27,7 +27,7 @@ Quartz is designed first and foremost as a tool for publishing [digital gardens]
 > “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.”
 > — Richard Hamming
 
-**The goal of Quartz is to make sharing your digital garden free and simple.**
+**Quartz 的目标是让分享数字花园变得免费且简单。**
 
 ---
 

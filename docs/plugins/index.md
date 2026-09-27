@@ -1,26 +1,26 @@
 ---
-title: Plugins
+title: 插件
 image:
 ---
 
-Quartz's functionality is provided by a collection of first-party community plugins. Each plugin can be enabled, disabled, and configured via `quartz.config.yaml`. See [[configuration#Plugins|Configuration]] for details on how to manage plugins.
+Quartz 的功能由一系列官方社区插件提供。每个插件都可以通过 `quartz.config.yaml` 启用、禁用和配置。如何管理插件见 [[configuration#插件|配置]]。
 
-> [!info] Internal vs Community Plugins
-> Quartz has two kinds of plugins:
+> [!info] 内部插件与社区插件
+> Quartz 有两类插件：
 >
-> - **Community plugins** are standalone repositories under [`quartz-community`](https://github.com/quartz-community). In TS overrides, they use `ExternalPlugin.X()` (imported from `.quartz/plugins`).
-> - **Internal plugins** are built into Quartz core (Assets, Static, ComponentResources, NotFoundPage). In TS overrides, they use `Plugin.X()` (imported from `./quartz/plugins`).
+> - **社区插件** 是 [`quartz-community`](https://github.com/quartz-community) 下的独立仓库。在 TypeScript 覆盖中，它们使用 `ExternalPlugin.X()`（从 `.quartz/plugins` 导入）。
+> - **内部插件** 内置于 Quartz 核心（Assets、Static、ComponentResources、NotFoundPage）。在 TypeScript 覆盖中，它们使用 `Plugin.X()`（从 `./quartz/plugins` 导入）。
 
-## Plugin types
+## 插件类型
 
-Quartz plugins fall into several categories:
+Quartz 插件分为几类：
 
-- **Transformers** process content during the build, e.g. parsing frontmatter, highlighting syntax, or resolving links.
-- **Filters** decide which content files to include or exclude from the output.
-- **Page Types** generate HTML pages — one per content file, folder, tag, canvas, or bases view.
-- **Components** render UI elements in the page layout (sidebars, headers, footers, etc.).
+- **转换器** 在构建过程中处理内容，例如解析 frontmatter、语法高亮或解析链接。
+- **过滤器** 决定哪些内容文件会包含或排除在输出中。
+- **页面类型** 生成 HTML 页面 — 每个内容文件、文件夹、标签、canvas 或 bases 视图对应一页。
+- **组件** 在页面布局中渲染界面元素（侧边栏、页眉、页脚等）。
 
-## First-party plugins
+## 官方插件
 
 ```base
 filters:

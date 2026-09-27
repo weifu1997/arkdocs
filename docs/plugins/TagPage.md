@@ -1,6 +1,6 @@
 ---
 title: TagPage
-description: Generates listing pages for tags.
+description: 为标签生成列表页面。
 tags:
   - plugin/pageType
 image:
@@ -12,9 +12,9 @@ required: false
 This plugin is a page type plugin that emits dedicated pages for each tag used in the content. It uses the `default` [[layout#Page Frames|page frame]] (three-column layout with sidebars). See [[folder and tag listings]] for more information.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `numPages`: The maximum number of pages to display per tag before showing a "see more" link. Defaults to `10`.
 - `sort`: A function of type `(f1: QuartzPluginData, f2: QuartzPluginData) => number{:ts}` used to sort entries. Defaults to sorting by date and tie-breaking on lexographical order. Requires a TS override.
@@ -24,5 +24,5 @@ This plugin accepts the following configuration options:
 
 - Category: Page Type
 - Function name: `ExternalPlugin.TagPage()`.
-- Source: [`quartz-community/tag-page`](https://github.com/quartz-community/tag-page)
-- Install: `npx quartz plugin add github:quartz-community/tag-page`
+- 源码： [`quartz-community/tag-page`](https://github.com/quartz-community/tag-page)
+- 安装： `npx quartz plugin add github:quartz-community/tag-page`

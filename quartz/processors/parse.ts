@@ -112,7 +112,7 @@ export function createFileParser(ctx: BuildCtx, fps: FilePath[]) {
           console.log(`[markdown] ${fp} -> ${file.data.slug} (${perf.timeSince()})`)
         }
       } catch (err) {
-        trace(`\nFailed to process markdown \`${fp}\``, err as Error)
+        trace(`\n处理 Markdown \`${fp}\` 失败`, err as Error)
       }
     }
 
@@ -134,7 +134,7 @@ export function createMarkdownParser(ctx: BuildCtx, mdContent: MarkdownContent[]
           console.log(`[html] ${file.data.slug} (${perf.timeSince()})`)
         }
       } catch (err) {
-        trace(`\nFailed to process html \`${file.data.filePath}\``, err as Error)
+        trace(`\n处理 HTML \`${file.data.filePath}\` 失败`, err as Error)
       }
     }
 
@@ -155,7 +155,7 @@ export async function parseMarkdown(ctx: BuildCtx, fps: FilePath[]): Promise<Pro
   const concurrency = ctx.argv.concurrency ?? clamp(fps.length / CHUNK_SIZE, 1, 4)
 
   let res: ProcessedContent[] = []
-  log.start(`Parsing input files using ${concurrency} threads`)
+  log.start(`正在使用 ${concurrency} 个线程解析输入文件`)
   if (concurrency === 1) {
     try {
       const mdRes = await createFileParser(ctx, fps)(createMdProcessor(ctx))
@@ -216,6 +216,6 @@ export async function parseMarkdown(ctx: BuildCtx, fps: FilePath[]): Promise<Pro
     }
   }
 
-  log.end(`Parsed ${res.length} Markdown files in ${perf.timeSince()}`)
+  log.end(`已在 ${perf.timeSince()} 内解析 ${res.length} 个 Markdown 文件`)
   return res
 }

@@ -1,6 +1,6 @@
 ---
 title: Citations
-description: Academic citation and bibliography support via BibTeX.
+description: 通过 BibTeX 提供学术引用和参考文献支持。
 tags:
   - plugin/transformer
 image: https://images.unsplash.com/photo-1582079133805-43655f026448
@@ -12,9 +12,9 @@ required: false
 This plugin adds Citation support to Quartz.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `bibliographyFile`: the path to the bibliography file. Defaults to `./bibliography.bib`. This is relative to git source of your vault.
 - `suppressBibliography`: whether to suppress the bibliography at the end of the document. Defaults to `false`.
@@ -25,5 +25,5 @@ This plugin accepts the following configuration options:
 
 - Category: Transformer
 - Function name: `ExternalPlugin.Citations()`.
-- Source: [`quartz-community/citations`](https://github.com/quartz-community/citations)
-- Install: `npx quartz plugin add github:quartz-community/citations`
+- 源码： [`quartz-community/citations`](https://github.com/quartz-community/citations)
+- 安装： `npx quartz plugin add github:quartz-community/citations`

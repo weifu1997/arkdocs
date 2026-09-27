@@ -1,5 +1,5 @@
 ---
-title: Folder and Tag Listings
+title: 文件夹与标签列表
 tags:
   - feature/emitter
 ---
@@ -28,6 +28,6 @@ You can link to the tag listing by referencing its name with a `tag/` prefix, li
 
 As with folder listings, you can also provide a description and title for a tag page by creating a file for each tag. For example, if you wanted to create a custom description for the #component tag, you would create a file at `content/tags/component.md` with a title and description.
 
-## Customization
+## 自定义
 
 Quartz allows you to define a custom sort ordering for content on both page types. The folder listings are a functionality of the [[FolderPage]] plugin, the tag listings of the [[TagPage]] plugin. See the plugin pages for customization options.

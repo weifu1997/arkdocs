@@ -1,6 +1,6 @@
 ---
 title: Graph
-description: Interactive link graph visualization.
+description: 交互式链接关系图谱可视化。
 tags:
   - plugin/component
 image:
@@ -12,13 +12,13 @@ required: false
 Interactive graph visualization.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[graph view]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `localGraph`: Options for the local graph view.
 - `globalGraph`: Options for the global graph view.
@@ -39,7 +39,7 @@ Both `localGraph` and `globalGraph` accept the following options:
 - `enableRadial`: Whether to enable radial layout. Defaults to `false` for local and `true` for global.
 - `focusOnHover`: Whether to focus on the hovered node. Defaults to `false` for local and `true` for global.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/graph
@@ -79,5 +79,5 @@ Both `localGraph` and `globalGraph` accept the following options:
 
 - Category: Component
 - Function name: `ExternalPlugin.Graph()`.
-- Source: [`quartz-community/graph`](https://github.com/quartz-community/graph)
-- Install: `npx quartz plugin add github:quartz-community/graph`
+- 源码： [`quartz-community/graph`](https://github.com/quartz-community/graph)
+- 安装： `npx quartz plugin add github:quartz-community/graph`

@@ -1,6 +1,6 @@
 ---
 title: EncryptedPages
-description: Password-protected encrypted pages with shadow content index.
+description: 带影子内容索引的密码保护加密页面。
 tags:
   - plugin/transformer
   - plugin/emitter
@@ -17,9 +17,9 @@ Password-protected encrypted pages. Encrypts page content at build time using AE
 > Try it yourself: [[EncryptedPages Demo]]. The password is `quartz`.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-## Usage
+## 用法
 
 Add a `password` field to any page's frontmatter to encrypt it:
 
@@ -85,7 +85,7 @@ A stealth page:
 
 Use stealth pages for "secret door" content that should only reach users who already know the exact URL: private notes linked from an external wiki, personal pages you send to specific people, or anything you never want to show up in a site-internal search even to authenticated readers.
 
-## Configuration
+## 配置
 
 This plugin provides a transformer, an emitter, and a component. All options are set on a single config entry and shared between the transformer and the emitter — Quartz instantiates both automatically.
 
@@ -98,7 +98,7 @@ This plugin provides a transformer, an emitter, and a component. All options are
 
 - `className`: CSS class for the component wrapper. Defaults to `"encrypted-page-wrapper"`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/encrypted-pages
@@ -125,5 +125,5 @@ This plugin provides a transformer, an emitter, and a component. All options are
 
 - Category: Transformer, Emitter
 - Function name: `ExternalPlugin.EncryptedPages()`, `ExternalPlugin.EncryptedContentIndex()`.
-- Source: [`quartz-community/encrypted-pages`](https://github.com/quartz-community/encrypted-pages)
-- Install: `npx quartz plugin add github:quartz-community/encrypted-pages`
+- 源码： [`quartz-community/encrypted-pages`](https://github.com/quartz-community/encrypted-pages)
+- 安装： `npx quartz plugin add github:quartz-community/encrypted-pages`

@@ -1,10 +1,10 @@
 ---
-title: Higher-Order Layout Components
+title: 高阶布局组件
 ---
 
-Quartz provides several higher-order components that help with layout composition and responsive design. These components wrap other components to add additional functionality or modify their behavior.
+Quartz 提供了若干高阶组件，用于布局组合和响应式设计。这些组件会包装其他组件，以增加额外功能或修改其行为。
 
-Most common use cases can be configured directly in `quartz.config.yaml` using layout properties. For advanced scenarios requiring custom logic, you can use the TS override approach in `quartz.ts`.
+大多数常见用法都可以直接在 `quartz.config.yaml` 中通过布局属性配置。对于需要自定义逻辑的进阶场景，可以在 `quartz.ts` 中使用 TypeScript 覆盖。
 
 ## `Flex` Component
 

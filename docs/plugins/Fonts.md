@@ -1,6 +1,6 @@
 ---
 title: Fonts
-description: Fine-grained font control with per-heading support, Google Fonts integration, and theme font discovery.
+description: 精细控制字体，支持按标题设置、Google Fonts 集成。
 tags:
   - plugin/transformer
   - plugin/emitter
@@ -13,7 +13,7 @@ required: false
 This plugin provides fine-grained control over fonts in your Quartz site. It supports per-heading font families, automatic theme font discovery when used with [Quartz Themes](https://github.com/saberzero1/quartz-themes), Google Fonts integration with automatic weight and italic loading, and falls back to Obsidian's default system font stacks.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 ## Why use Fonts?
 
@@ -26,7 +26,7 @@ Fonts solves this by:
 3. Providing per-heading font control that neither system offers alone
 4. Optionally loading fonts from Google Fonts with fine-grained weight and italic control
 
-## Configuration
+## 配置
 
 Font options accept either a CSS font-family string or an object with Google Fonts loading control:
 
@@ -41,7 +41,7 @@ body:
   includeItalic: true
 ```
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 | Option          | Type                | Default          | Description                                                                                                            |
 | --------------- | ------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -54,7 +54,7 @@ This plugin accepts the following configuration options:
 | `useThemeFonts` | `boolean`           | `true`           | Use fonts from [Quartz Themes](https://github.com/saberzero1/quartz-themes) as defaults when it is installed.          |
 | `fontOrigin`    | `string`            | `"googleFonts"`  | `"googleFonts"` to load from Google Fonts CDN, `"selfHosted"` to download and serve locally, `"local"` for no loading. |
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/fonts
@@ -86,7 +86,7 @@ For the site title:
 title option → header option → theme font → Obsidian default
 ```
 
-## Usage with Quartz Themes
+## 用法 with Quartz Themes
 
 When [Quartz Themes](https://github.com/saberzero1/quartz-themes) is installed and enabled, Fonts automatically discovers the theme's font metadata and uses it as defaults. Any options you explicitly set in Fonts will override the theme fonts.
 
@@ -95,7 +95,7 @@ Fonts must run **after** Quartz Themes. This is handled automatically by plugin 
 > [!warning]
 > If Quartz Themes is enabled but hasn't run yet when Fonts executes, you'll see a warning in the console. Make sure Quartz Themes has a lower `defaultOrder` than Fonts.
 
-## Usage without Quartz Themes
+## 用法 without Quartz Themes
 
 Fonts works standalone. Without a theme, it falls back to Obsidian's default system font stacks. You can set fonts explicitly via the plugin options.
 
@@ -222,5 +222,5 @@ Validation warnings are logged to the console but do not block the build.
 
 - Category: Transformer, Emitter
 - Function name: `ExternalPlugin.Fonts()` (transformer), `ExternalPlugin.FontsEmitter()` (emitter).
-- Source: [`quartz-community/fonts`](https://github.com/quartz-community/fonts)
-- Install: `npx quartz plugin add github:quartz-community/fonts`
+- 源码： [`quartz-community/fonts`](https://github.com/quartz-community/fonts)
+- 安装： `npx quartz plugin add github:quartz-community/fonts`

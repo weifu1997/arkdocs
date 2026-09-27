@@ -1,31 +1,31 @@
 ---
-title: Full-text Search
+title: 全文搜索
 tags:
   - component
 ---
 
-Full-text search in Quartz is powered by [Flexsearch](https://github.com/nextapps-de/flexsearch). It's fast enough to return search results in under 10ms for Quartzs as large as half a million words.
+Quartz 的全文搜索由 [Flexsearch](https://github.com/nextapps-de/flexsearch) 提供支持。即使站点规模达到约 50 万词，也能在 10 毫秒内返回搜索结果。
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-It can be opened by either clicking on the search bar or pressing `⌘`/`ctrl` + `K`. The top 5 search results are shown on each query. Matching subterms are highlighted and the most relevant 30 words are excerpted. Clicking on a search result will navigate to that page.
+点击搜索栏，或按下 `⌘`/`ctrl` + `K`，即可打开搜索。每次查询会显示前 5 条结果。匹配的子词会被高亮，并摘录最相关的 30 个词。点击搜索结果会跳转到对应页面。
 
-To search content by tags, you can either press `⌘`/`ctrl` + `shift` + `K` or start your query with `#` (e.g. `#components`).
+要按标签搜索内容，可以按下 `⌘`/`ctrl` + `shift` + `K`，或让查询以 `#` 开头（例如 `#components`）。
 
-This component is also keyboard accessible: Tab and Shift+Tab will cycle forward and backward through search results and Enter will navigate to the highlighted result (first result by default). You are also able to navigate search results using `ArrowUp` and `ArrowDown`.
+该组件也支持键盘操作：Tab 和 Shift+Tab 会在搜索结果中前后循环，Enter 会跳转到高亮结果（默认是第一条）。也可以使用 `ArrowUp` 和 `ArrowDown` 浏览搜索结果。
 
 > [!info]
-> Search requires the `ContentIndex` emitter plugin to be present in the [[configuration]].
+> 搜索需要 [[configuration|配置]] 中存在 `ContentIndex` 生成器插件。
 
-### Indexing Behaviour
+### 索引行为
 
-By default, it indexes every page on the site with **Markdown syntax removed**. This means link URLs for instance are not indexed.
+默认会索引站点上的每个页面，并**去掉 Markdown 语法**。例如链接 URL 不会被索引。
 
-It properly tokenizes Chinese, Korean, and Japenese characters and constructs separate indexes for the title, content and tags, weighing title matches above content matches.
+它能正确分词中文、韩文和日文字符，并为标题、内容和标签分别构建索引，标题匹配的权重高于内容匹配。
 
-## Customization
+## 自定义
 
-- Removing search: remove the `search` entry from `quartz.config.yaml` or set `enabled: false`.
-- Install: `npx quartz plugin add github:quartz-community/search`
-- Source: [`quartz-community/search`](https://github.com/quartz-community/search)
+- 移除搜索：从 `quartz.config.yaml` 中删除 `search` 条目，或设置 `enabled: false`。
+- 安装： `npx quartz plugin add github:quartz-community/search`
+- 源码： [`quartz-community/search`](https://github.com/quartz-community/search)

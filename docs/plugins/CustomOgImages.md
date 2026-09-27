@@ -1,6 +1,6 @@
 ---
 title: Custom OG Images
-description: Generates Open Graph social preview images.
+description: 生成用于社交分享的 Open Graph 预览图。
 tags:
   - feature/emitter
 image: "[[social-image-preview-dark.png]]"
@@ -12,9 +12,9 @@ required: false
 The Custom OG Images emitter plugin generates social media preview images for your pages. It uses [satori](https://github.com/vercel/satori) to convert HTML/CSS into images, allowing you to create beautiful and consistent social media preview cards for your content.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-## Features
+## 功能
 
 - Automatically generates social media preview images for each page
 - Supports both light and dark mode themes
@@ -22,13 +22,13 @@ The Custom OG Images emitter plugin generates social media preview images for yo
 - Fallback to default image when needed
 - Full control over image design through custom components
 
-## Configuration
+## 配置
 
 > [!info] Info
 >
 > The `baseUrl` property in your [[configuration]] must be set properly for social images to work correctly, as they require absolute paths.
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 ```yaml title="quartz.config.yaml"
 plugins:
@@ -57,7 +57,7 @@ ExternalPlugin.CustomOgImages({
 })
 ```
 
-### Configuration Options
+### 配置 Options
 
 | Option               | Type      | Default                   | Description                                                       |
 | -------------------- | --------- | ------------------------- | ----------------------------------------------------------------- |
@@ -86,7 +86,7 @@ The `socialImage` property should contain a link to an image either relative to 
 >
 > The default image (`quartz/static/og-image.png`) will only be used as a fallback if nothing else is set. If the Custom OG Images emitter plugin is enabled, it will be treated as the new default per page, but can be overwritten by setting the `socialImage` frontmatter property for that page.
 
-## Customization
+## 自定义
 
 You can fully customize how the images being generated look by passing your own component to `imageStructure`. This component takes JSX + some page metadata/config options and converts it to an image using [satori](https://github.com/vercel/satori). Vercel provides an [online playground](https://og-playground.vercel.app/) that can be used to preview how your JSX looks like as a picture. This is ideal for prototyping your custom design.
 
@@ -379,5 +379,5 @@ export const og: SocialImageOptions["Component"] = (
 
 - Category: Emitter
 - Function name: `ExternalPlugin.CustomOgImages()`.
-- Source: [`quartz-community/og-image`](https://github.com/quartz-community/og-image)
-- Install: `npx quartz plugin add github:quartz-community/og-image`
+- 源码： [`quartz-community/og-image`](https://github.com/quartz-community/og-image)
+- 安装： `npx quartz plugin add github:quartz-community/og-image`

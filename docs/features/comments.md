@@ -1,5 +1,5 @@
 ---
-title: Comments
+title: 评论
 tags:
   - component
 ---
@@ -7,7 +7,7 @@ tags:
 Quartz also has the ability to hook into various providers to enable readers to leave comments on your site.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 ![[giscus-example.png]]
 
@@ -81,7 +81,7 @@ export const layout = await loadQuartzLayout({
 > [!note]
 > Install the comments plugin first: `npx quartz plugin add github:quartz-community/comments`
 
-### Customization
+### 自定义
 
 Quartz also exposes a few of the other Giscus options as well and you can provide them the same way `repo`, `repoId`, `category`, and `categoryId` are provided.
 

@@ -49,7 +49,7 @@ async function main() {
   const externalPlugins = await getExternalPluginSources()
 
   if (externalPlugins.length === 0) {
-    console.log("No external plugins to install.")
+    console.log("没有需要安装的外部插件。")
     return
   }
 
@@ -62,29 +62,29 @@ async function main() {
     .filter((spec) => spec.npmPackage)
 
   if (specs.length === 0 && npmSpecs.length === 0) {
-    console.log("No external plugins to install.")
+    console.log("没有需要安装的外部插件。")
     return
   }
 
   if (specs.length > 0) {
-    console.log(`Installing ${specs.length} plugin(s) from Git...`)
+    console.log(`正在从 Git 安装 ${specs.length} 个插件...`)
     const installed = await installPlugins(specs, { verbose: true })
 
     if (installed.size === specs.length) {
-      console.log("✓ All Git plugins installed successfully")
+      console.log("✓ 所有 Git 插件已安装成功")
     } else {
-      console.error(`✗ Only ${installed.size}/${specs.length} Git plugins installed`)
+      console.error(`✗ 仅安装了 ${installed.size}/${specs.length} 个 Git 插件`)
       process.exit(1)
     }
   }
 
   if (npmSpecs.length > 0) {
-    console.log(`Found ${npmSpecs.length} npm plugin(s), regenerating plugin index...`)
+    console.log(`找到 ${npmSpecs.length} 个 npm 插件，正在重新生成插件索引...`)
     await regeneratePluginIndex({ verbose: true, npmPackages: npmSpecs.map((s) => s.name) })
   }
 }
 
 main().catch((err) => {
-  console.error("Failed to install plugins:", err)
+  console.error("安装插件失败：", err)
   process.exit(1)
 })

@@ -1,15 +1,15 @@
 ---
-title: Community
+title: 社区
 ---
 
-Quartz has a vibrant community of users and contributors. This page highlights community-created plugins, tools, and resources that extend Quartz.
+Quartz 拥有活跃的用户和贡献者社区。本页汇总用于扩展 Quartz 的社区插件、工具和资源。
 
-> [!tip] Contributing
-> Know of a great community resource? Submit a pull request to add it to this page!
+> [!tip] 参与贡献
+> 知道不错的社区资源？欢迎提交 pull request，把它加到本页。
 
-## Community Plugins
+## 社区插件
 
-Third-party plugins that extend Quartz functionality. Install them with the [[cli/plugin|plugin CLI]]:
+用于扩展 Quartz 功能的第三方插件。可通过 [[cli/plugin|插件 CLI]] 安装：
 
 ```bash
 npx quartz plugin add <github-url>
@@ -18,16 +18,16 @@ npx quartz plugin add <github-url>
 <!-- Add community plugins here as they become available -->
 <!-- Format: - **[Plugin Name](link)** — Brief description -->
 
-_No community plugins listed yet. Be the first to share yours!_
+_目前还没有列出社区插件。欢迎成为第一个分享的人！_
 
-## Tools & Integrations
+## 工具与集成
 
-Tools, scripts, and integrations built by the community to work with Quartz.
+社区为 Quartz 打造的工具、脚本和集成。
 
 <!-- Add tools here -->
 <!-- Format: - **[Tool Name](link)** — Brief description -->
 
-_No community tools listed yet._
+_目前还没有列出社区工具。_
 
 ## Templates & Themes
 

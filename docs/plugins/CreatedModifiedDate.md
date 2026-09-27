@@ -1,6 +1,6 @@
 ---
 title: CreatedModifiedDate
-description: Determines creation and modification dates from frontmatter, git, or filesystem.
+description: 根据 frontmatter、git 或文件系统确定创建和修改日期。
 tags:
   - plugin/transformer
 image:
@@ -12,9 +12,9 @@ required: false
 This plugin determines the created, modified, and published dates for a document using three potential data sources: frontmatter metadata, Git history, and the filesystem. See [[authoring content#Syntax]] for more information.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `priority`: The data sources to consult for date information. Highest priority first. Possible values are `"frontmatter"`, `"git"`, and `"filesystem"`. Defaults to `["frontmatter", "git", "filesystem"]`.
 - `defaultDateType`: Which date type to use when displaying dates. Can be `"created"`, `"modified"`, or `"published"`. Defaults to `"modified"`.
@@ -30,5 +30,5 @@ When loading the frontmatter, the value of [[Frontmatter#List]] is used.
 
 - Category: Transformer
 - Function name: `ExternalPlugin.CreatedModifiedDate()`.
-- Source: [`quartz-community/created-modified-date`](https://github.com/quartz-community/created-modified-date)
-- Install: `npx quartz plugin add github:quartz-community/created-modified-date`
+- 源码： [`quartz-community/created-modified-date`](https://github.com/quartz-community/created-modified-date)
+- 安装： `npx quartz plugin add github:quartz-community/created-modified-date`

@@ -1,18 +1,18 @@
 ---
-title: "Table of Contents"
+title: 目录
 tags:
   - component
   - feature/transformer
 ---
 
-Quartz can automatically generate a table of contents (TOC) from a list of headings on each page. It will also show you your current scrolling position on the page by highlighting headings you've scrolled through with a different color.
+Quartz 可以根据每页的标题列表自动生成目录。它还会用不同颜色高亮你已经滚过的标题，从而显示当前滚动位置。
 
-You can hide the TOC on a page by adding `enableToc: false` to the frontmatter for that page.
+要在某个页面隐藏目录，请在该页的 frontmatter 中添加 `enableToc: false`。
 
-By default, the TOC shows all headings from H1 (`# Title`) to H3 (`### Title`) and is only displayed if there is more than one heading on the page.
+默认情况下，目录会显示从 H1（`# 标题`）到 H3（`### 标题`）的所有标题，并且只有在页面上有超过一个标题时才会显示。
 
-## Customization
+## 自定义
 
-The table of contents is a functionality of the [[TableOfContents]] plugin. See the plugin page for more customization options.
+目录功能由 [[TableOfContents]] 插件提供。更多自定义选项见该插件页面。
 
-It also needs the `TableOfContents` component, which is displayed in the right sidebar by default. You can change this by customizing the [[layout]]. The TOC component can be configured with the `layout` parameter, which can either be `modern` (default) or `legacy`.
+它还需要 `TableOfContents` 组件，该组件默认显示在右侧边栏。你可以通过自定义 [[layout|布局]] 来更改位置。目录组件可以通过 `layout` 参数配置，取值为 `modern`（默认）或 `legacy`。

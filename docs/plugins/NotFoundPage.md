@@ -8,7 +8,7 @@ image:
 This plugin emits a 404 (Not Found) page for broken or non-existent URLs. It uses the `minimal` [[layout#Page Frames|page frame]] (no sidebars, no header or beforeBody chrome — only content and footer) to present a clean error page.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 This plugin has no configuration options.
 
@@ -16,4 +16,4 @@ This plugin has no configuration options.
 
 - Category: Page Type
 - Function name: `Plugin.NotFoundPage()` (internal plugin).
-- Source: [`quartz/plugins/pageTypes/404.ts`](https://github.com/jackyzha0/quartz/blob/v5/quartz/plugins/pageTypes/404.ts)
+- 源码： [`quartz/plugins/pageTypes/404.ts`](https://github.com/jackyzha0/quartz/blob/v5/quartz/plugins/pageTypes/404.ts)

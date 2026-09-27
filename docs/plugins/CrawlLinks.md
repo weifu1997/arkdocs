@@ -1,6 +1,6 @@
 ---
 title: CrawlLinks
-description: Parses and resolves internal links. Removing it is not recommended.
+description: 解析并解析内部链接。不建议移除。
 tags:
   - plugin/transformer
 image:
@@ -12,9 +12,9 @@ required: true
 This plugin parses links and processes them to point to the right places. It is also needed for embedded links (like images). See [[Obsidian compatibility]] for more information.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `markdownLinkResolution`: Sets the strategy for resolving Markdown paths, can be `"absolute"` (default), `"relative"` or `"shortest"`. You should use the same setting here as in [[Obsidian compatibility|Obsidian]].
   - `absolute`: Path relative to the root of the content folder.
@@ -33,5 +33,5 @@ This plugin accepts the following configuration options:
 
 - Category: Transformer
 - Function name: `ExternalPlugin.CrawlLinks()`.
-- Source: [`quartz-community/crawl-links`](https://github.com/quartz-community/crawl-links)
-- Install: `npx quartz plugin add github:quartz-community/crawl-links`
+- 源码： [`quartz-community/crawl-links`](https://github.com/quartz-community/crawl-links)
+- 安装： `npx quartz plugin add github:quartz-community/crawl-links`

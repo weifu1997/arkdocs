@@ -1,17 +1,17 @@
 ---
-title: Backlinks
+title: 反向链接
 tags:
   - component
 ---
 
-A backlink for a note is a link from another note to that note. Links in the backlink pane also feature rich [[popover previews]] if you have that feature enabled.
+笔记的反向链接，是指从其他笔记指向该笔记的链接。如果启用了 [[popover previews|预览弹出层]]，反向链接面板中的链接也会显示丰富预览。
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-## Customization
+## 自定义
 
-- Removing backlinks: remove the `backlinks` entry from `quartz.config.yaml` or set `enabled: false`.
-- Hide when empty: hide `Backlinks` if given page doesn't contain any backlinks (default to `true`). To disable this, set `hideWhenEmpty: false` in the plugin options in `quartz.config.yaml`.
-- Install: `npx quartz plugin add github:quartz-community/backlinks`
-- Source: [`quartz-community/backlinks`](https://github.com/quartz-community/backlinks)
+- 移除反向链接：从 `quartz.config.yaml` 中删除 `backlinks` 条目，或设置 `enabled: false`。
+- 为空时隐藏：如果当前页面没有任何反向链接，则隐藏「反向链接」（默认为 `true`）。要禁用此行为，请在 `quartz.config.yaml` 的插件选项中设置 `hideWhenEmpty: false`。
+- 安装： `npx quartz plugin add github:quartz-community/backlinks`
+- 源码： [`quartz-community/backlinks`](https://github.com/quartz-community/backlinks)

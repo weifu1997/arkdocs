@@ -1,6 +1,6 @@
 ---
 title: Description
-description: Generates page descriptions for metadata and previews.
+description: 为元数据和预览生成页面描述。
 tags:
   - plugin/transformer
 image:
@@ -14,9 +14,9 @@ This plugin generates descriptions that are used as metadata for the HTML `head`
 If the frontmatter contains a `description` property, it is used (see [[authoring content#Syntax]]). Otherwise, the plugin will do its best to use the first few sentences of the content to reach the target description length.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `descriptionLength`: the target length of the generated description. Default is 150 characters. The cut off happens after the first _sentence_ that ends after the given length.
 - `maxDescriptionLength`: the hard maximum length of the description. If the generated description exceeds this, it is truncated with an ellipsis. Default is 300 characters.
@@ -26,5 +26,5 @@ This plugin accepts the following configuration options:
 
 - Category: Transformer
 - Function name: `ExternalPlugin.Description()`.
-- Source: [`quartz-community/description`](https://github.com/quartz-community/description)
-- Install: `npx quartz plugin add github:quartz-community/description`
+- 源码： [`quartz-community/description`](https://github.com/quartz-community/description)
+- 安装： `npx quartz plugin add github:quartz-community/description`

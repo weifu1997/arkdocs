@@ -1,5 +1,5 @@
 ---
-title: Citations
+title: 引用
 tags:
   - feature/transformer
 ---
@@ -26,6 +26,6 @@ Under the default configuration, a citation key `[@templeton2024scaling]` will b
 >
 > Refer to `rehype-citation` docs for more information.
 
-## Customization
+## 自定义
 
 Citation parsing is a functionality of the [[plugins/Citations|Citation]] plugin. **This plugin is not enabled by default**. See the plugin page for customization options.

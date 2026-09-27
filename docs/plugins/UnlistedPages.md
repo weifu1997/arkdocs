@@ -1,6 +1,6 @@
 ---
 title: UnlistedPages
-description: Hides pages from navigation and indexes while still publishing them.
+description: 从导航和索引中隐藏页面，但仍会发布它们。
 tags:
   - plugin/transformer
 image:
@@ -13,9 +13,9 @@ required: false
 Zero-config transformer that makes `unlisted: true` in a page's frontmatter a first-class way to opt out of every listing surface on your site. The page is still emitted as HTML and remains accessible by direct URL, but is absent from `contentIndex.json`, RSS, sitemap, graph, explorer, search, backlinks, recent notes, folder listings, and tag listings.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-## Usage
+## 用法
 
 Add an `unlisted` field to any page's frontmatter:
 
@@ -43,7 +43,7 @@ That's it. Every Quartz v5 plugin that respects the `file.data.unlisted` convent
 
 In every case, the page's HTML is still emitted and accessible by direct URL.
 
-## Configuration
+## 配置
 
 Zero options. Just enable it.
 
@@ -64,5 +64,5 @@ The [[EncryptedPages]] plugin also sets `file.data.unlisted` when its `unlistWhe
 
 - Category: Transformer
 - Function name: `ExternalPlugin.UnlistedPages()`.
-- Source: [`quartz-community/unlisted-pages`](https://github.com/quartz-community/unlisted-pages)
-- Install: `npx quartz plugin add github:quartz-community/unlisted-pages`
+- 源码： [`quartz-community/unlisted-pages`](https://github.com/quartz-community/unlisted-pages)
+- 安装： `npx quartz plugin add github:quartz-community/unlisted-pages`

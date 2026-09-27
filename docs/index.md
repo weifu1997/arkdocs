@@ -1,45 +1,45 @@
 ---
-title: Welcome to Quartz 5
+title: 欢迎使用 Quartz 5
 ---
 
-Quartz is a fast, batteries-included static-site generator that transforms Markdown content into fully functional websites. Thousands of students, developers, and teachers are [[showcase|already using Quartz]] to publish personal notes, websites, and [digital gardens](https://jzhao.xyz/posts/networked-thought) to the web.
+Quartz 是一款开箱即用的静态站点生成器，能够将 Markdown 内容快速转换成功能完整的网站。已有数千名学生、开发者和教师在使用 [[showcase|Quartz]] 发布个人笔记、网站和[数字花园](https://jzhao.xyz/posts/networked-thought)。
 
-## 🪴 Get Started
+## 🪴 快速开始
 
-Quartz requires **at least [Node](https://nodejs.org/) v22** and `npm` v10.9.2 to function correctly. Ensure you have these installed on your machine before continuing. See the [[getting-started/index#Prerequisites|prerequisites]] for help installing them.
+Quartz 至少需要 **[Node](https://nodejs.org/) v22** 和 `npm` v10.9.2 才能正常运行。继续之前，请确认本机已安装这些工具。安装说明见 [[getting-started/index#前置条件|前置条件]]。
 
-> [!tip] GitHub users
-> You can also use the **[GitHub template](https://github.com/jackyzha0/quartz/generate)** to create your repository in one click, then clone that instead. See [[installation#Option A Use the GitHub Template Recommended|Option A]] in the installation guide.
+> [!tip] GitHub 用户
+> 也可以使用 **[GitHub 模板](https://github.com/jackyzha0/quartz/generate)** 一键创建仓库，然后再克隆。详见安装指南中的 [[installation#选项 A：使用 GitHub 模板（推荐）|选项 A]]。
 
 ```shell
-# 1. Clone the Quartz repository
+# 1. 克隆 Quartz 仓库
 git clone https://github.com/jackyzha0/quartz.git
 cd quartz
 
-# 2. Install dependencies
+# 2. 安装依赖
 npm i
 
-# 3. Initialize your site (choose a template, set your base URL, import content)
+# 3. 初始化站点（选择模板、设置基础 URL、导入内容）
 npx quartz create
 
-# 4. Install plugins referenced by your chosen template
+# 4. 安装所选模板引用的插件
 npx quartz plugin install --from-config
 
-# 5. Preview your site locally
+# 5. 在本地预览站点
 npx quartz build --serve
 ```
 
-Your site is now running at `http://localhost:8080`. From here:
+站点现在会运行在 `http://localhost:8080`。接下来可以：
 
-- **[[authoring-content|Write content]]** in the `content/` folder
-- **[[installation|Push to GitHub]]** with `npx quartz sync`
-- **[[hosting|Deploy]]** to GitHub Pages, Cloudflare, Netlify, or Vercel
+- 在 `content/` 文件夹中 **[[authoring-content|撰写内容]]**
+- 使用 `npx quartz sync` **[[installation|推送到 GitHub]]**
+- 部署到 GitHub Pages、Cloudflare、Netlify 或 Vercel，见 [[hosting|部署]]
 
-For the full walkthrough, see the [[getting-started/index|Getting Started]] guide.
+完整流程请参阅 [[getting-started/index|入门指南]]。
 
-### Returning User?
+### 已经用过 Quartz？
 
-Already have a Quartz repository and cloning it on a new machine?
+如果你已有 Quartz 仓库，只是在新机器上克隆：
 
 ```shell
 git clone https://github.com/<your-username>/<your-repo>.git
@@ -50,20 +50,20 @@ npx quartz build --serve
 ```
 
 > [!tip]
-> If you hit build errors on a fresh clone, try `npx quartz plugin install --latest` to refresh plugins to their latest versions. See [[troubleshooting#Plugins fail to build on a fresh clone]] for details.
+> 如果全新克隆后构建出错，可以尝试 `npx quartz plugin install --latest`，将插件刷新到最新版本。详见 [[troubleshooting#全新克隆后插件构建失败]]。
 
-## 🔧 Features
+## 🔧 功能
 
-- [[Obsidian compatibility]], [[full-text search]], [[graph view]], [[wikilinks|wikilinks, transclusions]], [[plugins/Backlinks]], [[features/Latex|Latex]], [[syntax highlighting]], [[popover previews]], [[Docker Support]], [[i18n|internationalization]], [[features/comments|comments]] and [many more](./features/) right out of the box
-- Hot-reload on configuration edits and incremental rebuilds for content edits
-- Simple JSX layouts and [[creating components|page components]]
-- [[SPA Routing|Ridiculously fast page loads]] and tiny bundle sizes
-- Fully-customizable parsing, filtering, and page generation through [[making plugins|plugins]]
+- 开箱即用：[[Obsidian compatibility|Obsidian 兼容]]、[[full-text search|全文搜索]]、[[graph view|关系图谱]]、[[wikilinks|双链与嵌入]]、[[plugins/Backlinks|反向链接]]、[[features/Latex|Latex]]、[[syntax highlighting|语法高亮]]、[[popover previews|预览弹出层]]、[[Docker Support|Docker 支持]]、[[i18n|国际化]]、[[features/comments|评论]]以及[更多功能](./features/)
+- 修改配置后可热更新，修改内容后可增量构建
+- 使用简洁的 JSX 布局和 [[creating components|页面组件]]
+- [[SPA Routing|页面加载极快]]，打包体积也很小
+- 可通过 [[making plugins|插件]] 完全自定义解析、过滤和页面生成
 
-For a comprehensive list of features, visit the [features page](./features/). You can read more about the _why_ behind these features on the [[philosophy]] page and a technical overview on the [[architecture]] page.
+完整功能列表见[功能页面](./features/)。这些设计背后的原因见 [[philosophy|设计理念]]，技术概览见 [[architecture|架构]]。
 
-### 🚧 Troubleshooting + Updating
+### 🚧 故障排查与更新
 
-Having trouble with Quartz? Try searching for your issue using the search feature or check the [[troubleshooting]] page. If you haven't already, [[upgrading|upgrade]] to the newest version of Quartz to see if this fixes your issue.
+使用 Quartz 遇到问题？可以用搜索功能查找，或查看 [[troubleshooting|故障排查]] 页面。如果还没有更新，请先 [[upgrading|升级]] 到最新版本，看看问题是否已经修复。
 
-If you're still having trouble, feel free to [submit an issue](https://github.com/jackyzha0/quartz/issues) if you feel you found a bug or ask for help in our [Discord Community](https://discord.gg/cRFFHYye7t). You can also browse the [[community]] page for third-party plugins and resources.
+如果问题仍然存在，欢迎在发现问题后[提交 issue](https://github.com/jackyzha0/quartz/issues)，或到 [Discord 社区](https://discord.gg/cRFFHYye7t)求助。也可以浏览 [[community|社区]] 页面，了解第三方插件和相关资源。

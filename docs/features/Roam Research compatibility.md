@@ -1,5 +1,5 @@
 ---
-title: "Roam Research Compatibility"
+title: "Roam Research 兼容"
 tags:
   - feature/transformer
 ---
@@ -30,6 +30,6 @@ ExternalPlugin.RoamFlavoredMarkdown()
 > [!warning]
 > In YAML, plugin execution order is controlled by the `order` field. Ensure `roam` has a lower `order` value than `obsidian-flavored-markdown` so it runs first.
 
-## Customization
+## 自定义
 
 This functionality is provided by the [[RoamFlavoredMarkdown]] plugin. See the plugin page for customization options.

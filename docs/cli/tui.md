@@ -2,63 +2,63 @@
 title: quartz tui
 ---
 
-The `tui` command launches an interactive terminal user interface for managing your Quartz project. It provides a visual way to manage plugins, arrange your site layout, and edit general settings.
+`tui` 命令会启动交互式终端界面，用于管理 Quartz 项目。你可以直观地管理插件、调整站点布局，以及编辑通用设置。
 
-## Prerequisites
+## 前置条件
 
-To use the TUI, you must have the following:
+使用 TUI 需要满足以下条件：
 
-1. **Bun**: The TUI requires the Bun runtime. You can find installation instructions at [bun.sh](https://bun.sh/docs/installation).
-2. **TUI Plugin**: You must install the TUI plugin in your Quartz project.
+1. **Bun**：TUI 需要 Bun 运行时。安装说明见 [bun.sh](https://bun.sh/docs/installation)。
+2. **TUI 插件**：必须在 Quartz 项目中安装 TUI 插件。
 
-### Installation
+### 安装
 
-Run the following command to add the TUI plugin:
+运行以下命令添加 TUI 插件：
 
 ```shell
 npx quartz plugin add github:quartz-community/tui
 ```
 
-## Interface Panels
+## 界面面板
 
-The TUI is divided into three main panels that you can navigate between.
+TUI 分为三个主要面板，可以在它们之间切换。
 
-### Plugins Panel
+### 插件面板
 
-This panel allows you to browse all available and installed plugins. You can:
+此面板用于浏览所有可用和已安装的插件。你可以：
 
-- Enable or disable plugins with a single keystroke.
-- Configure plugin-specific settings.
-- Install new plugins from the community or remove existing ones.
+- 用一次按键启用或禁用插件。
+- 配置插件专属设置。
+- 从社区安装新插件，或移除已有插件。
 
-### Layout Panel
+### 布局面板
 
-The Layout panel is where you define where components appear on your site. You can:
+布局面板用于定义组件在站点中的位置。你可以：
 
-- Move components between different sections (e.g. `left`, `right`, `beforeBody`).
-- Reorder components within a section to change their vertical stack.
-- Set priorities for components to control their placement.
+- 在不同区域之间移动组件（例如 `left`、`right`、`beforeBody`）。
+- 在同一区域内重新排序组件，以改变垂直堆叠顺序。
+- 设置组件优先级，以控制它们的摆放位置。
 
-### Settings Panel
+### 设置面板
 
-This panel provides a central place to edit your `quartz.config.yaml` settings. You can update:
+此面板集中编辑 `quartz.config.yaml` 中的设置。你可以更新：
 
 - `pageTitle`
-- Theme colors and fonts
-- Analytics configuration
-- Deployment settings
+- 主题颜色和字体
+- 分析配置
+- 部署设置
 
-## Navigation
+## 导航
 
-The TUI uses standard terminal navigation keys:
+TUI 使用标准的终端导航按键：
 
-- **Arrow Keys**: Move between items and panels.
-- **Enter**: Select an item or confirm a change.
-- **Esc**: Go back or cancel an action.
-- **Tab**: Cycle through different interface elements.
+- **方向键**：在项目和面板之间移动。
+- **Enter**：选择项目或确认更改。
+- **Esc**：返回或取消操作。
+- **Tab**：在不同界面元素之间循环切换。
 
-## Important Note
+## 重要说明
 
-All changes made within the TUI are written directly to your `quartz.config.yaml` file. It is a good practice to have a clean Git state before using the TUI so you can easily review and undo any changes it makes.
+TUI 中的所有更改都会直接写入 `quartz.config.yaml`。使用 TUI 前最好保持 Git 工作区干净，这样可以方便地查看并撤销它做出的更改。
 
-For command-line based plugin management, see [[cli/plugin|quartz plugin]].
+基于命令行的插件管理见 [[cli/plugin|quartz plugin]]。

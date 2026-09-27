@@ -1,12 +1,12 @@
 ---
-title: Architecture
+title: 架构
 ---
 
-Quartz is a static site generator. How does it work?
+Quartz 是一款静态站点生成器。它是如何工作的？
 
-This question is best answered by tracing what happens when a user (you!) runs `npx quartz build` in the command line:
+最好的回答方式，是追踪用户（也就是你）在命令行运行 `npx quartz build` 时发生了什么：
 
-## On the server
+## 在服务器上
 
 1. After running `npx quartz build`, npm will look at `package.json` to find the `bin` entry for `quartz` which points at `./quartz/bootstrap-cli.mjs`.
 2. This file has a [shebang](<https://en.wikipedia.org/wiki/Shebang_(Unix)>) line at the top which tells npm to execute it using Node.

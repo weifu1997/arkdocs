@@ -2,30 +2,30 @@
 title: quartz restore
 ---
 
-The `restore` command is a safety mechanism that allows you to recover your **content folder** from a local cache. This command only affects your Markdown files and does not restore plugins or configuration.
+`restore` 命令是一种安全机制，可以从本地缓存恢复你的 **内容文件夹**。该命令只影响 Markdown 文件，不会恢复插件或配置。
 
-To restore plugins to a specific state, use [[cli/plugin|npx quartz plugin install]].
+要把插件恢复到特定状态，请使用 [[cli/plugin|npx quartz plugin install]]。
 
-## When to Use
+## 何时使用
 
-You should use `restore` if:
+在以下情况应使用 `restore`：
 
-- A `quartz upgrade` failed and corrupted your content.
-- You accidentally deleted files in your content folder.
-- You encountered complex merge conflicts that you want to undo.
+- `quartz upgrade` 失败并损坏了内容。
+- 你意外删除了内容文件夹中的文件。
+- 遇到了想撤销的复杂合并冲突。
 
-## How it Works
+## 工作原理
 
-Quartz maintains a hidden cache of your content folder. Every time you run certain commands, Quartz ensures that a backup of your Markdown files exists. The `restore` command simply copies these files back into your main content directory.
+Quartz 会为内容文件夹维护一份隐藏缓存。每次运行某些命令时，Quartz 都会确保存在 Markdown 文件的备份。`restore` 命令只是把这些文件复制回主内容目录。
 
 ```shell
 npx quartz restore
 ```
 
-## Example Workflow
+## 示例流程
 
-If an update fails and leaves your project in a broken state:
+如果更新失败，使项目处于损坏状态：
 
-1. **Restore**: Run `npx quartz restore` to bring back your content.
-2. **Clean**: Use Git to reset any other broken code files.
-3. **Retry**: Attempt the update again or manually apply the changes you need.
+1. **恢复**：运行 `npx quartz restore` 找回内容。
+2. **清理**：使用 Git 重置其他损坏的代码文件。
+3. **重试**：再次尝试更新，或手动应用所需更改。

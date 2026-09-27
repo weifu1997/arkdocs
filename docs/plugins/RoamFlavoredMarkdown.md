@@ -1,6 +1,6 @@
 ---
 title: RoamFlavoredMarkdown
-description: Compatibility for Roam Research export format.
+description: 兼容 Roam Research 导出格式。
 tags:
   - plugin/transformer
 image:
@@ -12,9 +12,9 @@ required: false
 This plugin provides support for [Roam Research](https://roamresearch.com) compatibility. See [[Roam Research compatibility]] for more information.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `orComponent`: If `true` (default), converts Roam `{{ or:ONE|TWO|THREE }}` shortcodes into HTML Dropdown options.
 - `TODOComponent`: If `true` (default), converts Roam `{{[[TODO]]}}` shortcodes into HTML check boxes.
@@ -30,5 +30,5 @@ This plugin accepts the following configuration options:
 
 - Category: Transformer
 - Function name: `ExternalPlugin.RoamFlavoredMarkdown()`.
-- Source: [`quartz-community/roam`](https://github.com/quartz-community/roam)
-- Install: `npx quartz plugin add github:quartz-community/roam`
+- 源码： [`quartz-community/roam`](https://github.com/quartz-community/roam)
+- 安装： `npx quartz plugin add github:quartz-community/roam`

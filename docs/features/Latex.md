@@ -6,7 +6,7 @@ tags:
 
 Quartz uses [Katex](https://katex.org/) by default to typeset both inline and block math expressions at build time.
 
-## Syntax
+## 语法
 
 ### Block Math
 
@@ -76,6 +76,6 @@ If you are using the community Latex plugin, you can add `mhchem` support by for
 import "katex/contrib/mhchem"
 ```
 
-## Customization
+## 自定义
 
 Latex parsing is a functionality of the [[plugins/Latex|Latex]] plugin. See the plugin page for customization options.

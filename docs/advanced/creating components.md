@@ -1,5 +1,5 @@
 ---
-title: Creating Component Plugins
+title: 创建组件插件
 ---
 
 > [!warning]

@@ -1,5 +1,5 @@
 ---
-title: "Mermaid Diagrams"
+title: "Mermaid 图表"
 tags:
   - feature/transformer
 ---
@@ -11,7 +11,7 @@ By default, Quartz will render Mermaid diagrams to match the site theme.
 > [!warning]
 > Wondering why Mermaid diagrams may not be showing up even if you have them enabled? You may need to reorder your plugins so that [[ObsidianFlavoredMarkdown]] is _after_ [[SyntaxHighlighting]].
 
-## Syntax
+## 语法
 
 To add a Mermaid diagram, create a mermaid code block.
 

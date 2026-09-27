@@ -82,16 +82,16 @@ export async function handleCreate(argv) {
         outro(
           styleText(
             "red",
-            `Setup strategies (arg '${styleText(
-              "yellow",
-              `-${CreateArgv.strategy.alias[0]}`,
-            )}') other than '${styleText(
+            `除 '${styleText(
               "yellow",
               "new",
-            )}' require content folder argument ('${styleText(
+            )}' 以外的初始化策略（参数 '${styleText(
+              "yellow",
+              `-${CreateArgv.strategy.alias[0]}`,
+            )}'）都需要设置内容目录参数（'${styleText(
               "yellow",
               `-${CreateArgv.source.alias[0]}`,
-            )}') to be set`,
+            )}'）`,
           ),
         )
         process.exit(1)
@@ -100,10 +100,10 @@ export async function handleCreate(argv) {
           outro(
             styleText(
               "red",
-              `Input directory to copy/symlink 'content' from not found ('${styleText(
+              `未找到用于复制或创建符号链接的源目录（'${styleText(
                 "yellow",
                 sourceDirectory,
-              )}', invalid argument "${styleText("yellow", `-${CreateArgv.source.alias[0]}`)})`,
+              )}'，参数 "${styleText("yellow", `-${CreateArgv.source.alias[0]}`)}" 无效）`,
             ),
           )
           process.exit(1)
@@ -111,10 +111,10 @@ export async function handleCreate(argv) {
           outro(
             styleText(
               "red",
-              `Source directory to copy/symlink 'content' from is not a directory (found file at '${styleText(
+              `用于复制或创建符号链接的源路径不是目录（在 '${styleText(
                 "yellow",
                 sourceDirectory,
-              )}', invalid argument ${styleText("yellow", `-${CreateArgv.source.alias[0]}`)}")`,
+              )}' 找到的是文件，参数 ${styleText("yellow", `-${CreateArgv.source.alias[0]}`)} 无效）`,
             ),
           )
           process.exit(1)
@@ -127,23 +127,23 @@ export async function handleCreate(argv) {
   if (!template) {
     template = exitIfCancel(
       await select({
-        message: "Choose a template for your Quartz configuration",
+        message: "选择 Quartz 配置模板",
         options: [
-          { value: "default", label: "Default", hint: "clean Quartz setup with sensible defaults" },
+          { value: "default", label: "默认", hint: "简洁的 Quartz 配置，采用合理默认值" },
           {
             value: "obsidian",
             label: "Obsidian",
-            hint: "optimized for Obsidian vaults with full OFM support",
+            hint: "针对 Obsidian 仓库优化，完整支持 OFM",
           },
           {
             value: "ttrpg",
             label: "TTRPG",
-            hint: "Obsidian + map plugin + ITS Theme for D&D/TTRPG wikis",
+            hint: "Obsidian + 地图插件 + ITS 主题，适合 D&D/TTRPG 维基",
           },
           {
             value: "blog",
-            label: "Blog",
-            hint: "recent notes and comments enabled for blogging",
+            label: "博客",
+            hint: "启用最近笔记和评论，适合博客站点",
           },
         ],
       }),
@@ -153,14 +153,14 @@ export async function handleCreate(argv) {
   if (!setupStrategy) {
     setupStrategy = exitIfCancel(
       await select({
-        message: `Choose how to initialize the content in \`${contentFolder}\``,
+        message: `选择如何初始化 \`${contentFolder}\` 中的内容`,
         options: [
-          { value: "new", label: "Empty Quartz" },
-          { value: "copy", label: "Copy an existing folder", hint: "overwrites `content`" },
+          { value: "new", label: "空白 Quartz" },
+          { value: "copy", label: "复制已有文件夹", hint: "会覆盖 `content`" },
           {
             value: "symlink",
-            label: "Symlink an existing folder",
-            hint: "don't select this unless you know what you are doing!",
+            label: "为已有文件夹创建符号链接",
+            hint: "除非你清楚自己在做什么，否则不要选择此项",
           },
         ],
       }),
@@ -188,15 +188,15 @@ export async function handleCreate(argv) {
       originalFolder = escapePath(
         exitIfCancel(
           await text({
-            message: "Enter the full path to existing content folder",
+            message: "输入已有内容文件夹的完整路径",
             placeholder:
-              "On most terminal emulators, you can drag and drop a folder into the window and it will paste the full path",
+              "在大多数终端中，可以把文件夹拖进窗口，即可粘贴完整路径",
             validate(fp) {
               const fullPath = escapePath(fp)
               if (!fs.existsSync(fullPath)) {
-                return "The given path doesn't exist"
+                return "给定路径不存在"
               } else if (!fs.lstatSync(fullPath).isDirectory()) {
-                return "The given path is not a folder"
+                return "给定路径不是文件夹"
               }
             },
           }),
@@ -217,11 +217,11 @@ export async function handleCreate(argv) {
     await fs.promises.writeFile(
       path.join(contentFolder, "index.md"),
       `---
-title: Welcome to Quartz
+title: 欢迎使用 Quartz
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+这是一份空白的 Quartz 站点。
+请参阅[文档](https://quartz.jzhao.xyz)了解如何开始。
 `,
     )
   }
@@ -237,20 +237,20 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
     // get a preferred link resolution strategy
     linkResolutionStrategy = exitIfCancel(
       await select({
-        message: `Choose how Quartz should resolve links in your content. This should match Obsidian's link format. You can change this later in \`quartz.config.yaml\`.`,
+        message: `选择 Quartz 解析内容链接的方式。这应与 Obsidian 的链接格式一致。之后可以在 \`quartz.config.yaml\` 中修改。`,
         options: [
           {
             value: "shortest",
-            label: "Treat links as shortest path",
-            hint: "(default)",
+            label: "按最短路径解析链接",
+            hint: "（默认）",
           },
           {
             value: "absolute",
-            label: "Treat links as absolute path",
+            label: "按绝对路径解析链接",
           },
           {
             value: "relative",
-            label: "Treat links as relative paths",
+            label: "按相对路径解析链接",
           },
         ],
       }),
@@ -261,11 +261,11 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
   if (!baseUrl) {
     baseUrl = exitIfCancel(
       await text({
-        message: "Enter the base URL for your Quartz site (e.g. mysite.github.io/quartz)",
+        message: "输入 Quartz 站点的基础 URL（例如 mysite.github.io/quartz）",
         placeholder: "mysite.github.io",
         validate(value) {
           if (!value || value.trim().length === 0) {
-            return "Base URL cannot be empty"
+            return "基础 URL 不能为空"
           }
         },
       }),
@@ -277,10 +277,10 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
 
   if (template && template !== "default") {
     createConfigFromTemplate(template)
-    console.log(styleText("green", `Created quartz.config.yaml from '${template}' template`))
+    console.log(styleText("green", `已根据 '${template}' 模板创建 quartz.config.yaml`))
   } else {
     createConfigFromTemplate("default")
-    console.log(styleText("green", "Created quartz.config.yaml from defaults"))
+    console.log(styleText("green", "已根据默认配置创建 quartz.config.yaml"))
   }
 
   // Update markdownLinkResolution in the crawl-links plugin options via YAML config
@@ -309,10 +309,10 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
     stdio: "ignore",
   })
 
-  outro(`You're all set! Not sure what to do next? Try:
-  • Customizing Quartz a bit more by editing \`quartz.config.yaml\`
-  • Running \`npx quartz build --serve\` to preview your Quartz locally
-  • Hosting your Quartz online (see: https://quartz.jzhao.xyz/hosting)
+  outro(`一切就绪！接下来可以试试：
+  • 编辑 \`quartz.config.yaml\`，进一步自定义 Quartz
+  • 运行 \`npx quartz build --serve\` 在本地预览站点
+  • 将 Quartz 部署到线上（参见：https://quartz.jzhao.xyz/hosting）
 `)
 }
 
@@ -322,7 +322,7 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
  */
 export async function handleBuild(argv) {
   if (argv.concurrency !== undefined && argv.concurrency < 1) {
-    console.error("Concurrency must be at least 1")
+    console.error("并发数至少为 1")
     process.exit(1)
   }
 
@@ -410,15 +410,15 @@ export async function handleBuild(argv) {
     }
 
     if (cleanupBuild) {
-      console.log(styleText("yellow", "Detected a source code change, doing a hard rebuild..."))
+      console.log(styleText("yellow", "检测到源代码变更，正在进行完整重新构建..."))
       await cleanupBuild()
     }
 
     const result = await ctx.rebuild().catch((err) => {
       console.error(
-        `${styleText("red", "Failed to build Quartz.")} Check for syntax errors in your configuration or plugins.`,
+        `${styleText("red", "Quartz 构建失败。")} 请检查配置或插件中是否存在语法错误。`,
       )
-      console.log(`Reason: ${styleText("gray", err.message ?? String(err))}`)
+      console.log(`原因：${styleText("gray", err.message ?? String(err))}`)
       process.exit(1)
     })
     release()
@@ -427,9 +427,9 @@ export async function handleBuild(argv) {
       const outputFileName = "quartz/.quartz-cache/transpiled-build.mjs"
       const meta = result.metafile.outputs[outputFileName]
       console.log(
-        `Successfully transpiled ${Object.keys(meta.inputs).length} files (${prettyBytes(
+        `已成功转译 ${Object.keys(meta.inputs).length} 个文件（${prettyBytes(
           meta.bytes,
-        )})`,
+        )}）`,
       )
       console.log(await esbuild.analyzeMetafile(result.metafile, { color: true }))
     }
@@ -458,7 +458,7 @@ export async function handleBuild(argv) {
         console.log(
           styleText(
             "red",
-            `[404] ${req.url} (warning: link outside of site, this is likely a Quartz bug)`,
+            `[404] ${req.url}（警告：链接指向站点外部，这很可能是 Quartz 的问题）`,
           ),
         )
         res.writeHead(404)
@@ -556,7 +556,7 @@ export async function handleBuild(argv) {
     server.on("error", (err) => {
       if (err.code === "EADDRINUSE") {
         console.error(
-          `Port ${argv.port} is already in use. Try a different port with --port <number>`,
+          `端口 ${argv.port} 已被占用。请使用 --port <number> 指定其他端口`,
         )
         process.exit(1)
       }
@@ -567,7 +567,7 @@ export async function handleBuild(argv) {
     wss.on("error", (err) => {
       if (err.code === "EADDRINUSE") {
         console.error(
-          `WebSocket port ${argv.wsPort} is already in use. Try a different port with --wsPort <number>`,
+          `WebSocket 端口 ${argv.wsPort} 已被占用。请使用 --wsPort <number> 指定其他端口`,
         )
         process.exit(1)
       }
@@ -577,7 +577,7 @@ export async function handleBuild(argv) {
     console.log(
       styleText(
         "cyan",
-        `Started a Quartz server listening at http://localhost:${argv.port}${argv.baseDir}`,
+        `已启动 Quartz 服务器，监听地址为 http://localhost:${argv.port}${argv.baseDir}`,
       ),
     )
   } else {
@@ -602,7 +602,7 @@ export async function handleBuild(argv) {
       .on("change", () => build(clientRefresh))
       .on("unlink", () => build(clientRefresh))
 
-    console.log(styleText("gray", "hint: exit with ctrl+c"))
+    console.log(styleText("gray", "提示：按 ctrl+c 退出"))
   }
 }
 
@@ -614,7 +614,7 @@ export async function handleBuild(argv) {
 export async function handleUpgrade(argv) {
   const contentFolder = resolveContentPath(argv.directory)
   console.log(`\n${styleText(["bgGreen", "black"], ` Quartz v${version} `)} \n`)
-  console.log("Backing up your content")
+  console.log("正在备份内容")
   execSync(`git remote show upstream || git remote add upstream ${QUARTZ_SOURCE_REPO}`)
   await stashContentFolder(contentFolder)
 
@@ -625,7 +625,7 @@ export async function handleUpgrade(argv) {
   }
 
   console.log(
-    "Pulling updates... you may need to resolve some `git` conflicts if you've made changes to components or plugins.",
+    "正在拉取更新……如果你修改过组件或插件，可能需要解决一些 git 冲突。",
   )
 
   let pullOk = false
@@ -643,7 +643,7 @@ export async function handleUpgrade(argv) {
         if (remaining.length === 0) {
           execSync("git commit --no-edit")
           pullOk = true
-          console.log(styleText("cyan", "Resolved quartz.lock.json merge conflict automatically."))
+          console.log(styleText("cyan", "已自动解决 quartz.lock.json 的合并冲突。"))
         }
       } catch {
         // Could not auto-resolve, fall through to manual resolution
@@ -652,8 +652,8 @@ export async function handleUpgrade(argv) {
 
     if (!pullOk) {
       console.log(
-        styleText("red", "An error occurred while pulling updates.") +
-          "\nCheck your network connection and git credentials. If you see merge conflicts, resolve them manually and run `npx quartz sync --no-pull`.",
+        styleText("red", "拉取更新时出错。") +
+          "\n请检查网络连接和 git 凭据。如果出现合并冲突，请手动解决后运行 `npx quartz sync --no-pull`。",
       )
       await popContentFolder(contentFolder)
       if (fs.existsSync(lockfileBackup)) fs.unlinkSync(lockfileBackup)
@@ -672,12 +672,12 @@ export async function handleUpgrade(argv) {
   const newPkg = JSON.parse(fs.readFileSync("./package.json").toString())
   const newVersion = newPkg.version
   if (newVersion !== version) {
-    console.log(styleText("cyan", `Upgraded Quartz: v${version} → v${newVersion}`))
+    console.log(styleText("cyan", `已将 Quartz 升级：v${version} → v${newVersion}`))
   } else {
-    console.log(styleText("gray", `Quartz is already up to date (v${version})`))
+    console.log(styleText("gray", `Quartz 已是最新版本（v${version}）`))
   }
 
-  console.log("Ensuring dependencies are up to date")
+  console.log("正在确保依赖为最新")
 
   /*
   On Windows, if the command `npm` is really `npm.cmd', this call fails
@@ -698,21 +698,21 @@ export async function handleUpgrade(argv) {
 
   const res = spawnSync("npm", ["i"], opts)
   if (res.status === 0) {
-    console.log(styleText("green", "Dependencies updated!"))
+    console.log(styleText("green", "依赖已更新！"))
   } else {
     console.log(
-      styleText("red", "An error occurred while installing dependencies.") +
-        "\nTry running `npm install` manually to see detailed errors.",
+      styleText("red", "安装依赖时出错。") +
+        "\n请手动运行 `npm install` 查看详细错误。",
     )
   }
 
-  console.log("Restoring plugins from lockfile...")
+  console.log("正在从锁定文件恢复插件...")
   await handlePluginRestore()
 
-  console.log("Checking plugin compatibility...")
+  console.log("正在检查插件兼容性...")
   await handlePluginCheck()
 
-  console.log(styleText("green", "Done!"))
+  console.log(styleText("green", "完成！"))
 }
 
 /**
@@ -731,13 +731,13 @@ export async function handleRestore(argv) {
 export async function handleSync(argv) {
   const contentFolder = resolveContentPath(argv.directory)
   console.log(`\n${styleText(["bgGreen", "black"], ` Quartz v${version} `)}\n`)
-  console.log("Backing up your content")
+  console.log("正在备份内容")
 
   if (argv.commit) {
     const contentStat = await fs.promises.lstat(contentFolder)
     if (contentStat.isSymbolicLink()) {
       const linkTarg = await fs.promises.readlink(contentFolder)
-      console.log(styleText("yellow", "Detected symlink, trying to dereference before committing"))
+      console.log(styleText("yellow", "检测到符号链接，提交前将先解析为实际内容"))
 
       // stash symlink file
       await stashContentFolder(contentFolder)
@@ -749,11 +749,11 @@ export async function handleSync(argv) {
       })
     }
 
-    const currentTimestamp = new Date().toLocaleString("en-US", {
+    const currentTimestamp = new Date().toLocaleString("zh-CN", {
       dateStyle: "medium",
       timeStyle: "short",
     })
-    const commitMessage = argv.message ?? `Quartz sync: ${currentTimestamp}`
+    const commitMessage = argv.message ?? `Quartz 同步：${currentTimestamp}`
     spawnSync("git", ["add", "."], { stdio: "inherit" })
     spawnSync("git", ["commit", "-m", commitMessage], { stdio: "inherit" })
 
@@ -767,14 +767,14 @@ export async function handleSync(argv) {
 
   if (argv.pull) {
     console.log(
-      "Pulling updates from your repository. You may need to resolve some `git` conflicts if you've made changes to components or plugins.",
+      "正在从仓库拉取更新。如果你修改过组件或插件，可能需要解决一些 git 冲突。",
     )
     try {
       gitPull(ORIGIN_NAME, QUARTZ_SOURCE_BRANCH)
     } catch {
       console.log(
-        styleText("red", "An error occurred while pulling updates from your repository.") +
-          "\nCheck your network connection and git credentials.",
+        styleText("red", "从仓库拉取更新时出错。") +
+          "\n请检查网络连接和 git 凭据。",
       )
       await popContentFolder(contentFolder)
       return
@@ -783,19 +783,19 @@ export async function handleSync(argv) {
 
   await popContentFolder(contentFolder)
   if (argv.push) {
-    console.log("Pushing your changes")
+    console.log("正在推送更改")
     const currentBranch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim()
     const res = spawnSync("git", ["push", "-uf", ORIGIN_NAME, currentBranch], {
       stdio: "inherit",
     })
     if (res.status !== 0) {
       console.log(
-        styleText("red", `An error occurred while pushing to remote ${ORIGIN_NAME}.`) +
-          "\nCheck that you have push access to the remote repository.",
+        styleText("red", `推送到远程 ${ORIGIN_NAME} 时出错。`) +
+          "\n请确认你对该远程仓库拥有推送权限。",
       )
       return
     }
   }
 
-  console.log(styleText("green", "Done!"))
+  console.log(styleText("green", "完成！"))
 }

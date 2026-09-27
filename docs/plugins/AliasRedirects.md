@@ -1,6 +1,6 @@
 ---
 title: AliasRedirects
-description: Generates redirect pages from frontmatter aliases and case-preserving URLs.
+description: 根据 frontmatter 别名和区分大小写的 URL 生成重定向页面。
 tags:
   - plugin/emitter
 image: https://images.unsplash.com/photo-1601735479770-bb5de9dbe844
@@ -54,9 +54,9 @@ This preserves search engine rankings and ensures inbound links continue to work
 > Case-preserving redirects have no effect on case-insensitive filesystems (macOS, Windows) where the server already resolves either casing to the same file. The plugin automatically detects the filesystem type and skips redirect generation when unnecessary.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `enableCaseRedirects`: If `true` (default), automatically generates redirect pages for URLs that changed casing due to v5's lowercase normalization. Set to `false` to disable this behavior.
 
@@ -64,5 +64,5 @@ This plugin accepts the following configuration options:
 
 - Category: Emitter
 - Function name: `ExternalPlugin.AliasRedirects()`.
-- Source: [`quartz-community/alias-redirects`](https://github.com/quartz-community/alias-redirects)
-- Install: `npx quartz plugin add github:quartz-community/alias-redirects`
+- 源码： [`quartz-community/alias-redirects`](https://github.com/quartz-community/alias-redirects)
+- 安装： `npx quartz plugin add github:quartz-community/alias-redirects`

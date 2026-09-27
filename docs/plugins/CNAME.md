@@ -1,6 +1,6 @@
 ---
 title: CNAME
-description: Emits a CNAME file for custom domain deployment.
+description: 为自定义域名部署生成 CNAME 文件。
 tags:
   - plugin/emitter
 image:
@@ -16,7 +16,7 @@ If you want to use a custom domain name like `quartz.example.com` for the site, 
 See [[hosting|Hosting]] for more information.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 This plugin has no configuration options.
 
@@ -24,5 +24,5 @@ This plugin has no configuration options.
 
 - Category: Emitter
 - Function name: `ExternalPlugin.CNAME()`.
-- Source: [`quartz-community/cname`](https://github.com/quartz-community/cname)
-- Install: `npx quartz plugin add github:quartz-community/cname`
+- 源码： [`quartz-community/cname`](https://github.com/quartz-community/cname)
+- 安装： `npx quartz plugin add github:quartz-community/cname`

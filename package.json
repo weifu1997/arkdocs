@@ -1,6 +1,6 @@
 {
   "name": "@jackyzha0/quartz",
-  "description": "🌱 publish your digital garden and notes as a website",
+  "description": "🌱 把数字花园和笔记发布为网站",
   "private": true,
   "version": "5.0.0",
   "type": "module",

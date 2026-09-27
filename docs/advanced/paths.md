@@ -1,5 +1,5 @@
 ---
-title: Paths in Quartz
+title: Quartz 中的路径
 ---
 
 Paths are pretty complex to reason about because, especially for a static site generator, they can come from so many places.

@@ -1,6 +1,6 @@
 ---
 title: CanvasPage
-description: Renders JSON Canvas files as interactive, pannable pages.
+description: 将 JSON Canvas 文件渲染为可平移的交互式页面。
 tags:
   - plugin/pageType
 image: "#7852ee"
@@ -13,9 +13,9 @@ required: false
 This plugin is a page type plugin that renders [JSON Canvas](https://jsoncanvas.org) (`.canvas`) files as interactive, pannable and zoomable canvas pages. It uses a custom `"canvas"` [[layout#Page Frames|page frame]] that provides a fullscreen, always-on canvas experience with a togglable left sidebar for navigation. It supports the full [JSON Canvas 1.0 spec](https://jsoncanvas.org/spec/1.0/), including text nodes with Markdown rendering, file nodes that link to other pages in your vault, link nodes for external URLs, and group nodes for visual organization. Edges between nodes are rendered as SVG paths with optional labels, arrow markers, and colors.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `enableInteraction`: Whether to enable pan and zoom interaction on the canvas. Default: `true{:ts}`.
 - `initialZoom`: The initial zoom level when the canvas is first displayed. Default: `1{:ts}`.
@@ -41,7 +41,7 @@ layout:
       template: default # Use standard three-column layout instead
 ```
 
-### Features
+### 功能
 
 - **Text nodes**: Render Markdown content including headings, bold, italic, strikethrough, lists, links, and code blocks via [GFM](https://github.github.com/gfm/) support.
 - **File nodes**: Link to other pages in your vault. Supports popover previews on hover.
@@ -55,5 +55,5 @@ layout:
 
 - Category: Page Type
 - Function name: `ExternalPlugin.CanvasPage()`.
-- Source: [`quartz-community/canvas-page`](https://github.com/quartz-community/canvas-page)
-- Install: `npx quartz plugin add github:quartz-community/canvas-page`
+- 源码： [`quartz-community/canvas-page`](https://github.com/quartz-community/canvas-page)
+- 安装： `npx quartz plugin add github:quartz-community/canvas-page`

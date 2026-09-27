@@ -1,6 +1,6 @@
 ---
 title: ReaderMode
-description: Distraction-free reading mode toggle.
+description: 减少干扰的阅读模式切换。
 tags:
   - plugin/component
 image:
@@ -13,17 +13,17 @@ required: false
 Distraction-free reading mode.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[reader mode]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `enabled`: Whether to enable reader mode. Defaults to `true`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/reader-mode
@@ -34,5 +34,5 @@ This plugin accepts the following configuration options:
 
 - Category: Component
 - Function name: `ExternalPlugin.ReaderMode()`.
-- Source: [`quartz-community/reader-mode`](https://github.com/quartz-community/reader-mode)
-- Install: `npx quartz plugin add github:quartz-community/reader-mode`
+- 源码： [`quartz-community/reader-mode`](https://github.com/quartz-community/reader-mode)
+- 安装： `npx quartz plugin add github:quartz-community/reader-mode`

@@ -1,6 +1,6 @@
 ---
 title: BasesPage
-description: Renders Obsidian Bases files as database-style views.
+description: 将 Obsidian Bases 文件渲染为类似数据库的视图。
 tags:
   - plugin/pageType
   - plugin/component
@@ -14,9 +14,9 @@ required: false
 This plugin provides support for [Obsidian Bases](https://obsidian.md/changelog/2025-04-15-desktop-v1.8.0/) (`.base` files) in Quartz. It reads `.base` files from your vault, resolves matching notes based on the query definition, and renders them as interactive database-like views with support for tables, lists, cards, and maps. It uses the `default` [[layout#Page Frames|page frame]] (three-column layout with sidebars).
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-## Features
+## 功能
 
 - **Table view**: Sortable columns with automatic type rendering (strings, numbers, booleans, arrays, links).
 - **List view**: Compact list with metadata chips for each entry.
@@ -36,15 +36,15 @@ This plugin provides support for [Obsidian Bases](https://obsidian.md/changelog/
 > [!note]
 > Base views are **server-side rendered** HTML baked at build time. They do not update client-side after a visitor decrypts an encrypted page. Graph, explorer, and search all re-hydrate from the patched in-memory content index and show newly-unlocked pages for the rest of the browser session — base views do not, because they were materialized at build time with unlisted pages already excluded. A visitor who successfully decrypts a revealable encrypted page will see it appear in graph, explorer, and search, but **not** in any base view, until the site is rebuilt with that page listed. This is the same structural limitation that applies to backlinks, recent notes, folder listings, and tag listings.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `defaultViewType`: The default view type when none is specified in the `.base` file. Defaults to `"table"`.
 - `linkResolution`: How to resolve internal links in view renderers. Should match the `markdownLinkResolution` setting of the [[CrawlLinks]] plugin. Can be `"absolute"`, `"relative"`, or `"shortest"`. Defaults to `"shortest"`.
 - `customViews`: A map of custom view renderers. Keys are view type names. These override built-in renderers for the same type, or add new view types. Requires a TS override.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/bases-page
@@ -71,5 +71,5 @@ ExternalPlugin.BasesPage({
 
 - Category: Page Type, Component
 - Function name: `ExternalPlugin.BasesPage()`.
-- Source: [`quartz-community/bases-page`](https://github.com/quartz-community/bases-page)
-- Install: `npx quartz plugin add github:quartz-community/bases-page`
+- 源码： [`quartz-community/bases-page`](https://github.com/quartz-community/bases-page)
+- 安装： `npx quartz plugin add github:quartz-community/bases-page`

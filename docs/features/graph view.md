@@ -1,5 +1,5 @@
 ---
-title: "Graph View"
+title: 关系图谱
 tags:
   - component
 ---
@@ -12,7 +12,7 @@ Quartz features a graph-view that can show both a local graph view and a global 
 > [!info]
 > The Graph View is now a community plugin. This demonstrates how external plugins can extend Quartz functionality while serving as a reference implementation for plugin developers.
 
-## Installation
+## 安装
 
 The Graph View is available as a community plugin from GitHub:
 
@@ -31,7 +31,7 @@ plugins:
       priority: 10
 ```
 
-## Features
+## 功能
 
 By default, the node radius is proportional to the total number of incoming and outgoing internal links from that file.
 
@@ -40,7 +40,7 @@ Additionally, similar to how browsers highlight visited links a different colour
 > [!info]
 > Graph View requires the `ContentIndex` emitter plugin to be present in the [[configuration]].
 
-## Customization
+## 自定义
 
 Most configuration can be done by passing in options to `Graph()`.
 

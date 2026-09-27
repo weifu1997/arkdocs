@@ -1,5 +1,5 @@
 ---
-title: "OxHugo Compatibility"
+title: "OxHugo 兼容"
 tags:
   - feature/transformer
 ---
@@ -39,10 +39,10 @@ ExternalPlugin.OxHugoFlavouredMarkdown()
 > [!note]
 > In YAML, plugin execution order is controlled by the `order` field. Lower numbers execute first. Ensure `ox-hugo` has a lower `order` than `obsidian-flavored-markdown`.
 
-## Usage
+## 用法
 
 Quartz by default doesn't understand `org-roam` files as they aren't Markdown. You're responsible for using an external tool like `ox-hugo` to export the `org-roam` files as Markdown content to Quartz and managing the static assets so that they're available in the final output.
 
-## Configuration
+## 配置
 
 This functionality is provided by the [[OxHugoFlavoredMarkdown]] plugin. See the plugin page for customization options.

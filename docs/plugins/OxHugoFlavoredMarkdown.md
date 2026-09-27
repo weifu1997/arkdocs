@@ -1,6 +1,6 @@
 ---
 title: OxHugoFlavoredMarkdown
-description: Compatibility for ox-hugo exported Org-mode files.
+description: 兼容 ox-hugo 导出的 Org-mode 文件。
 tags:
   - plugin/transformer
 image:
@@ -12,9 +12,9 @@ required: false
 This plugin provides support for [ox-hugo](https://github.com/kaushalmodi/ox-hugo) compatibility. See [[OxHugo compatibility]] for more information.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `wikilinks`: If `true` (default), converts Hugo `{{ relref }}` shortcodes to Quartz [[wikilinks]].
 - `removePredefinedAnchor`: If `true` (default), strips predefined anchors from headings.
@@ -31,5 +31,5 @@ This plugin accepts the following configuration options:
 
 - Category: Transformer
 - Function name: `ExternalPlugin.OxHugoFlavoredMarkdown()`.
-- Source: [`quartz-community/ox-hugo`](https://github.com/quartz-community/ox-hugo)
-- Install: `npx quartz plugin add github:quartz-community/ox-hugo`
+- 源码： [`quartz-community/ox-hugo`](https://github.com/quartz-community/ox-hugo)
+- 安装： `npx quartz plugin add github:quartz-community/ox-hugo`

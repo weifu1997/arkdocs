@@ -1,5 +1,5 @@
 ---
-title: "Obsidian Compatibility"
+title: "Obsidian 兼容"
 tags:
   - feature/transformer
 ---
@@ -218,6 +218,6 @@ Quartz focuses on supporting Obsidian's core features. Functionality from Obsidi
 > [!tip]
 > As a general rule: Obsidian core features are supported by Quartz directly, while Obsidian community plugin features are supported by corresponding Quartz community plugins. Not all Obsidian community plugins will have Quartz equivalents, but popular ones are likely to be supported by the community.
 
-## Configuration
+## 配置
 
 This functionality is provided by the [[ObsidianFlavoredMarkdown]], [[Frontmatter]] and [[CrawlLinks]] plugins. See the plugin pages for customization options.

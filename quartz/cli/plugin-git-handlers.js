@@ -48,24 +48,24 @@ async function cloneWithSubdirAsync({ url, ref, subdir, pluginDir }) {
 
 async function buildPluginAsync(pluginDir, name) {
   if (hasPrebuiltDist(pluginDir)) {
-    console.log(styleText("green", `  ✓ ${name}: using pre-built dist/`))
+    console.log(styleText("green", `  ✓ ${name}：使用预构建的 dist/`))
     linkPeerPlugins(pluginDir)
     return true
   }
 
   try {
     const skipBuild = !needsBuild(pluginDir)
-    console.log(styleText("cyan", `  → ${name}: installing dependencies...`))
+    console.log(styleText("cyan", `  → ${name}：正在安装依赖...`))
     await execAsync("npm install --ignore-scripts", { cwd: pluginDir })
     if (!skipBuild) {
-      console.log(styleText("cyan", `  → ${name}: building...`))
+      console.log(styleText("cyan", `  → ${name}：正在构建...`))
       await execAsync("npm run build", { cwd: pluginDir })
     }
     await execAsync("npm prune --omit=dev", { cwd: pluginDir })
     linkPeerPlugins(pluginDir)
     return true
   } catch (error) {
-    console.log(styleText("red", `  ✗ ${name}: build failed`))
+    console.log(styleText("red", `  ✗ ${name}：构建失败`))
     return false
   }
 }
@@ -357,7 +357,7 @@ export async function handlePluginInstallUnified({
   concurrency: concurrencyOption,
 } = {}) {
   if (clean && latest) {
-    console.log(styleText("red", "✗ --clean and --latest cannot be used together"))
+    console.log(styleText("red", "✗ --clean 与 --latest 不能同时使用"))
     return
   }
 
@@ -368,7 +368,7 @@ export async function handlePluginInstallUnified({
 
   if (!fromConfig && !lockfile) {
     console.log(
-      styleText("yellow", "⚠ No quartz.lock.json found. Run 'npx quartz plugin add <repo>' first."),
+      styleText("yellow", "⚠ 未找到 quartz.lock.json。请先运行 'npx quartz plugin add <repo>'。"),
     )
     return
   }
@@ -382,7 +382,7 @@ export async function handlePluginInstallUnified({
 
   if (dryRun && latest) {
     if (!lockfile || Object.keys(lockfile.plugins).length === 0) {
-      console.log(styleText("gray", "No plugins installed"))
+      console.log(styleText("gray", "尚未安装插件"))
       return
     }
 
@@ -398,7 +398,7 @@ export async function handlePluginInstallUnified({
 
     const isTTY = process.stdout.isTTY
     const nameWidth = Math.max(6, ...rows.map((row) => row.displayName.length)) + 2
-    const header = `${"Plugin".padEnd(nameWidth)}${"Installed".padEnd(12)}${"Latest".padEnd(12)}Status`
+    const header = `${"插件".padEnd(nameWidth)}${"已安装".padEnd(12)}${"最新".padEnd(12)}状态`
 
     const renderRow = ({ displayName }, installed, latest, statusLabel) =>
       `${displayName.padEnd(nameWidth)}${installed.padEnd(12)}${latest.padEnd(12)}${statusLabel}`
@@ -412,7 +412,7 @@ export async function handlePluginInstallUnified({
     }
 
     if (isTTY) {
-      console.log(styleText("bold", "Checking for plugin updates...\n"))
+      console.log(styleText("bold", "正在检查插件更新...\n"))
       console.log(styleText("bold", header))
       console.log("─".repeat(header.length))
       for (const row of rows) {
@@ -442,26 +442,26 @@ export async function handlePluginInstallUnified({
           const installed = row.entry.commit.slice(0, 7)
           const latest = latestCommit.slice(0, 7)
           const statusLabel = isCurrent
-            ? styleText("green", "up to date")
-            : styleText("yellow", "update available")
+            ? styleText("green", "已是最新")
+            : styleText("yellow", "有可用更新")
           updateRow(index, installed, latest, statusLabel)
           return {
             index,
             installed,
             latest,
-            status: isCurrent ? "up to date" : "update available",
+            status: isCurrent ? "已是最新" : "有可用更新",
           }
         })
         .catch(() => {
           const installed = row.entry.commit.slice(0, 7)
           const latest = "?"
-          const statusLabel = styleText("red", "check failed")
+          const statusLabel = styleText("red", "检查失败")
           updateRow(index, installed, latest, statusLabel)
           return {
             index,
             installed,
             latest,
-            status: "check failed",
+            status: "检查失败",
           }
         })
     })
@@ -469,14 +469,14 @@ export async function handlePluginInstallUnified({
     const results = await Promise.all(promises)
 
     if (!isTTY) {
-      console.log(styleText("bold", "Checking for plugin updates...\n"))
+      console.log(styleText("bold", "正在检查插件更新...\n"))
       console.log(styleText("bold", header))
       console.log("─".repeat(header.length))
       for (const { index, installed, latest, status } of results) {
         const color =
-          status === "up to date" || status === "local"
+          status === "已是最新" || status === "local"
             ? "green"
-            : status === "check failed"
+            : status === "检查失败"
               ? "red"
               : "yellow"
         console.log(renderRow(rows[index], installed, latest, styleText(color, status)))
@@ -487,7 +487,7 @@ export async function handlePluginInstallUnified({
 
   if (fromConfig) {
     if (!pluginsJson?.plugins || pluginsJson.plugins.length === 0) {
-      console.log(styleText("gray", "No plugins configured"))
+      console.log(styleText("gray", "尚未配置插件"))
       return
     }
 
@@ -522,17 +522,17 @@ export async function handlePluginInstallUnified({
       })
 
     if (missing.length === 0) {
-      console.log(styleText("green", "✓ All configured plugins are already installed"))
+      console.log(styleText("green", "✓ 配置中的插件均已安装"))
       if (dryRun) {
         if (orphans.length > 0) {
           console.log()
-          console.log(`Found ${orphans.length} orphaned plugin(s) in lockfile:\n`)
+          console.log(`在锁定文件中发现 ${orphans.length} 个孤立插件：\n`)
           for (const name of orphans) {
-            console.log(`  ${styleText("yellow", name)} — in lockfile but not in config`)
+            console.log(`  ${styleText("yellow", name)} — 存在于锁定文件但不在配置中`)
           }
           console.log()
           console.log(
-            styleText("cyan", "Dry run — no changes made. Re-run without --dry-run to resolve."),
+            styleText("cyan", "试运行，未做任何更改。去掉 --dry-run 后重新运行即可实际处理。"),
           )
         }
         return
@@ -543,7 +543,7 @@ export async function handlePluginInstallUnified({
     }
 
     if (missing.length > 0) {
-      console.log(`Found ${missing.length} uninstalled plugin(s) in config:\n`)
+      console.log(`配置中发现 ${missing.length} 个尚未安装的插件：\n`)
       for (const entry of missing) {
         const name = extractPluginName(entry.source)
         console.log(`  ${styleText("yellow", name)} — ${formatSource(entry.source)}`)
@@ -552,14 +552,14 @@ export async function handlePluginInstallUnified({
 
       if (dryRun) {
         if (orphans.length > 0) {
-          console.log(`Found ${orphans.length} orphaned plugin(s) in lockfile:\n`)
+          console.log(`在锁定文件中发现 ${orphans.length} 个孤立插件：\n`)
           for (const name of orphans) {
-            console.log(`  ${styleText("yellow", name)} — in lockfile but not in config`)
+            console.log(`  ${styleText("yellow", name)} — 存在于锁定文件但不在配置中`)
           }
           console.log()
         }
         console.log(
-          styleText("cyan", "Dry run — no changes made. Re-run without --dry-run to resolve."),
+          styleText("cyan", "试运行，未做任何更改。去掉 --dry-run 后重新运行即可实际处理。"),
         )
         return
       }
@@ -579,7 +579,7 @@ export async function handlePluginInstallUnified({
         if (fs.existsSync(pluginDir)) {
           if (local) {
             console.log(
-              styleText("yellow", `⚠ ${name} directory already exists, updating lockfile`),
+              styleText("yellow", `⚠ ${name} 目录已存在，正在更新锁定文件`),
             )
             lockfile.plugins[name] = {
               source: entry.source,
@@ -592,7 +592,7 @@ export async function handlePluginInstallUnified({
             lockfileChanged = true
             continue
           }
-          console.log(styleText("yellow", `⚠ ${name} directory already exists, updating lockfile`))
+          console.log(styleText("yellow", `⚠ ${name} 目录已存在，正在更新锁定文件`))
           const commit = getGitCommit(pluginDir)
           lockfile.plugins[name] = {
             source: entry.source,
@@ -611,11 +611,11 @@ export async function handlePluginInstallUnified({
           let resolvedPath = path.resolve(url)
           if (subdir) resolvedPath = path.join(resolvedPath, subdir)
           if (!fs.existsSync(resolvedPath)) {
-            console.log(styleText("red", `✗ Local path does not exist: ${resolvedPath}`))
+            console.log(styleText("red", `✗ 本地路径不存在：${resolvedPath}`))
             failed++
             continue
           }
-          console.log(styleText("cyan", `→ Linking ${name} from ${resolvedPath}...`))
+          console.log(styleText("cyan", `→ 正在从 ${resolvedPath} 链接 ${name}...`))
           fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
           symlinkOrCopySync(resolvedPath, pluginDir)
           lockfile.plugins[name] = {
@@ -627,12 +627,12 @@ export async function handlePluginInstallUnified({
           }
           installed.push({ name, pluginDir })
           lockfileChanged = true
-          console.log(styleText("green", `✓ Linked ${name} (local)`))
+          console.log(styleText("green", `✓ 已链接 ${name}（本地）`))
         } else {
           remoteEntries.push({ entry, name, url, ref, subdir, pluginDir })
         }
       } catch (error) {
-        console.log(styleText("red", `✗ Failed to resolve ${formatSource(entry.source)}: ${error}`))
+        console.log(styleText("red", `✗ 解析 ${formatSource(entry.source)} 失败：${error}`))
         failed++
       }
     }
@@ -646,7 +646,7 @@ export async function handlePluginInstallUnified({
         async ({ entry, name, url, ref, subdir, pluginDir }) => {
           try {
             if (subdir) {
-              console.log(styleText("cyan", `→ Cloning ${name} from ${url} (subdir: ${subdir})...`))
+              console.log(styleText("cyan", `→ 正在从 ${url} 克隆 ${name}（子目录：${subdir})...`))
               fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
               const commit = await cloneWithSubdirAsync({ url, ref, subdir, pluginDir })
               lockfile.plugins[name] = {
@@ -660,10 +660,10 @@ export async function handlePluginInstallUnified({
               installed.push({ name, pluginDir })
               lockfileChanged = true
               console.log(
-                styleText("green", `✓ Cloned ${name}@${commit.slice(0, 7)} (subdir: ${subdir})`),
+                styleText("green", `✓ 已克隆 ${name}@${commit.slice(0, 7)}（子目录：${subdir}）`),
               )
             } else {
-              console.log(styleText("cyan", `→ Cloning ${name} from ${url}...`))
+              console.log(styleText("cyan", `→ 正在从 ${url} 克隆 ${name}...`))
 
               const branchArg = ref ? ` --branch ${ref}` : ""
               await execAsync(`git clone --depth 1${branchArg} "${url}" "${pluginDir}"`)
@@ -680,11 +680,11 @@ export async function handlePluginInstallUnified({
 
               installed.push({ name, pluginDir })
               lockfileChanged = true
-              console.log(styleText("green", `✓ Cloned ${name}@${commit.slice(0, 7)}`))
+              console.log(styleText("green", `✓ 已克隆 ${name}@${commit.slice(0, 7)}`))
             }
           } catch (error) {
             console.log(
-              styleText("red", `✗ Failed to resolve ${formatSource(entry.source)}: ${error}`),
+              styleText("red", `✗ 解析 ${formatSource(entry.source)} 失败：${error}`),
             )
             failed++
           }
@@ -694,11 +694,11 @@ export async function handlePluginInstallUnified({
 
     if (installed.length > 0) {
       console.log()
-      console.log(styleText("cyan", "→ Building plugins..."))
+      console.log(styleText("cyan", "→ 正在构建插件..."))
       const concurrency = resolvedConcurrency
       const results = await runParallel(installed, concurrency, async ({ name, pluginDir }) => {
         const ok = await buildPluginAsync(pluginDir, name)
-        if (ok) console.log(styleText("green", `  ✓ ${name} built`))
+        if (ok) console.log(styleText("green", `  ✓ ${name} 已构建`))
         return ok
       })
       for (const ok of results) {
@@ -716,7 +716,7 @@ export async function handlePluginInstallUnified({
           console.log(
             styleText(
               "yellow",
-              `⚠ ${name} is a local plugin not in config — skipping (remove manually with 'plugin remove')`,
+              `⚠ ${name} 是本地插件且不在配置中，已跳过（请使用 'plugin remove' 手动移除）`,
             ),
           )
           continue
@@ -728,7 +728,7 @@ export async function handlePluginInstallUnified({
         delete lockfile.plugins[name]
         lockfileChanged = true
         removedOrphans = true
-        console.log(styleText("yellow", `✗ Removed ${name} (not in config)`))
+        console.log(styleText("yellow", `✗ 已移除 ${name}（不在配置中）`))
       }
       if (removedOrphans) {
         await regeneratePluginIndex()
@@ -739,16 +739,16 @@ export async function handlePluginInstallUnified({
       writeLockfile(lockfile)
       console.log()
       if (failed === 0) {
-        console.log(styleText("green", `✓ Resolved ${installed.length} plugin(s)`))
+        console.log(styleText("green", `✓ 已解析 ${installed.length} 个插件`))
       } else {
         console.log(
-          styleText("yellow", `⚠ Resolved ${installed.length} plugin(s), ${failed} failed`),
+          styleText("yellow", `⚠ 已解析 ${installed.length} 个插件，${failed} 个失败`),
         )
       }
-      console.log(styleText("gray", "Updated quartz.lock.json"))
+      console.log(styleText("gray", "已更新 quartz.lock.json"))
     } else if (failed > 0) {
       console.log()
-      console.log(styleText("yellow", `⚠ Resolved ${installed.length} plugin(s), ${failed} failed`))
+      console.log(styleText("yellow", `⚠ 已解析 ${installed.length} 个插件，${failed} 个失败`))
     }
 
     return
@@ -759,11 +759,11 @@ export async function handlePluginInstallUnified({
       nameFilter ? nameFilter.has(name) : true,
     )
     if (entries.length === 0) {
-      console.log(styleText("gray", "No plugins installed"))
+      console.log(styleText("gray", "尚未安装插件"))
       return
     }
 
-    console.log(styleText("cyan", "→ Dry run: plugins to install from lockfile..."))
+    console.log(styleText("cyan", "→ 试运行：将从锁定文件安装以下插件..."))
     for (const [name, entry] of entries) {
       const sourceLabel = entry.source ? formatSource(entry.source) : entry.resolved
       const commitLabel = entry.commit === "local" ? "local" : entry.commit.slice(0, 7)
@@ -773,7 +773,7 @@ export async function handlePluginInstallUnified({
   }
 
   if (clean) {
-    console.log(styleText("cyan", "→ Restoring plugins from lockfile..."))
+    console.log(styleText("cyan", "→ 正在从锁定文件恢复插件..."))
     console.log()
 
     if (!fs.existsSync(PLUGINS_DIR)) {
@@ -794,24 +794,24 @@ export async function handlePluginInstallUnified({
       const pluginDir = path.join(PLUGINS_DIR, name)
 
       if (fs.existsSync(pluginDir)) {
-        console.log(styleText("yellow", `⚠ ${name}: directory exists, skipping`))
+        console.log(styleText("yellow", `⚠ ${name}：目录已存在，已跳过`))
         continue
       }
 
       if (entry.commit === "local") {
         try {
           if (!fs.existsSync(entry.resolved)) {
-            console.log(styleText("red", `  ✗ ${name}: local path missing: ${entry.resolved}`))
+            console.log(styleText("red", `  ✗ ${name}：本地路径缺失：${entry.resolved}`))
             failed++
             continue
           }
           fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
           symlinkOrCopySync(entry.resolved, pluginDir)
-          console.log(styleText("green", `✓ ${name} restored (local symlink)`))
+          console.log(styleText("green", `✓ ${name} 已恢复（本地符号链接）`))
           restoredPlugins.push({ name, pluginDir })
           installed++
         } catch {
-          console.log(styleText("red", `✗ ${name}: failed to restore local symlink`))
+          console.log(styleText("red", `✗ ${name}：恢复本地符号链接失败`))
           failed++
         }
         continue
@@ -829,7 +829,7 @@ export async function handlePluginInstallUnified({
             console.log(
               styleText(
                 "cyan",
-                `→ ${name}: cloning ${entry.resolved}@${entry.commit.slice(0, 7)} (subdir: ${entry.subdir})...`,
+                `→ ${name}：正在克隆 ${entry.resolved}@${entry.commit.slice(0, 7)}（子目录：${entry.subdir})...`,
               ),
             )
             fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
@@ -843,18 +843,18 @@ export async function handlePluginInstallUnified({
             console.log(
               styleText(
                 "cyan",
-                `→ ${name}: cloning ${entry.resolved}@${entry.commit.slice(0, 7)}...`,
+                `→ ${name}：正在克隆 ${entry.resolved}@${entry.commit.slice(0, 7)}...`,
               ),
             )
             const branchArg = entry.ref ? ` --branch ${entry.ref}` : ""
             await execAsync(`git clone --depth 1${branchArg} "${entry.resolved}" "${pluginDir}"`)
             await execAsync(`git checkout ${entry.commit}`, { cwd: pluginDir })
           }
-          console.log(styleText("green", `✓ ${name} restored`))
+          console.log(styleText("green", `✓ ${name} 已恢复`))
           restoredPlugins.push({ name, pluginDir })
           installed++
         } catch {
-          console.log(styleText("red", `✗ ${name}: failed to restore`))
+          console.log(styleText("red", `✗ ${name}：恢复失败`))
           failed++
         }
       })
@@ -862,14 +862,14 @@ export async function handlePluginInstallUnified({
 
     if (restoredPlugins.length > 0) {
       console.log()
-      console.log(styleText("cyan", "→ Building restored plugins..."))
+      console.log(styleText("cyan", "→ 正在构建已恢复的插件..."))
       const concurrency = resolvedConcurrency
       const results = await runParallel(
         restoredPlugins,
         concurrency,
         async ({ name, pluginDir }) => {
           const ok = await buildPluginAsync(pluginDir, name)
-          if (ok) console.log(styleText("green", `  ✓ ${name} built`))
+          if (ok) console.log(styleText("green", `  ✓ ${name} 已构建`))
           return ok
         },
       )
@@ -884,9 +884,9 @@ export async function handlePluginInstallUnified({
 
     console.log()
     if (failed === 0) {
-      console.log(styleText("green", `✓ Restored ${installed} plugin(s)`))
+      console.log(styleText("green", `✓ 已恢复 ${installed} 个插件`))
     } else {
-      console.log(styleText("yellow", `⚠ Restored ${installed} plugin(s), ${failed} failed`))
+      console.log(styleText("yellow", `⚠ 已恢复 ${installed} 个插件，${failed} 个失败`))
     }
     return
   }
@@ -901,20 +901,20 @@ export async function handlePluginInstallUnified({
     for (const name of pluginsToUpdate) {
       const entry = lockfile.plugins[name]
       if (!entry) {
-        console.log(styleText("yellow", `⚠ ${name} is not installed`))
+        console.log(styleText("yellow", `⚠ ${name} 尚未安装`))
         continue
       }
 
       const pluginDir = path.join(PLUGINS_DIR, name)
       if (!fs.existsSync(pluginDir)) {
         console.log(
-          styleText("yellow", `⚠ ${name} directory missing. Run 'npx quartz plugin install'.`),
+          styleText("yellow", `⚠ ${name} 目录缺失。请运行 'npx quartz plugin install'。`),
         )
         continue
       }
 
       if (entry.commit === "local") {
-        console.log(styleText("cyan", `→ Rebuilding local plugin ${name}...`))
+        console.log(styleText("cyan", `→ 正在重新构建本地插件 ${name}...`))
         updatedPlugins.push({ name, pluginDir })
         continue
       }
@@ -927,7 +927,7 @@ export async function handlePluginInstallUnified({
       const concurrency = resolvedConcurrency
       await runParallel(validPlugins, concurrency, async ({ name, pluginDir, entry }) => {
         try {
-          console.log(styleText("cyan", `→ Updating ${name}...`))
+          console.log(styleText("cyan", `→ 正在更新 ${name}...`))
 
           if (entry.subdir) {
             fs.rmSync(pluginDir, { recursive: true })
@@ -948,11 +948,11 @@ export async function handlePluginInstallUnified({
               console.log(
                 styleText(
                   "green",
-                  `✓ Updated ${name} to ${newCommit.slice(0, 7)} (subdir: ${entry.subdir})`,
+                  `✓ 已将 ${name} 更新到 ${newCommit.slice(0, 7)}（子目录：${entry.subdir}）`,
                 ),
               )
             } else {
-              console.log(styleText("gray", `✓ ${name} rebuilt (subdir: ${entry.subdir})`))
+              console.log(styleText("gray", `✓ ${name} 已重新构建（子目录：${entry.subdir}）`))
             }
           } else {
             const fetchRef = entry.ref || ""
@@ -969,13 +969,13 @@ export async function handlePluginInstallUnified({
               entry.installedAt = new Date().toISOString()
               updatedPlugins.push({ name, pluginDir })
               lockfileChanged = true
-              console.log(styleText("green", `✓ Updated ${name} to ${newCommit.slice(0, 7)}`))
+              console.log(styleText("green", `✓ 已将 ${name} 更新到 ${newCommit.slice(0, 7)}`))
             } else {
-              console.log(styleText("gray", `✓ ${name} already up to date`))
+              console.log(styleText("gray", `✓ ${name} 已是最新`))
             }
           }
         } catch (error) {
-          console.log(styleText("red", `✗ Failed to update ${name}: ${error}`))
+          console.log(styleText("red", `✗ 更新 ${name} 失败：${error}`))
         }
       })
     }
@@ -983,11 +983,11 @@ export async function handlePluginInstallUnified({
     // Phase 3: Build updated plugins in parallel
     if (updatedPlugins.length > 0) {
       console.log()
-      console.log(styleText("cyan", "→ Rebuilding updated plugins..."))
+      console.log(styleText("cyan", "→ 正在重新构建已更新的插件..."))
       const concurrency = resolvedConcurrency
       await runParallel(updatedPlugins, concurrency, async ({ name, pluginDir }) => {
         const ok = await buildPluginAsync(pluginDir, name)
-        if (ok) console.log(styleText("green", `  ✓ ${name} rebuilt`))
+        if (ok) console.log(styleText("green", `  ✓ ${name} 已重新构建`))
         return ok
       })
       await regeneratePluginIndex()
@@ -996,7 +996,7 @@ export async function handlePluginInstallUnified({
     if (lockfileChanged) {
       writeLockfile(lockfile)
       console.log()
-      console.log(styleText("gray", "Updated quartz.lock.json"))
+      console.log(styleText("gray", "已更新 quartz.lock.json"))
     }
     return
   }
@@ -1009,11 +1009,11 @@ export async function handlePluginInstallUnified({
     nameFilter ? nameFilter.has(name) : true,
   )
   if (entries.length === 0) {
-    console.log(styleText("gray", "No plugins installed"))
+    console.log(styleText("gray", "尚未安装插件"))
     return
   }
 
-  console.log(styleText("cyan", "→ Installing plugins from lockfile..."))
+  console.log(styleText("cyan", "→ 正在从锁定文件安装插件..."))
   let installed = 0
   let failed = 0
   const pluginsToBuild = []
@@ -1028,7 +1028,7 @@ export async function handlePluginInstallUnified({
         if (fs.existsSync(pluginDir)) {
           const stat = fs.lstatSync(pluginDir)
           if (stat.isSymbolicLink() && fs.readlinkSync(pluginDir) === entry.resolved) {
-            console.log(styleText("gray", `  ✓ ${name} (local) already linked`))
+            console.log(styleText("gray", `  ✓ ${name}（本地）已链接`))
             installed++
             continue
           }
@@ -1036,17 +1036,17 @@ export async function handlePluginInstallUnified({
           else fs.rmSync(pluginDir, { recursive: true })
         }
         if (!fs.existsSync(entry.resolved)) {
-          console.log(styleText("red", `  ✗ ${name}: local path missing: ${entry.resolved}`))
+          console.log(styleText("red", `  ✗ ${name}：本地路径缺失：${entry.resolved}`))
           failed++
           continue
         }
         fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
         symlinkOrCopySync(entry.resolved, pluginDir)
-        console.log(styleText("green", `  ✓ ${name} (local) linked`))
+        console.log(styleText("green", `  ✓ ${name}（本地）已链接`))
         pluginsToBuild.push({ name, pluginDir })
         installed++
       } catch {
-        console.log(styleText("red", `  ✗ ${name}: failed to link local path`))
+        console.log(styleText("red", `  ✗ ${name}：链接本地路径失败`))
         failed++
       }
       continue
@@ -1056,7 +1056,7 @@ export async function handlePluginInstallUnified({
       if (entry.subdir) {
         if (!needsBuild(pluginDir)) {
           console.log(
-            styleText("gray", `  ✓ ${name}@${entry.commit.slice(0, 7)} already installed (subdir)`),
+            styleText("gray", `  ✓ ${name}@${entry.commit.slice(0, 7)} 已安装（子目录）`),
           )
           installed++
           continue
@@ -1067,7 +1067,7 @@ export async function handlePluginInstallUnified({
         const currentCommit = getGitCommit(pluginDir)
         if (currentCommit === entry.commit && !needsBuild(pluginDir)) {
           console.log(
-            styleText("gray", `  ✓ ${name}@${entry.commit.slice(0, 7)} already installed`),
+            styleText("gray", `  ✓ ${name}@${entry.commit.slice(0, 7)} 已安装`),
           )
           installed++
           continue
@@ -1090,7 +1090,7 @@ export async function handlePluginInstallUnified({
     await runParallel(gitEntries, concurrency, async ({ name, entry, pluginDir, action }) => {
       try {
         if (action === "update") {
-          console.log(styleText("cyan", `  → ${name}: updating to ${entry.commit.slice(0, 7)}...`))
+          console.log(styleText("cyan", `  → ${name}：正在更新到 ${entry.commit.slice(0, 7)}...`))
           const fetchRef = entry.ref ? ` ${entry.ref}` : ""
           await execAsync(`git fetch --depth 1 origin${fetchRef}`, { cwd: pluginDir })
           await execAsync(`git reset --hard ${entry.commit}`, { cwd: pluginDir })
@@ -1098,7 +1098,7 @@ export async function handlePluginInstallUnified({
           installed++
         } else {
           if (entry.subdir) {
-            console.log(styleText("cyan", `  → ${name}: cloning (subdir: ${entry.subdir})...`))
+            console.log(styleText("cyan", `  → ${name}：正在克隆（子目录：${entry.subdir})...`))
             fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
             await cloneWithSubdirAsync({
               url: entry.resolved,
@@ -1107,7 +1107,7 @@ export async function handlePluginInstallUnified({
               pluginDir,
             })
           } else {
-            console.log(styleText("cyan", `  → ${name}: cloning...`))
+            console.log(styleText("cyan", `  → ${name}：正在克隆...`))
             const branchArg = entry.ref ? ` --branch ${entry.ref}` : ""
             await execAsync(`git clone --depth 1${branchArg} "${entry.resolved}" "${pluginDir}"`)
             if (entry.commit !== "unknown") {
@@ -1121,7 +1121,7 @@ export async function handlePluginInstallUnified({
         }
       } catch {
         console.log(
-          styleText("red", `  ✗ ${name}: failed to ${action === "update" ? "update" : "clone"}`),
+          styleText("red", `  ✗ ${name}: 无法${action === "update" ? "更新" : "克隆"}`),
         )
         failed++
       }
@@ -1130,11 +1130,11 @@ export async function handlePluginInstallUnified({
 
   if (pluginsToBuild.length > 0) {
     console.log()
-    console.log(styleText("cyan", "→ Building plugins..."))
+    console.log(styleText("cyan", "→ 正在构建插件..."))
     const concurrency = resolvedConcurrency
     const results = await runParallel(pluginsToBuild, concurrency, async ({ name, pluginDir }) => {
       const ok = await buildPluginAsync(pluginDir, name)
-      if (ok) console.log(styleText("green", `  ✓ ${name} built`))
+      if (ok) console.log(styleText("green", `  ✓ ${name} 已构建`))
       return ok
     })
     for (const ok of results) {
@@ -1149,9 +1149,9 @@ export async function handlePluginInstallUnified({
 
   console.log()
   if (failed === 0) {
-    console.log(styleText("green", `✓ Installed ${installed} plugin(s)`))
+    console.log(styleText("green", `✓ 已安装 ${installed} 个插件`))
   } else {
-    console.log(styleText("yellow", `⚠ Installed ${installed} plugin(s), ${failed} failed`))
+    console.log(styleText("yellow", `⚠ 已安装 ${installed} 个插件，${failed} 个失败`))
   }
 }
 
@@ -1164,11 +1164,11 @@ export async function handlePluginAdd(
   { name: nameOverride, subdir: subdirOverride, concurrency: concurrencyOption } = {},
 ) {
   if (nameOverride && sources.length > 1) {
-    console.log(styleText("red", "✗ --name/--as can only be used when adding a single plugin"))
+    console.log(styleText("red", "✗ --name/--as 仅能在添加单个插件时使用"))
     return
   }
   if (subdirOverride && sources.length > 1) {
-    console.log(styleText("red", "✗ --subdir can only be used when adding a single plugin"))
+    console.log(styleText("red", "✗ --subdir 仅能在添加单个插件时使用"))
     return
   }
 
@@ -1192,7 +1192,7 @@ export async function handlePluginAdd(
       const parsed = parseGitSource(source)
       if (parsed.npmPackage) {
         const name = nameOverride ?? parsed.name
-        console.log(styleText("cyan", `→ Installing ${name} from npm...`))
+        console.log(styleText("cyan", `→ 正在从 npm 安装 ${name}...`))
         execSync(`npm install ${parsed.name}`, { cwd: process.cwd(), stdio: "inherit" })
         const configSource = nameOverride ? { repo: parsed.name, name: nameOverride } : parsed.name
         const pluginDir = path.join(process.cwd(), "node_modules", ...parsed.name.split("/"))
@@ -1214,7 +1214,7 @@ export async function handlePluginAdd(
       }
 
       if (fs.existsSync(pluginDir)) {
-        console.log(styleText("yellow", `⚠ ${name} already exists. Use 'update' to refresh.`))
+        console.log(styleText("yellow", `⚠ ${name} 已存在。请使用 'update' 刷新。`))
         continue
       }
 
@@ -1222,10 +1222,10 @@ export async function handlePluginAdd(
         let resolvedPath = path.resolve(url)
         if (subdir) resolvedPath = path.join(resolvedPath, subdir)
         if (!fs.existsSync(resolvedPath)) {
-          console.log(styleText("red", `✗ Local path does not exist: ${resolvedPath}`))
+          console.log(styleText("red", `✗ 本地路径不存在：${resolvedPath}`))
           continue
         }
-        console.log(styleText("cyan", `→ Adding ${name} from local path ${resolvedPath}...`))
+        console.log(styleText("cyan", `→ 正在从本地路径 ${resolvedPath} 添加 ${name}...`))
         fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
         symlinkOrCopySync(resolvedPath, pluginDir)
         lockfile.plugins[name] = {
@@ -1236,12 +1236,12 @@ export async function handlePluginAdd(
           installedAt: new Date().toISOString(),
         }
         addedPlugins.push({ name, pluginDir, source, configSource })
-        console.log(styleText("green", `✓ Added ${name} (local symlink)`))
+        console.log(styleText("green", `✓ 已添加 ${name}（本地符号链接）`))
       } else {
         remoteSources.push({ source, name, url, ref, subdir, pluginDir, configSource })
       }
     } catch (error) {
-      console.log(styleText("red", `✗ Failed to add ${formatSource(source)}: ${error}`))
+      console.log(styleText("red", `✗ 添加 ${formatSource(source)} 失败：${error}`))
     }
   }
 
@@ -1254,7 +1254,7 @@ export async function handlePluginAdd(
       async ({ source, name, url, ref, subdir, pluginDir, configSource }) => {
         try {
           if (subdir) {
-            console.log(styleText("cyan", `→ Adding ${name} from ${url} (subdir: ${subdir})...`))
+            console.log(styleText("cyan", `→ 正在从 ${url} 添加 ${name}（子目录：${subdir})...`))
             fs.mkdirSync(path.dirname(pluginDir), { recursive: true })
             const commit = await cloneWithSubdirAsync({ url, ref, subdir, pluginDir })
             lockfile.plugins[name] = {
@@ -1267,10 +1267,10 @@ export async function handlePluginAdd(
             }
             addedPlugins.push({ name, pluginDir, source, configSource })
             console.log(
-              styleText("green", `✓ Added ${name}@${commit.slice(0, 7)} (subdir: ${subdir})`),
+              styleText("green", `✓ 已添加 ${name}@${commit.slice(0, 7)} (subdir: ${subdir})`),
             )
           } else {
-            console.log(styleText("cyan", `→ Adding ${name} from ${url}...`))
+            console.log(styleText("cyan", `→ 正在从 ${url} 添加 ${name}...`))
 
             const branchArg = ref ? ` --branch ${ref}` : ""
             await execAsync(`git clone --depth 1${branchArg} "${url}" "${pluginDir}"`)
@@ -1286,10 +1286,10 @@ export async function handlePluginAdd(
             }
 
             addedPlugins.push({ name, pluginDir, source, configSource })
-            console.log(styleText("green", `✓ Added ${name}@${commit.slice(0, 7)}`))
+            console.log(styleText("green", `✓ 已添加 ${name}@${commit.slice(0, 7)}`))
           }
         } catch (error) {
-          console.log(styleText("red", `✗ Failed to add ${formatSource(source)}: ${error}`))
+          console.log(styleText("red", `✗ 添加 ${formatSource(source)} 失败：${error}`))
         }
       },
     )
@@ -1297,11 +1297,11 @@ export async function handlePluginAdd(
 
   if (addedPlugins.length > 0) {
     console.log()
-    console.log(styleText("cyan", "→ Building plugins..."))
+    console.log(styleText("cyan", "→ 正在构建插件..."))
     const concurrency = resolvedConcurrency
     await runParallel(addedPlugins, concurrency, async ({ name, pluginDir }) => {
       const ok = await buildPluginAsync(pluginDir, name)
-      if (ok) console.log(styleText("green", `  ✓ ${name} built`))
+      if (ok) console.log(styleText("green", `  ✓ ${name} 已构建`))
       return ok
     })
     await regeneratePluginIndex()
@@ -1336,13 +1336,13 @@ export async function handlePluginAdd(
     writePluginsJson(pluginsJson)
   }
   console.log()
-  console.log(styleText("gray", "Updated quartz.lock.json"))
+  console.log(styleText("gray", "已更新 quartz.lock.json"))
 }
 
 export async function handlePluginRemove(names) {
   const lockfile = readLockfile()
   if (!lockfile) {
-    console.log(styleText("yellow", "⚠ No plugins installed"))
+    console.log(styleText("yellow", "⚠ 尚未安装插件"))
     return
   }
 
@@ -1355,19 +1355,19 @@ export async function handlePluginRemove(names) {
     const pluginDir = path.join(PLUGINS_DIR, lockKey)
 
     if (!lockfile.plugins[lockKey] && !fs.existsSync(pluginDir)) {
-      console.log(styleText("yellow", `⚠ ${name} is not installed`))
+      console.log(styleText("yellow", `⚠ ${name} 尚未安装`))
       continue
     }
 
     const displayName = lockKey !== name ? `${name} (${lockKey})` : name
-    console.log(styleText("cyan", `→ Removing ${displayName}...`))
+    console.log(styleText("cyan", `→ 正在移除 ${displayName}...`))
 
     if (fs.existsSync(pluginDir)) {
       fs.rmSync(pluginDir, { recursive: true })
     }
 
     delete lockfile.plugins[lockKey]
-    console.log(styleText("green", `✓ Removed ${displayName}`))
+    console.log(styleText("green", `✓ 已移除 ${displayName}`))
     removed = true
   }
 
@@ -1386,13 +1386,13 @@ export async function handlePluginRemove(names) {
     writePluginsJson(pluginsJson)
   }
   console.log()
-  console.log(styleText("gray", "Updated quartz.lock.json"))
+  console.log(styleText("gray", "已更新 quartz.lock.json"))
 }
 
 export async function handlePluginEnable(names) {
   const json = readPluginsJson()
   if (!json) {
-    console.log(styleText("red", "✗ No quartz.config.yaml found. Cannot enable plugins."))
+    console.log(styleText("red", "✗ 未找到 quartz.config.yaml，无法启用插件。"))
     return
   }
 
@@ -1401,15 +1401,15 @@ export async function handlePluginEnable(names) {
       (e) => extractPluginName(e.source) === name || formatSource(e.source) === name,
     )
     if (!entry) {
-      console.log(styleText("yellow", `⚠ Plugin "${name}" not found in quartz.config.yaml`))
+      console.log(styleText("yellow", `⚠ 在 quartz.config.yaml 中未找到插件 "${name}"`))
       continue
     }
     if (entry.enabled) {
-      console.log(styleText("gray", `✓ ${name} is already enabled`))
+      console.log(styleText("gray", `✓ ${name} 已经启用`))
       continue
     }
     entry.enabled = true
-    console.log(styleText("green", `✓ Enabled ${name}`))
+    console.log(styleText("green", `✓ 已启用 ${name}`))
   }
 
   writePluginsJson(json)
@@ -1418,7 +1418,7 @@ export async function handlePluginEnable(names) {
 export async function handlePluginDisable(names) {
   const json = readPluginsJson()
   if (!json) {
-    console.log(styleText("red", "✗ No quartz.config.yaml found. Cannot disable plugins."))
+    console.log(styleText("red", "✗ 未找到 quartz.config.yaml，无法禁用插件。"))
     return
   }
 
@@ -1427,15 +1427,15 @@ export async function handlePluginDisable(names) {
       (e) => extractPluginName(e.source) === name || formatSource(e.source) === name,
     )
     if (!entry) {
-      console.log(styleText("yellow", `⚠ Plugin "${name}" not found in quartz.config.yaml`))
+      console.log(styleText("yellow", `⚠ 在 quartz.config.yaml 中未找到插件 "${name}"`))
       continue
     }
     if (!entry.enabled) {
-      console.log(styleText("gray", `✓ ${name} is already disabled`))
+      console.log(styleText("gray", `✓ ${name} 已经禁用`))
       continue
     }
     entry.enabled = false
-    console.log(styleText("green", `✓ Disabled ${name}`))
+    console.log(styleText("green", `✓ 已禁用 ${name}`))
   }
 
   writePluginsJson(json)
@@ -1444,7 +1444,7 @@ export async function handlePluginDisable(names) {
 export async function handlePluginConfig(name, options = {}) {
   const json = readPluginsJson()
   if (!json) {
-    console.log(styleText("red", "✗ No quartz.config.yaml found."))
+    console.log(styleText("red", "✗ 未找到 quartz.config.yaml。"))
     return
   }
 
@@ -1452,14 +1452,14 @@ export async function handlePluginConfig(name, options = {}) {
     (e) => extractPluginName(e.source) === name || formatSource(e.source) === name,
   )
   if (!entry) {
-    console.log(styleText("red", `✗ Plugin "${name}" not found in quartz.config.yaml`))
+    console.log(styleText("red", `✗ 在 quartz.config.yaml 中未找到插件 "${name}"`))
     return
   }
 
   if (options.set) {
     const eqIndex = options.set.indexOf("=")
     if (eqIndex === -1) {
-      console.log(styleText("red", "✗ Invalid format. Use: --set key=value"))
+      console.log(styleText("red", "✗ 格式无效。请使用：--set key=value"))
       return
     }
     const key = options.set.slice(0, eqIndex)
@@ -1472,22 +1472,22 @@ export async function handlePluginConfig(name, options = {}) {
     if (!entry.options) entry.options = {}
     entry.options[key] = value
     writePluginsJson(json)
-    console.log(styleText("green", `✓ Set ${name}.${key} = ${JSON.stringify(value)}`))
+    console.log(styleText("green", `✓ 已设置 ${name}.${key} = ${JSON.stringify(value)}`))
   } else {
-    console.log(styleText("bold", `Plugin: ${name}`))
-    console.log(`  Source: ${formatSource(entry.source)}`)
-    console.log(`  Enabled: ${entry.enabled}`)
-    console.log(`  Order: ${entry.order ?? 50}`)
+    console.log(styleText("bold", `插件：${name}`))
+    console.log(`  来源：${formatSource(entry.source)}`)
+    console.log(`  已启用：${entry.enabled}`)
+    console.log(`  顺序：${entry.order ?? 50}`)
     if (entry.options && Object.keys(entry.options).length > 0) {
-      console.log(`  Options:`)
+      console.log(`  选项：`)
       for (const [k, v] of Object.entries(entry.options)) {
         console.log(`    ${k}: ${JSON.stringify(v)}`)
       }
     } else {
-      console.log(`  Options: (none)`)
+      console.log(`  选项：（无）`)
     }
     if (entry.layout) {
-      console.log(`  Layout:`)
+      console.log(`  布局：`)
       for (const [k, v] of Object.entries(entry.layout)) {
         console.log(`    ${k}: ${JSON.stringify(v)}`)
       }
@@ -1506,14 +1506,14 @@ export async function handlePluginUpdate(names) {
 export async function handlePluginList() {
   const lockfile = readLockfile()
   if (!lockfile || Object.keys(lockfile.plugins).length === 0) {
-    console.log(styleText("gray", "No plugins installed"))
+    console.log(styleText("gray", "尚未安装插件"))
     return
   }
 
   const pluginsJson = readPluginsJson()
   const nameOverrides = getNameOverrides(lockfile, pluginsJson)
 
-  console.log(styleText("bold", "Installed Plugins:"))
+  console.log(styleText("bold", "已安装的插件："))
   console.log()
 
   for (const [name, entry] of Object.entries(lockfile.plugins)) {
@@ -1528,10 +1528,10 @@ export async function handlePluginList() {
       const isLinked = exists && fs.lstatSync(pluginDir).isSymbolicLink()
       const status = isLinked ? styleText("green", "✓") : styleText("red", "✗")
       console.log(`  ${status} ${styleText("bold", displayLabel)}`)
-      console.log(`    Source: ${formatSource(entry.source)}`)
-      console.log(`    Type: local symlink`)
-      console.log(`    Target: ${entry.resolved}`)
-      console.log(`    Installed: ${new Date(entry.installedAt).toLocaleDateString()}`)
+      console.log(`    来源：${formatSource(entry.source)}`)
+      console.log(`    类型：本地符号链接`)
+      console.log(`    目标：${entry.resolved}`)
+      console.log(`    安装时间：${new Date(entry.installedAt).toLocaleDateString()}`)
       console.log()
       continue
     }
@@ -1549,12 +1549,12 @@ export async function handlePluginList() {
       : styleText("red", "✗")
 
     console.log(`  ${status} ${styleText("bold", displayLabel)}`)
-    console.log(`    Source: ${formatSource(entry.source)}`)
-    console.log(`    Commit: ${entry.commit.slice(0, 7)}`)
+    console.log(`    来源：${formatSource(entry.source)}`)
+    console.log(`    提交：${entry.commit.slice(0, 7)}`)
     if (currentCommit !== entry.commit && exists) {
-      console.log(`    Current: ${currentCommit.slice(0, 7)} (modified)`)
+      console.log(`    当前：${currentCommit.slice(0, 7)}（已修改）`)
     }
-    console.log(`    Installed: ${new Date(entry.installedAt).toLocaleDateString()}`)
+    console.log(`    安装时间：${new Date(entry.installedAt).toLocaleDateString()}`)
     console.log()
   }
 }
@@ -1562,7 +1562,7 @@ export async function handlePluginList() {
 export async function handlePluginStatus() {
   const lockfile = readLockfile()
   if (!lockfile || Object.keys(lockfile.plugins).length === 0) {
-    console.log(styleText("gray", "No plugins installed"))
+    console.log(styleText("gray", "尚未安装插件"))
     return
   }
 
@@ -1593,9 +1593,9 @@ export async function handlePluginStatus() {
     Math.max(
       "— local".length,
       "⋯".length,
-      "✓ up to date".length,
-      "↑ update available".length,
-      "✗ check failed".length,
+      "✓ 已是最新".length,
+      "↑ 有可用更新".length,
+      "✗ 检查失败".length,
     ) + 2
 
   const formatRow = (row, updateLabel, updateText) => {
@@ -1616,11 +1616,11 @@ export async function handlePluginStatus() {
       case "local":
         return { text: "— local", label: styleText("gray", "— local") }
       case "up_to_date":
-        return { text: "✓ up to date", label: styleText("green", "✓ up to date") }
+        return { text: "✓ 已是最新", label: styleText("green", "✓ 已是最新") }
       case "update_available":
-        return { text: "↑ update available", label: styleText("yellow", "↑ update available") }
+        return { text: "↑ 有可用更新", label: styleText("yellow", "↑ 有可用更新") }
       case "failed":
-        return { text: "✗ check failed", label: styleText("red", "✗ check failed") }
+        return { text: "✗ 检查失败", label: styleText("red", "✗ 检查失败") }
       default:
         return { text: "⋯", label: styleText("cyan", "⋯") }
     }
@@ -1637,7 +1637,7 @@ export async function handlePluginStatus() {
   }
 
   if (isTTY) {
-    console.log(styleText("bold", "Installed Plugins:"))
+    console.log(styleText("bold", "已安装的插件："))
     console.log()
     for (const row of rows) {
       const display =
@@ -1680,7 +1680,7 @@ export async function handlePluginStatus() {
     .map((result) => result.name)
 
   if (!isTTY) {
-    console.log(styleText("bold", "Installed Plugins:"))
+    console.log(styleText("bold", "已安装的插件："))
     console.log()
     for (const result of results) {
       const row = rows[result.index]
@@ -1690,17 +1690,17 @@ export async function handlePluginStatus() {
   }
 
   if (updatesAvailable.length === 0 && failedChecks.length === 0) {
-    console.log(styleText("green", "\n✓ All plugins up to date"))
+    console.log(styleText("green", "\n✓ 所有插件均为最新"))
     return
   }
 
   if (updatesAvailable.length > 0) {
-    console.log(styleText("yellow", `\nUpdates available: ${updatesAvailable.join(", ")}`))
-    console.log(styleText("gray", "Run 'npx quartz plugin install --latest' to update."))
+    console.log(styleText("yellow", `\n有可用更新：${updatesAvailable.join(", ")}`))
+    console.log(styleText("gray", "运行 'npx quartz plugin install --latest' 进行更新。"))
   }
 
   if (failedChecks.length > 0) {
-    console.log(styleText("red", `\nChecks failed: ${failedChecks.join(", ")}`))
+    console.log(styleText("red", `\n检查失败：${failedChecks.join(", ")}`))
   }
 }
 
@@ -1711,7 +1711,7 @@ export async function handlePluginRestore() {
 export async function handlePluginPrune({ dryRun = false } = {}) {
   const lockfile = readLockfile()
   if (!lockfile || Object.keys(lockfile.plugins).length === 0) {
-    console.log(styleText("gray", "No plugins installed"))
+    console.log(styleText("gray", "尚未安装插件"))
     return
   }
 
@@ -1723,18 +1723,18 @@ export async function handlePluginPrune({ dryRun = false } = {}) {
   const orphans = Object.keys(lockfile.plugins).filter((name) => !configuredNames.has(name))
 
   if (orphans.length === 0) {
-    console.log(styleText("green", "✓ No orphaned plugins found — nothing to prune"))
+    console.log(styleText("green", "✓ 未发现孤立插件，无需清理"))
     return
   }
 
-  console.log(`Found ${orphans.length} orphaned plugin(s):\n`)
+  console.log(`发现 ${orphans.length} 个孤立插件：\n`)
   for (const name of orphans) {
-    console.log(`  ${styleText("yellow", name)} — in lockfile but not in config`)
+    console.log(`  ${styleText("yellow", name)} — 存在于锁定文件但不在配置中`)
   }
   console.log()
 
   if (dryRun) {
-    console.log(styleText("cyan", "Dry run — no changes made. Re-run without --dry-run to prune."))
+    console.log(styleText("cyan", "试运行，未做任何更改。去掉 --dry-run 后重新运行即可清理。"))
     return
   }
 
@@ -1742,14 +1742,14 @@ export async function handlePluginPrune({ dryRun = false } = {}) {
   for (const name of orphans) {
     const pluginDir = path.join(PLUGINS_DIR, name)
 
-    console.log(styleText("cyan", `→ Removing ${name}...`))
+    console.log(styleText("cyan", `→ 正在移除 ${name}...`))
 
     if (fs.existsSync(pluginDir)) {
       fs.rmSync(pluginDir, { recursive: true })
     }
 
     delete lockfile.plugins[name]
-    console.log(styleText("green", `✓ Removed ${name}`))
+    console.log(styleText("green", `✓ 已移除 ${name}`))
     removed++
   }
 
@@ -1759,8 +1759,8 @@ export async function handlePluginPrune({ dryRun = false } = {}) {
 
   writeLockfile(lockfile)
   console.log()
-  console.log(styleText("green", `✓ Pruned ${removed} plugin(s)`))
-  console.log(styleText("gray", "Updated quartz.lock.json"))
+  console.log(styleText("green", `✓ 已清理 ${removed} 个插件`))
+  console.log(styleText("gray", "已更新 quartz.lock.json"))
 }
 
 export async function handlePluginResolve({ dryRun = false } = {}) {

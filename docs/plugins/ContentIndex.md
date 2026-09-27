@@ -1,6 +1,6 @@
 ---
 title: ContentIndex
-description: Generates sitemap, RSS feed, and content index.
+description: 生成站点地图、RSS 订阅和内容索引。
 tags:
   - plugin/emitter
 image:
@@ -14,9 +14,9 @@ This plugin emits both RSS and an XML sitemap for your site. The [[RSS Feed]] al
 This plugin emits a comprehensive index of the site's content, generating additional resources such as a sitemap, an RSS feed, and a
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `enableSiteMap`: If `true` (default), generates a sitemap XML file (`sitemap.xml`) listing all site URLs for search engines in content discovery.
 - `enableRSS`: If `true` (default), produces an RSS feed (`index.xml`) with recent content updates.
@@ -29,5 +29,5 @@ This plugin accepts the following configuration options:
 
 - Category: Emitter
 - Function name: `ExternalPlugin.ContentIndex()`.
-- Source: [`quartz-community/content-index`](https://github.com/quartz-community/content-index)
-- Install: `npx quartz plugin add github:quartz-community/content-index`
+- 源码： [`quartz-community/content-index`](https://github.com/quartz-community/content-index)
+- 安装： `npx quartz plugin add github:quartz-community/content-index`

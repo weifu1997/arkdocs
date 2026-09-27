@@ -1,13 +1,13 @@
 ---
-title: Configuration
+title: 配置
 ---
 
-Quartz is meant to be extremely configurable, even if you don't know any coding. Most of the configuration you should need can be done by just editing `quartz.config.yaml`.
+即使你不会编程，Quartz 也应当非常容易配置。大多数配置只需编辑 `quartz.config.yaml`。
 
 > [!tip]
-> If you edit `quartz.config.yaml` using a text-editor with YAML language support like VSCode, it will warn you when you've made an error in your configuration, helping you avoid configuration mistakes!
+> 如果你使用带 YAML 语言支持的编辑器（例如 VSCode）编辑 `quartz.config.yaml`，配置出错时会收到提示，有助于避免配置错误。
 
-The configuration of Quartz can be broken down into two main parts:
+Quartz 的配置可以分为两个主要部分：
 
 ```yaml title="quartz.config.yaml"
 configuration:
@@ -19,9 +19,9 @@ plugins:
     # ... plugin entries
 ```
 
-## General Configuration
+## 通用配置
 
-This part of the configuration concerns anything that can affect the whole site. The following is a list breaking down all the things you can configure:
+这部分配置会影响整个站点。下面列出你可以配置的内容：
 
 - `pageTitle`: title of the site. This is also used when generating the [[RSS Feed]] for your site.
 - `pageTitleSuffix`: a string added to the end of the page title. This only applies to the browser tab title, not the title shown at the top of the page.

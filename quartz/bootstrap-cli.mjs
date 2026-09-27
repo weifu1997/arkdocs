@@ -2,8 +2,8 @@
 const [major] = process.versions.node.split(".").map(Number)
 if (major < 22) {
   console.error(
-    `\nQuartz requires Node.js >= 22, but you are running Node.js ${process.version}.\n` +
-      `Please upgrade: https://nodejs.org/\n`,
+    `\nQuartz 需要 Node.js >= 22，当前版本为 Node.js ${process.version}。\n` +
+      `请升级：https://nodejs.org/\n`,
   )
   process.exit(1)
 }
@@ -39,7 +39,7 @@ async function launchTui() {
 
   if (!existsSync(tuiPath)) {
     console.error(
-      "TUI plugin not installed. Install with:\n" +
+      "尚未安装 TUI 插件。请执行：\n" +
         "  npx quartz plugin add @quartz-community/tui\n",
     )
     process.exit(1)
@@ -55,8 +55,8 @@ async function launchTui() {
     child.on("error", (err) => {
       if (err.code === "ENOENT") {
         console.error(
-          "Error: Bun runtime not found. The TUI requires Bun to run.\n" +
-            "Install Bun: https://bun.sh/docs/installation",
+          "错误：未找到 Bun 运行时。TUI 需要 Bun 才能运行。\n" +
+            "安装 Bun：https://bun.sh/docs/installation",
         )
       }
       reject(err)
@@ -66,7 +66,7 @@ async function launchTui() {
       if (code === 0) {
         resolve()
       } else {
-        reject(new Error(`TUI exited with code ${code}`))
+        reject(new Error(`TUI 以退出码 ${code} 结束`))
       }
     })
   })
@@ -76,12 +76,12 @@ yargs(hideBin(process.argv))
   .scriptName("quartz")
   .version(version)
   .usage("$0 <cmd> [args]")
-  .command("create", "Initialize Quartz", CreateArgv, async (argv) => {
+  .command("create", "初始化 Quartz", CreateArgv, async (argv) => {
     await handleCreate(argv)
   })
   .command(
     ["upgrade", "update"],
-    "Upgrade Quartz to the latest version",
+    "将 Quartz 升级到最新版本",
     CommonArgv,
     async (argv) => {
       await handleUpgrade(argv)
@@ -89,51 +89,51 @@ yargs(hideBin(process.argv))
   )
   .command(
     "restore",
-    "Try to restore your content folder from the cache",
+    "尝试从缓存恢复内容目录",
     CommonArgv,
     async (argv) => {
       await handleRestore(argv)
     },
   )
-  .command("sync", "Sync your Quartz to and from GitHub.", SyncArgv, async (argv) => {
+  .command("sync", "在本地与 GitHub 之间同步 Quartz", SyncArgv, async (argv) => {
     await handleSync(argv)
   })
-  .command("build", "Build Quartz into a bundle of static HTML files", BuildArgv, async (argv) => {
+  .command("build", "将 Quartz 构建为静态 HTML 文件", BuildArgv, async (argv) => {
     await handleBuild(argv)
   })
-  .command("tui", "Launch interactive plugin manager", CommonArgv, async () => {
+  .command("tui", "启动交互式插件管理器", CommonArgv, async () => {
     await launchTui()
   })
   .command(
     "plugin [subcommand]",
-    "Manage Quartz plugins",
+    "管理 Quartz 插件",
     (yargs) => {
       return (
         yargs
           .command(
             "install [names..]",
-            "Install plugins from lockfile or config",
+            "从锁定文件或配置安装插件",
             {
               ...CommonArgv,
               "from-config": {
                 boolean: true,
                 default: false,
-                describe: "install plugins referenced in quartz.config.yaml instead of lockfile",
+                describe: "安装 quartz.config.yaml 中引用的插件，而不是锁定文件中的插件",
               },
               latest: {
                 boolean: true,
                 default: false,
-                describe: "fetch latest version from remote instead of pinned lockfile commit",
+                describe: "从远程获取最新版本，而不是锁定文件中固定的提交",
               },
               clean: {
                 boolean: true,
                 default: false,
-                describe: "skip plugins whose directory already exists",
+                describe: "跳过目录已存在的插件",
               },
               "dry-run": {
                 boolean: true,
                 default: false,
-                describe: "show what would happen without making changes",
+                describe: "仅显示将要执行的操作，不实际修改",
               },
             },
             async (argv) => {
@@ -149,17 +149,17 @@ yargs(hideBin(process.argv))
           )
           .command(
             "add <repos..>",
-            "Add plugins from Git repositories",
+            "从 Git 仓库添加插件",
             {
               ...CommonArgv,
               name: {
                 string: true,
                 alias: ["as"],
-                describe: "Override the plugin name (for resolving conflicts with duplicate names)",
+                describe: "覆盖插件名称（用于解决重名冲突）",
               },
               subdir: {
                 string: true,
-                describe: "Subdirectory within the repository containing the plugin",
+                describe: "仓库中包含插件的子目录",
               },
             },
             async (argv) => {
@@ -170,15 +170,15 @@ yargs(hideBin(process.argv))
               })
             },
           )
-          .command("remove <names..>", "Remove installed plugins", CommonArgv, async (argv) => {
+          .command("remove <names..>", "移除已安装的插件", CommonArgv, async (argv) => {
             await handlePluginRemove(argv.names)
           })
-          .command("list", "List all installed plugins", CommonArgv, async () => {
+          .command("list", "列出所有已安装的插件", CommonArgv, async () => {
             await handlePluginList()
           })
           .command(
             "enable <names..>",
-            "Enable plugins in quartz.config.yaml",
+            "在 quartz.config.yaml 中启用插件",
             CommonArgv,
             async (argv) => {
               await handlePluginEnable(argv.names)
@@ -186,7 +186,7 @@ yargs(hideBin(process.argv))
           )
           .command(
             "disable <names..>",
-            "Disable plugins in quartz.config.yaml",
+            "在 quartz.config.yaml 中禁用插件",
             CommonArgv,
             async (argv) => {
               await handlePluginDisable(argv.names)
@@ -194,12 +194,12 @@ yargs(hideBin(process.argv))
           )
           .command(
             "config <name>",
-            "View or set plugin configuration",
+            "查看或设置插件配置",
             {
               ...CommonArgv,
               set: {
                 string: true,
-                describe: "Set a config value (key=value)",
+                describe: "设置配置项（key=value）",
               },
             },
             async (argv) => {
@@ -208,13 +208,13 @@ yargs(hideBin(process.argv))
           )
           .command(
             "prune",
-            "Remove installed plugins no longer referenced in config",
+            "移除配置中不再引用的已安装插件",
             {
               ...CommonArgv,
               "dry-run": {
                 boolean: true,
                 default: false,
-                describe: "show what would be pruned without making changes",
+                describe: "仅显示将要清理的内容，不实际修改",
               },
             },
             async (argv) => {
@@ -224,13 +224,13 @@ yargs(hideBin(process.argv))
           // Hidden deprecated aliases
           .command("restore", false, CommonArgv, async (argv) => {
             console.log(
-              "\x1b[33m⚠ 'plugin restore' is deprecated. Use 'plugin install --clean' instead.\x1b[0m",
+              "\x1b[33m⚠ 'plugin restore' 已弃用。请改用 'plugin install --clean'。\x1b[0m",
             )
             await handlePluginInstallUnified({ clean: true, concurrency: argv.concurrency })
           })
           .command("update [names..]", false, CommonArgv, async (argv) => {
             console.log(
-              "\x1b[33m⚠ 'plugin update' is deprecated. Use 'plugin install --latest' instead.\x1b[0m",
+              "\x1b[33m⚠ 'plugin update' 已弃用。请改用 'plugin install --latest'。\x1b[0m",
             )
             await handlePluginInstallUnified({
               names: argv.names?.length ? argv.names : undefined,
@@ -240,7 +240,7 @@ yargs(hideBin(process.argv))
           })
           .command("check", false, CommonArgv, async (argv) => {
             console.log(
-              "\x1b[33m⚠ 'plugin check' is deprecated. Use 'plugin install --latest --dry-run' instead.\x1b[0m",
+              "\x1b[33m⚠ 'plugin check' 已弃用。请改用 'plugin install --latest --dry-run'。\x1b[0m",
             )
             await handlePluginInstallUnified({
               latest: true,
@@ -256,12 +256,12 @@ yargs(hideBin(process.argv))
               "dry-run": {
                 boolean: true,
                 default: false,
-                describe: "show what would be resolved without making changes",
+                describe: "仅显示将要解析的内容，不实际修改",
               },
             },
             async (argv) => {
               console.log(
-                "\x1b[33m⚠ 'plugin resolve' is deprecated. Use 'plugin install --from-config' instead.\x1b[0m",
+                "\x1b[33m⚠ 'plugin resolve' 已弃用。请改用 'plugin install --from-config'。\x1b[0m",
               )
               await handlePluginInstallUnified({
                 fromConfig: true,
@@ -280,5 +280,9 @@ yargs(hideBin(process.argv))
   )
   .showHelpOnFail(true)
   .help()
+  .updateStrings({
+    "Show version number": "显示版本号",
+    "Show help": "显示帮助",
+  })
   .strict()
   .demandCommand().argv

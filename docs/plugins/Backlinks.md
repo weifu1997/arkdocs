@@ -1,6 +1,6 @@
 ---
 title: Backlinks
-description: Shows pages that link to the current page.
+description: 显示链接到当前页面的页面。
 tags:
   - plugin/component
 image:
@@ -12,17 +12,17 @@ required: false
 Shows pages that link to the current page.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[plugins/Backlinks]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `hideWhenEmpty`: Hide the backlinks section if the current page has no backlinks. Defaults to `true`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/backlinks
@@ -35,5 +35,5 @@ This plugin accepts the following configuration options:
 
 - Category: Component
 - Function name: `ExternalPlugin.Backlinks()`.
-- Source: [`quartz-community/backlinks`](https://github.com/quartz-community/backlinks)
-- Install: `npx quartz plugin add github:quartz-community/backlinks`
+- 源码： [`quartz-community/backlinks`](https://github.com/quartz-community/backlinks)
+- 安装： `npx quartz plugin add github:quartz-community/backlinks`

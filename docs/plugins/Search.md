@@ -1,6 +1,6 @@
 ---
 title: Search
-description: Full-text search with tag filtering and keyboard navigation.
+description: 支持标签筛选和键盘导航的全文搜索。
 tags:
   - plugin/component
 image: https://images.unsplash.com/photo-1516382799247-87df95d790b7
@@ -12,18 +12,18 @@ required: false
 Full-text search functionality.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[full-text search]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `enablePreview`: Whether to show a preview of the page content in search results. Defaults to `true`.
 - `fieldPriority`: An array specifying the priority order for search fields. Defaults to `["title", "content", "tags"]`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/search
@@ -40,5 +40,5 @@ This plugin accepts the following configuration options:
 
 - Category: Component
 - Function name: `ExternalPlugin.Search()`.
-- Source: [`quartz-community/search`](https://github.com/quartz-community/search)
-- Install: `npx quartz plugin add github:quartz-community/search`
+- 源码： [`quartz-community/search`](https://github.com/quartz-community/search)
+- 安装： `npx quartz plugin add github:quartz-community/search`

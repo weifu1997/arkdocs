@@ -1,5 +1,5 @@
 ---
-title: "Breadcrumbs"
+title: 面包屑导航
 tags:
   - component
 ---
@@ -9,9 +9,9 @@ Breadcrumbs provide a way to navigate a hierarchy of pages within your site usin
 By default, the element at the very top of your page is the breadcrumb navigation bar (can also be seen at the top on this page!).
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-## Customization
+## 自定义
 
 Most configuration can be done via the `options` section of the breadcrumbs plugin entry in `quartz.config.yaml`.
 
@@ -50,5 +50,5 @@ You can also adjust where the breadcrumbs will be displayed by changing the `lay
 Want to customize it even more?
 
 - Removing breadcrumbs: remove the `breadcrumbs` entry from `quartz.config.yaml` or set `enabled: false`.
-- Install: `npx quartz plugin add github:quartz-community/breadcrumbs`
-- Source: [`quartz-community/breadcrumbs`](https://github.com/quartz-community/breadcrumbs)
+- 安装： `npx quartz plugin add github:quartz-community/breadcrumbs`
+- 源码： [`quartz-community/breadcrumbs`](https://github.com/quartz-community/breadcrumbs)

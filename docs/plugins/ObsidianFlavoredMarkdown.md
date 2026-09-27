@@ -1,6 +1,6 @@
 ---
 title: ObsidianFlavoredMarkdown
-description: Obsidian-specific Markdown extensions (wikilinks, callouts, highlights, tags, embeds).
+description: Obsidian 专属 Markdown 扩展（双链、标注、高亮、标签等）。
 tags:
   - plugin/transformer
 image:
@@ -12,9 +12,9 @@ required: false
 This plugin provides support for [[Obsidian compatibility]].
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `comments`: If `true` (default), enables parsing of `%%` style Obsidian comment blocks.
 - `highlight`: If `true` (default), enables parsing of `==` style highlights within content.
@@ -40,5 +40,5 @@ This plugin accepts the following configuration options:
 
 - Category: Transformer
 - Function name: `ExternalPlugin.ObsidianFlavoredMarkdown()`.
-- Source: [`quartz-community/obsidian-flavored-markdown`](https://github.com/quartz-community/obsidian-flavored-markdown)
-- Install: `npx quartz plugin add github:quartz-community/obsidian-flavored-markdown`
+- 源码： [`quartz-community/obsidian-flavored-markdown`](https://github.com/quartz-community/obsidian-flavored-markdown)
+- 安装： `npx quartz plugin add github:quartz-community/obsidian-flavored-markdown`

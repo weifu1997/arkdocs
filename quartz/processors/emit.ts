@@ -40,7 +40,7 @@ async function runEmitter(
       }
     }
   } catch (err) {
-    trace(`Failed to emit from plugin \`${emitter.name}\``, err as Error)
+    trace(`插件 \`${emitter.name}\` 输出失败`, err as Error)
   }
   return count
 }
@@ -50,7 +50,7 @@ export async function emitContent(ctx: BuildCtx, content: ProcessedContent[]) {
   const perf = new PerfTimer()
   const log = new QuartzLogger(ctx.argv.verbose)
 
-  log.start(`Emitting files`)
+  log.start(`正在输出文件`)
 
   let emittedFiles = 0
   const staticResources = getStaticResourcesFromPlugins(ctx)
@@ -83,7 +83,7 @@ export async function emitContent(ctx: BuildCtx, content: ProcessedContent[]) {
     otherEmitters.map((emitter) =>
       runEmitter(emitter, ctx, contentWithVirtual, staticResources, log).catch((err) => {
         emitErrors++
-        console.error(`Emitter "${emitter.name}" failed:`, err.message ?? err)
+        console.error(`生成器 "${emitter.name}" 失败：`, err.message ?? err)
         return 0
       }),
     ),
@@ -92,9 +92,9 @@ export async function emitContent(ctx: BuildCtx, content: ProcessedContent[]) {
 
   if (emitErrors > 0) {
     console.warn(
-      `\nBuild completed with ${emitErrors} emitter failure(s). Output may be incomplete.`,
+      `\n构建完成，但有 ${emitErrors} 个生成器失败。输出可能不完整。`,
     )
   }
 
-  log.end(`Emitted ${emittedFiles} files to \`${argv.output}\` in ${perf.timeSince()}`)
+  log.end(`已在 ${perf.timeSince()} 内将 ${emittedFiles} 个文件输出到 \`${argv.output}\``)
 }

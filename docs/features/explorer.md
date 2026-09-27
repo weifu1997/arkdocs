@@ -1,5 +1,5 @@
 ---
-title: "Explorer"
+title: 文件浏览
 tags:
   - component
 ---
@@ -9,7 +9,7 @@ Quartz features an explorer that allows you to navigate all files and folders on
 > [!info]
 > The Explorer is now a community plugin. This demonstrates how external plugins can extend Quartz functionality while serving as a reference implementation for plugin developers.
 
-## Installation
+## 安装
 
 The Explorer is available as a community plugin from GitHub:
 
@@ -28,7 +28,7 @@ plugins:
       priority: 50
 ```
 
-## Features
+## 功能
 
 By default, it shows all folders and files on your page. To display the explorer in a different spot, you can edit the [[layout]].
 
@@ -39,7 +39,7 @@ Display names for folders get determined by the `title` frontmatter field in `fo
 >
 > To clear/delete the explorer state from local storage, delete the `fileTree` entry (guide on how to delete a key from local storage in chromium based browsers can be found [here](https://docs.devolutions.net/kb/general-knowledge-base/clear-browser-local-storage/clear-chrome-local-storage/)). You can disable this by passing `useSavedState: false` as an argument.
 
-## Customization
+## 自定义
 
 Most configuration can be done by passing in options to `Explorer()`.
 

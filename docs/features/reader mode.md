@@ -1,17 +1,17 @@
 ---
-title: Reader Mode
+title: 阅读模式
 tags:
   - component
 ---
 
-Reader Mode is a feature that allows users to focus on the content by hiding the sidebars and other UI elements. When enabled, it provides a clean, distraction-free reading experience.
+阅读模式会隐藏侧边栏和其他界面元素，帮助用户把注意力集中在内容上。启用后，可以获得更干净、更少干扰的阅读体验。
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-## Configuration
+## 配置
 
-Reader Mode is enabled by default. To disable it, set `enabled: false` in your `quartz.config.yaml`:
+阅读模式默认启用。要禁用它，请在 `quartz.config.yaml` 中设置 `enabled: false`：
 
 ```yaml title="quartz.config.yaml"
 plugins:
@@ -19,27 +19,27 @@ plugins:
     enabled: false
 ```
 
-Or remove the plugin entirely:
+或者完全移除该插件：
 
 ```bash
 npx quartz plugin remove github:quartz-community/reader-mode
 ```
 
-- Install: `npx quartz plugin add github:quartz-community/reader-mode`
-- Source: [`quartz-community/reader-mode`](https://github.com/quartz-community/reader-mode)
+- 安装： `npx quartz plugin add github:quartz-community/reader-mode`
+- 源码： [`quartz-community/reader-mode`](https://github.com/quartz-community/reader-mode)
 
-## Usage
+## 用法
 
-The Reader Mode toggle appears as a button with a book icon. When clicked:
+阅读模式切换按钮带有书籍图标。点击后：
 
-- Sidebars are hidden
-- Hovering over the content area reveals the sidebars temporarily
+- 侧边栏会被隐藏
+- 将鼠标悬停在内容区域上时，会暂时显示侧边栏
 
-Unlike Dark Mode, Reader Mode state is not persisted between page reloads but is maintained during SPA navigation within the site.
+与深色模式不同，阅读模式的状态不会在页面重新加载后保留，但会在站点内的 SPA 导航期间保持。
 
-## Customization
+## 自定义
 
-You can customize the appearance of Reader Mode through CSS variables and styles. The component uses the following classes:
+你可以通过 CSS 变量和样式自定义阅读模式的外观。该组件使用以下类：
 
 - `.readermode`: The toggle button
 - `.readerIcon`: The book icon

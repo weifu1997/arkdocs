@@ -1,39 +1,39 @@
 ---
-title: "What's New in Quartz 5"
+title: "Quartz 5 的新变化"
 aliases:
   - "changelog"
   - "v5"
 ---
 
-Quartz 5 is a ground-up rearchitecture of Quartz focused on extensibility, performance, and Obsidian compatibility. If you're coming from v4, see [[migrating|Migrating to Quartz 5]] for the upgrade path.
+Quartz 5 是一次从底层开始的重构，重点提升可扩展性、性能和对 Obsidian 的兼容。如果你来自 v4，升级路径见 [[migrating|迁移到 Quartz 5]]。
 
-## Plugin Ecosystem
+## 插件生态
 
-The biggest change in v5 is the move to a **community plugin ecosystem**. Plugins are now standalone packages maintained in the [quartz-community](https://github.com/quartz-community) GitHub organization and installed via git:
+v5 最大的变化是转向 **社区插件生态**。插件现在是独立软件包，由 [quartz-community](https://github.com/quartz-community) GitHub 组织维护，并通过 git 安装：
 
 ```bash
 npx quartz plugin add github:quartz-community/explorer
 ```
 
-This means:
+这意味着：
 
-- **Independent versioning**: Plugins can be updated without upgrading Quartz itself
-- **Community contributions**: Anyone can publish a Quartz plugin
-- **Smaller core**: Quartz core is leaner; features live in plugins
-- **Plugin registry**: Discover plugins via `npx quartz tui` or the [plugin registry](https://github.com/quartz-community/registry)
+- **独立版本管理**：可以在不升级 Quartz 本身的情况下更新插件
+- **社区贡献**：任何人都可以发布 Quartz 插件
+- **更精简的核心**：Quartz 核心更轻量，功能放在插件中
+- **插件注册表**：可通过 `npx quartz tui` 或[插件注册表](https://github.com/quartz-community/registry)发现插件
 
-Over 40 official plugins ship with Quartz, covering everything from search and graph view to encrypted pages and canvas rendering.
+Quartz 附带 40 多个官方插件，覆盖搜索、关系图谱、加密页面和 Canvas 渲染等功能。
 
-## YAML Configuration
+## YAML 配置
 
-Configuration moved from TypeScript (`quartz.config.ts`) to **YAML** (`quartz.config.yaml`):
+配置已从 TypeScript（`quartz.config.ts`）改为 **YAML**（`quartz.config.yaml`）：
 
 ```yaml title="quartz.config.yaml"
 configuration:
   pageTitle: My Digital Garden
   enableSPA: true
   enablePopovers: true
-  locale: en-US
+  locale: zh-CN
   baseUrl: mysite.github.io
   theme:
     typography:

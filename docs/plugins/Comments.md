@@ -1,6 +1,6 @@
 ---
 title: Comments
-description: Comment system integration (Giscus, Utterances, etc.).
+description: 评论系统集成（Giscus、Utterances 等）。
 tags:
   - plugin/component
 image: "[[giscus-results.png]]"
@@ -12,13 +12,13 @@ required: false
 Comment system (giscus, utterances, etc.).
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[plugins/Comments]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `provider`: The comment provider to use. Currently only `giscus` is supported.
 - `options`: Provider-specific options.
@@ -35,7 +35,7 @@ This plugin accepts the following configuration options:
   - `reactionsEnabled`: Whether to enable reactions for the main post. Defaults to `true`.
   - `inputPosition`: Where to put the comment input box relative to the comments. Defaults to `bottom`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/comments
@@ -54,5 +54,5 @@ This plugin accepts the following configuration options:
 
 - Category: Component
 - Function name: `ExternalPlugin.Comments()`.
-- Source: [`quartz-community/comments`](https://github.com/quartz-community/comments)
-- Install: `npx quartz plugin add github:quartz-community/comments`
+- 源码： [`quartz-community/comments`](https://github.com/quartz-community/comments)
+- 安装： `npx quartz plugin add github:quartz-community/comments`

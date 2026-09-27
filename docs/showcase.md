@@ -1,8 +1,8 @@
 ---
-title: "Quartz Showcase"
+title: "Quartz 展示"
 ---
 
-Want to see what Quartz can do? Here are some cool community gardens:
+想看看 Quartz 能做什么？下面是一些不错的社区花园：
 
 - [Quartz Documentation (this site!)](https://quartz.jzhao.xyz/)
 - [Jacky Zhao's Garden](https://jzhao.xyz/)

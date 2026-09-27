@@ -58,26 +58,26 @@ export function formatCollisionWarning(collisions: SlugCollision[]): string {
   const lines: string[] = []
   const header =
     collisions.length === 1
-      ? `Warning: 1 slug collision detected.`
-      : `Warning: ${collisions.length} slug collisions detected.`
+      ? `警告：检测到 1 处 slug 冲突。`
+      : `警告：检测到 ${collisions.length} 处 slug 冲突。`
   lines.push(header)
   lines.push(
-    `Multiple source files produced the same URL slug. The last-processed file wins; the others are shadowed and their content will not appear in the output.`,
+    `多个源文件生成了相同的 URL slug。后处理的文件会覆盖先处理的文件，被覆盖的内容不会出现在输出中。`,
   )
   lines.push("")
 
   for (const collision of collisions) {
     lines.push(`  slug \`${collision.slug}\``)
     for (const file of collision.files) {
-      const marker = file === collision.winner ? "(used for this URL)" : "(shadowed)"
-      const path = file.relativePath || file.filePath || "(unknown source)"
+      const marker = file === collision.winner ? "（用于此 URL）" : "（被覆盖）"
+      const path = file.relativePath || file.filePath || "（未知来源）"
       lines.push(`    - ${path} ${marker}`)
     }
     lines.push("")
   }
 
   lines.push(
-    `To resolve, rename or delete all but one file per collided slug. This may include files using the Obsidian "Folder Notes" convention (\`folder/folder.md\`) that collide with an existing \`folder/index.md\`.`,
+    `要解决冲突，请为每个冲突的 slug 只保留一个文件，其余文件请重命名或删除。这可能包括使用 Obsidian「文件夹笔记」约定（\`folder/folder.md\`）且与已有 \`folder/index.md\` 冲突的文件。`,
   )
 
   return lines.join("\n")

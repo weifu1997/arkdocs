@@ -1,14 +1,14 @@
 # Quartz v5
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+> 「开着门工作的人会不断被打断，但偶尔也能因此看清世界是什么样的，以及什么才真正重要。」 — Richard Hamming
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+Quartz 是一套工具，可以帮助你免费将[数字花园](https://jzhao.xyz/posts/networked-thought)和笔记发布为网站。
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+🔗 阅读文档并开始使用：https://quartz.jzhao.xyz/
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+[加入 Discord 社区](https://discord.gg/cRFFHYye7t)
 
-## Sponsors
+## 赞助者
 
 <p align="center">
   <a href="https://github.com/sponsors/jackyzha0">

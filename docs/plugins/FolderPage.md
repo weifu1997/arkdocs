@@ -1,6 +1,6 @@
 ---
 title: FolderPage
-description: Generates listing pages for folders.
+description: 为文件夹生成列表页面。
 tags:
   - plugin/pageType
 image:
@@ -14,9 +14,9 @@ This plugin is a page type plugin that generates index pages for folders, creati
 Example: [[advanced/|Advanced]]
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `showFolderCount`: Whether to display the number of pages in the folder. Defaults to `true`.
 - `showSubfolders`: Whether to include pages from subfolders in the listing. Defaults to `true`.
@@ -27,5 +27,5 @@ This plugin accepts the following configuration options:
 
 - Category: Page Type
 - Function name: `ExternalPlugin.FolderPage()`.
-- Source: [`quartz-community/folder-page`](https://github.com/quartz-community/folder-page)
-- Install: `npx quartz plugin add github:quartz-community/folder-page`
+- 源码： [`quartz-community/folder-page`](https://github.com/quartz-community/folder-page)
+- 安装： `npx quartz plugin add github:quartz-community/folder-page`

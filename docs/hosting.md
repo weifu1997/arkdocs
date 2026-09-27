@@ -1,19 +1,19 @@
 ---
-title: Hosting
+title: 部署
 ---
 
-Quartz effectively turns your Markdown files and other resources into a bundle of HTML, JS, and CSS files (a website!).
+Quartz 会把 Markdown 文件和其他资源转换成 HTML、JS 和 CSS 文件包（也就是一个网站）。
 
-However, if you'd like to publish your site to the world, you need a way to host it online. This guide will detail how to deploy with common hosting providers but any service that allows you to deploy static HTML should work as well.
+不过，如果你想把站点发布到网上，就需要一种托管方式。本指南会介绍常见托管平台的部署方法；任何支持部署静态 HTML 的服务都可以使用。
 
 > [!warning]
-> The rest of this guide assumes that you've already created your own GitHub repository for Quartz. If you haven't already, follow the [[installation#Setting Up Your GitHub Repository|GitHub repository setup]] section of the installation guide.
+> 本指南后续内容默认你已经为 Quartz 创建了自己的 GitHub 仓库。如果还没有，请先按照安装指南中的 [[installation#设置 GitHub 仓库|GitHub 仓库设置]] 操作。
 
 > [!hint]
-> Some Quartz features (like [[RSS Feed]] and sitemap generation) require `baseUrl` to be configured properly in your [[configuration]] to work properly. Make sure you set this before deploying!
+> 部分 Quartz 功能（例如 [[RSS Feed|RSS 订阅]] 和站点地图生成）需要在 [[configuration|配置]] 中正确设置 `baseUrl` 才能正常工作。部署前请先设置该项。
 
-> [!tip] Keeping plugins in sync
-> All hosting examples below use `npx quartz plugin install` to install plugins from the lockfile. If contributors may add plugins to `quartz.config.yaml` without updating the lockfile, add `npx quartz plugin install --from-config` after `install` in your build command to install any missing plugins. See [[cli/plugin#install|plugin install]] for details.
+> [!tip] 保持插件同步
+> 下面所有托管示例都使用 `npx quartz plugin install` 从锁定文件安装插件。如果贡献者可能只把插件加到 `quartz.config.yaml` 而没有更新锁定文件，请在构建命令的 `install` 之后再加上 `npx quartz plugin install --from-config`，以安装缺失的插件。详见 [[cli/plugin#install|plugin install]]。
 
 ## Cloudflare Pages
 

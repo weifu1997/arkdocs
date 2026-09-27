@@ -1,6 +1,6 @@
 ---
 title: Darkmode
-description: Toggle between light and dark themes.
+description: 在亮色和暗色主题之间切换。
 tags:
   - plugin/component
 image: "#0052cc"
@@ -12,17 +12,17 @@ required: false
 Dark mode toggle.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 See [[plugins/Darkmode]] for detailed usage information.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `enabled`: Whether to enable the dark mode toggle. Defaults to `true`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/darkmode
@@ -33,5 +33,5 @@ This plugin accepts the following configuration options:
 
 - Category: Component
 - Function name: `ExternalPlugin.Darkmode()`.
-- Source: [`quartz-community/darkmode`](https://github.com/quartz-community/darkmode)
-- Install: `npx quartz plugin add github:quartz-community/darkmode`
+- 源码： [`quartz-community/darkmode`](https://github.com/quartz-community/darkmode)
+- 安装： `npx quartz plugin add github:quartz-community/darkmode`

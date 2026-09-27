@@ -1,6 +1,6 @@
 ---
 title: TableOfContents
-description: Generates and renders a table of contents from headings.
+description: 根据标题生成并渲染目录。
 tags:
   - plugin/transformer
   - plugin/component
@@ -13,9 +13,9 @@ required: false
 This plugin generates a table of contents (TOC) for Markdown documents. See [[table of contents]] for more information.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `maxDepth`: Limits the depth of headings included in the TOC, ranging from `1` (top level headings only) to `6` (all heading levels). Default is `3`.
 - `minEntries`: The minimum number of heading entries required for the TOC to be displayed. Default is `1`.
@@ -30,5 +30,5 @@ This plugin accepts the following configuration options:
 
 - Category: Transformer, Component
 - Function name: `ExternalPlugin.TableOfContentsTransformer()`.
-- Source: [`quartz-community/table-of-contents`](https://github.com/quartz-community/table-of-contents)
-- Install: `npx quartz plugin add github:quartz-community/table-of-contents`
+- 源码： [`quartz-community/table-of-contents`](https://github.com/quartz-community/table-of-contents)
+- 安装： `npx quartz plugin add github:quartz-community/table-of-contents`

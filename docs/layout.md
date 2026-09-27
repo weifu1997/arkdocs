@@ -1,8 +1,8 @@
 ---
-title: Layout
+title: 布局
 ---
 
-Certain emitters may also output [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) files. To enable easy customization, these emitters allow you to fully rearrange the layout of the page.
+某些生成器也会输出 [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) 文件。为了方便自定义，这些生成器允许你完全重新排列页面布局。
 
 In v5, the layout is defined in `quartz.config.yaml`. Each plugin controls its own layout position via `layout.position` and `layout.priority` fields. The top-level `layout` section provides two additional mechanisms:
 

@@ -15,7 +15,7 @@ export function escapePath(fp) {
 
 export function exitIfCancel(val) {
   if (isCancel(val)) {
-    outro(styleText("red", "Exiting"))
+    outro(styleText("red", "正在退出"))
     process.exit(0)
   } else {
     return val
@@ -37,9 +37,9 @@ export function gitPull(origin, branch) {
   const flags = ["--no-rebase", "--autostash", "--no-edit", "--allow-unrelated-histories"]
   const out = spawnSync("git", ["pull", ...flags, origin, branch], { stdio: "inherit" })
   if (out.stderr) {
-    throw new Error(styleText("red", `Error while pulling updates: ${out.stderr}`))
+    throw new Error(styleText("red", `拉取更新时出错：${out.stderr}`))
   } else if (out.status !== 0) {
-    throw new Error(styleText("red", "Error while pulling updates"))
+    throw new Error(styleText("red", "拉取更新时出错"))
   }
 }
 

@@ -3,7 +3,7 @@ title: Frontmatter
 aliases:
   - note-properties
   - Note Properties
-description: Parses frontmatter and displays note properties in a collapsible panel.
+description: 解析 frontmatter，并在可折叠面板中显示笔记属性。
 tags:
   - plugin/transformer
   - plugin/component
@@ -18,14 +18,14 @@ required: true
 This plugin parses the frontmatter of the page using the [gray-matter](https://github.com/jonschlinkert/gray-matter) library and optionally displays selected properties in a collapsible panel. See [[authoring content#Syntax]], [[Obsidian compatibility]] and [[OxHugo compatibility]] for more information.
 
 > [!note]
-> For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
+> 关于如何添加、移除或配置插件，请参阅 [[configuration#插件|配置]] 页面。
 
 > [!warning]
 > This plugin must not be removed, otherwise Quartz will break.
 
-## Configuration
+## 配置
 
-This plugin accepts the following configuration options:
+该插件接受以下配置选项：
 
 - `delimiters`: the delimiters to use for the frontmatter. Can have one value (e.g. `"---"`) or separate values for opening and closing delimiters (e.g. `["---", "~~~"]`). Defaults to `"---"`.
 - `language`: the language to use for parsing the frontmatter. Can be `yaml` (default) or `toml`.
@@ -34,7 +34,7 @@ This plugin accepts the following configuration options:
 - `excludedProperties`: properties to always exclude from display, even when `includeAll` is `true`. Defaults to `[]`.
 - `hidePropertiesView`: hide the visual properties panel while still processing frontmatter. Useful if you only need frontmatter parsing without the UI. Defaults to `false`.
 
-### Default options
+### 默认选项
 
 ```yaml title="quartz.config.yaml"
 - source: github:quartz-community/note-properties
@@ -107,5 +107,5 @@ Quartz supports the following frontmatter fields. Where multiple keys are listed
 
 - Category: Transformer, Component
 - Function name: `ExternalPlugin.NoteProperties()`.
-- Source: [`quartz-community/note-properties`](https://github.com/quartz-community/note-properties)
-- Install: `npx quartz plugin add github:quartz-community/note-properties`
+- 源码： [`quartz-community/note-properties`](https://github.com/quartz-community/note-properties)
+- 安装： `npx quartz plugin add github:quartz-community/note-properties`

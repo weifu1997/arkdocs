@@ -67,23 +67,23 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
   const pluginNames = (key: "transformers" | "filters" | "emitters" | "pageTypes") =>
     (cfg.plugins[key] ?? []).map((plugin) => plugin.name)
   if (argv.verbose) {
-    console.log(`Loaded ${pluginCount} plugins`)
-    console.log(`  Transformers: ${pluginNames("transformers").join(", ")}`)
-    console.log(`  Filters: ${pluginNames("filters").join(", ")}`)
-    console.log(`  Emitters: ${pluginNames("emitters").join(", ")}`)
-    console.log(`  PageTypes: ${pluginNames("pageTypes").join(", ")}`)
+    console.log(`已加载 ${pluginCount} 个插件`)
+    console.log(`  转换器：${pluginNames("transformers").join(", ")}`)
+    console.log(`  过滤器：${pluginNames("filters").join(", ")}`)
+    console.log(`  生成器：${pluginNames("emitters").join(", ")}`)
+    console.log(`  页面类型：${pluginNames("pageTypes").join(", ")}`)
   }
 
   const release = await mut.acquire()
   perf.addEvent("clean")
   await rm(output, { recursive: true, force: true })
-  console.log(`Cleaned output directory \`${output}\` in ${perf.timeSince("clean")}`)
+  console.log(`已在 ${perf.timeSince("clean")} 内清理输出目录 \`${output}\``)
 
   perf.addEvent("glob")
   const allFiles = await glob("**/*.*", argv.directory, cfg.configuration.ignorePatterns)
   const markdownPaths = allFiles.filter((fp) => fp.endsWith(".md")).sort()
   console.log(
-    `Found ${markdownPaths.length} input files from \`${argv.directory}\` in ${perf.timeSince("glob")}`,
+    `在 ${perf.timeSince("glob")} 内从 \`${argv.directory}\` 找到 ${markdownPaths.length} 个输入文件`,
   )
 
   const filePaths = markdownPaths.map((fp) => joinSegments(argv.directory, fp) as FilePath)
@@ -96,7 +96,7 @@ async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
 
   await emitContent(ctx, filteredContent)
   console.log(
-    styleText("green", `Done processing ${markdownPaths.length} files in ${perf.timeSince()}`),
+    styleText("green", `已在 ${perf.timeSince()} 内处理完 ${markdownPaths.length} 个文件`),
   )
   release()
 
@@ -126,7 +126,7 @@ async function startWatching(
     const [_tree, vfile] = content
     const relPath = vfile.data.relativePath
     if (!relPath) {
-      console.warn(`Skipping file with no relativePath: ${vfile.path}`)
+      console.warn(`跳过没有 relativePath 的文件：${vfile.path}`)
       continue
     }
     contentMap.set(relPath, {
@@ -171,7 +171,7 @@ async function startWatching(
     rebuildTimeout = setTimeout(() => {
       rebuildTimeout = null
       rebuild(changes, clientRefresh, buildData).catch((err) => {
-        console.error(styleText("red", "Rebuild failed:"), err.message ?? err)
+        console.error(styleText("red", "重新构建失败："), err.message ?? err)
       })
     }, 100)
   }
@@ -217,7 +217,7 @@ async function rebuild(changes: ChangeEvent[], clientRefresh: () => void, buildD
 
     const perf = new PerfTimer()
     perf.addEvent("rebuild")
-    console.log(styleText("yellow", "Detected change, rebuilding..."))
+    console.log(styleText("yellow", "检测到变更，正在重新构建..."))
 
     // update changesSinceLastBuild
     for (const change of changes) {
@@ -236,7 +236,7 @@ async function rebuild(changes: ChangeEvent[], clientRefresh: () => void, buildD
     for (const content of parsed) {
       const relPath = content[1].data.relativePath
       if (!relPath) {
-        console.warn(`Skipping file with no relativePath: ${content[1].path}`)
+        console.warn(`跳过没有 relativePath 的文件：${content[1].path}`)
         continue
       }
       contentMap.set(relPath, {
@@ -350,9 +350,9 @@ async function rebuild(changes: ChangeEvent[], clientRefresh: () => void, buildD
     }
 
     console.log(
-      `Emitted ${emittedFiles} files to \`${argv.output}\` in ${perf.timeSince("rebuild")}`,
+      `已在 ${perf.timeSince("rebuild")} 内将 ${emittedFiles} 个文件输出到 \`${argv.output}\``,
     )
-    console.log(styleText("green", `Done rebuilding in ${perf.timeSince()}`))
+    console.log(styleText("green", `已在 ${perf.timeSince()} 内完成重新构建`))
     changes.splice(0, numChangesInBuild)
     clientRefresh()
   } finally {
@@ -364,6 +364,6 @@ export default async (argv: Argv, mut: Mutex, clientRefresh: () => void) => {
   try {
     return await buildQuartz(argv, mut, clientRefresh)
   } catch (err) {
-    trace("\nExiting Quartz due to a fatal error", err as Error)
+    trace("\n因致命错误退出 Quartz", err as Error)
   }
 }
