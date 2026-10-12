@@ -1,6 +1,6 @@
 {
-  "name": "@jackyzha0/quartz",
-  "description": "🌱 把数字花园和笔记发布为网站",
+  "name": "arkdocs",
+  "description": "🚀 ArkDocs // 个人知识库与数字花园",
   "private": true,
   "version": "5.0.0",
   "type": "module",

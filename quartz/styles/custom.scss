@@ -1,3 +1,1095 @@
 @use "./variables.scss" as *;
 
-// put your custom CSS here!
+/* ==========================================================================
+   DEEP SPACE MINIMAL (深空极简太空舱) // DESIGN SYSTEM
+   Quartz v5 Futuristic Interface Overhaul
+   ========================================================================== */
+
+:root {
+  /* Futuristic Color & Glow Tokens (Dark by Default) */
+  --cyber-primary: #38bdf8;
+  --cyber-secondary: #00f5d4;
+  --cyber-accent: #818cf8;
+  --cyber-glow: 0 0 15px rgba(56, 189, 248, 0.35);
+  --cyber-glow-strong: 0 0 25px rgba(0, 245, 212, 0.45);
+  --cyber-border: rgba(56, 189, 248, 0.16);
+  --cyber-border-highlight: rgba(0, 245, 212, 0.38);
+  --cyber-card-bg: rgba(10, 16, 28, 0.78);
+  --cyber-card-blur: blur(16px);
+  --cyber-card-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.5);
+  --cyber-grid-line: rgba(56, 189, 248, 0.035);
+  --cyber-gradient: linear-gradient(135deg, var(--secondary) 0%, var(--tertiary) 100%);
+  --cyber-text-gradient: linear-gradient(135deg, #f8fafc 35%, #38bdf8 100%);
+
+  /* UI Component Surfaces */
+  --cyber-button-bg: rgba(15, 23, 42, 0.65);
+  --cyber-button-hover-bg: rgba(56, 189, 248, 0.12);
+  --cyber-button-border: rgba(56, 189, 248, 0.22);
+  --cyber-button-text: var(--darkgray);
+  --cyber-meta-bg: rgba(15, 23, 42, 0.6);
+  --cyber-meta-border: rgba(56, 189, 248, 0.2);
+  --cyber-meta-text: #cbd5e1;
+  --cyber-graph-bg: radial-gradient(
+    circle at center,
+    rgba(14, 165, 233, 0.08) 0%,
+    rgba(6, 10, 18, 0.8) 75%
+  );
+  --cyber-graph-shadow: inset 0 0 25px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.25);
+  --cyber-graph-icon-bg: rgba(15, 23, 42, 0.8);
+  --cyber-search-overlay-bg: rgba(4, 7, 13, 0.85);
+  --cyber-search-box-bg: rgba(10, 16, 28, 0.95);
+  --cyber-search-input-bg: rgba(15, 23, 42, 0.8);
+  --cyber-search-result-hover: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0.15) 0%,
+    transparent 100%
+  );
+  --cyber-table-bg: rgba(10, 16, 28, 0.45);
+  --cyber-table-th-bg: rgba(15, 23, 42, 0.85);
+  --cyber-table-border: rgba(56, 189, 248, 0.15);
+}
+
+:root[saved-theme="light"],
+:root:not([saved-theme="dark"]) {
+  /* Light Mode (High-Tech Clean Laboratory) */
+  --cyber-primary: #0284c7;
+  --cyber-secondary: #0d9488;
+  --cyber-accent: #6366f1;
+  --cyber-glow: 0 0 12px rgba(2, 132, 199, 0.2);
+  --cyber-glow-strong: 0 0 20px rgba(13, 148, 136, 0.25);
+  --cyber-border: rgba(2, 132, 199, 0.15);
+  --cyber-border-highlight: rgba(14, 165, 233, 0.35);
+  --cyber-card-bg: rgba(255, 255, 255, 0.88);
+  --cyber-card-shadow: 0 10px 30px -8px rgba(15, 23, 42, 0.08);
+  --cyber-grid-line: rgba(2, 132, 199, 0.04);
+  --cyber-text-gradient: linear-gradient(135deg, #0f172a 40%, #0284c7 100%);
+
+  /* UI Component Surfaces (Light) */
+  --cyber-button-bg: rgba(241, 245, 249, 0.95);
+  --cyber-button-hover-bg: rgba(2, 132, 199, 0.1);
+  --cyber-button-border: rgba(2, 132, 199, 0.22);
+  --cyber-button-text: #1e293b;
+  --cyber-meta-bg: rgba(2, 132, 199, 0.06);
+  --cyber-meta-border: rgba(2, 132, 199, 0.2);
+  --cyber-meta-text: #334155;
+  --cyber-graph-bg: radial-gradient(
+    circle at center,
+    rgba(2, 132, 199, 0.05) 0%,
+    rgba(248, 250, 252, 0.9) 75%
+  );
+  --cyber-graph-shadow: inset 0 0 15px rgba(2, 132, 199, 0.04), 0 2px 10px rgba(15, 23, 42, 0.04);
+  --cyber-graph-icon-bg: rgba(255, 255, 255, 0.9);
+  --cyber-search-overlay-bg: rgba(15, 23, 42, 0.45);
+  --cyber-search-box-bg: rgba(255, 255, 255, 0.98);
+  --cyber-search-input-bg: rgba(241, 245, 249, 0.95);
+  --cyber-search-result-hover: linear-gradient(90deg, rgba(2, 132, 199, 0.1) 0%, transparent 100%);
+  --cyber-table-bg: rgba(255, 255, 255, 0.7);
+  --cyber-table-th-bg: rgba(241, 245, 249, 0.95);
+  --cyber-table-border: rgba(2, 132, 199, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   1. AMBIENT COSMIC ENVIRONMENT & GRID BACKGROUND
+   -------------------------------------------------------------------------- */
+
+html {
+  background-color: var(--light);
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--light);
+  /* Geometric Cyber Grid Overlay */
+  background-image:
+    linear-gradient(to right, var(--cyber-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--cyber-grid-line) 1px, transparent 1px),
+    radial-gradient(circle at 50% -8%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 95% 85%, rgba(14, 165, 233, 0.06) 0%, transparent 45%);
+  background-size:
+    36px 36px,
+    36px 36px,
+    100% 100%,
+    100% 100%;
+  background-attachment: fixed;
+  color: var(--darkgray);
+  letter-spacing: 0.01em;
+}
+
+:root[saved-theme="light"] body,
+:root:not([saved-theme="dark"]) body {
+  background-image:
+    linear-gradient(to right, var(--cyber-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--cyber-grid-line) 1px, transparent 1px),
+    radial-gradient(circle at 50% -8%, rgba(2, 132, 199, 0.08) 0%, transparent 55%),
+    radial-gradient(circle at 95% 85%, rgba(13, 148, 136, 0.05) 0%, transparent 45%);
+}
+
+/* Futuristic Text Selection */
+::selection {
+  background: rgba(56, 189, 248, 0.28) !important;
+  color: inherit !important;
+}
+
+:root[saved-theme="dark"] ::selection {
+  color: #f8fafc !important;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+/* Precision Ultra-thin Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+  box-shadow: 0 0 10px var(--secondary);
+}
+
+/* --------------------------------------------------------------------------
+   2. GLASSMORPHIC HULL PANELS (SIDEBARS & ARTICLE CONTAINER)
+   -------------------------------------------------------------------------- */
+
+.page {
+  padding: 0 1.5rem;
+}
+
+/* Left & Right Sidebars as Floating HUD Consoles */
+.page > #quartz-body .sidebar {
+  box-sizing: border-box;
+  background: var(--cyber-card-bg);
+  backdrop-filter: var(--cyber-card-blur);
+  -webkit-backdrop-filter: var(--cyber-card-blur);
+  border: 1px solid var(--cyber-border);
+  border-radius: 14px;
+  top: 1.5rem !important;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1.6rem 1.4rem;
+  height: calc(100vh - 3rem);
+  box-shadow: var(--cyber-card-shadow);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  overflow-y: auto;
+  scrollbar-width: thin;
+
+  &:hover {
+    border-color: var(--cyber-border-highlight);
+    box-shadow:
+      var(--cyber-card-shadow),
+      0 0 20px -5px rgba(56, 189, 248, 0.15);
+  }
+
+  @media all and ($mobile) {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    height: unset;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+}
+
+.page > #quartz-body .sidebar.left {
+  border-top: 2px solid var(--secondary);
+}
+
+.page > #quartz-body .sidebar.right {
+  border-top: 2px solid var(--tertiary);
+}
+
+/* Center Content Area */
+.page > #quartz-body .center {
+  padding: 0 1rem 1.5rem 1rem;
+  box-sizing: border-box;
+}
+
+.page > #quartz-body .page-header {
+  margin-top: 1.5rem !important;
+}
+
+/* Floating Article Hull */
+article {
+  background: var(--cyber-card-bg);
+  backdrop-filter: var(--cyber-card-blur);
+  -webkit-backdrop-filter: var(--cyber-card-blur);
+  border: 1px solid var(--cyber-border);
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  box-shadow: var(--cyber-card-shadow);
+  position: relative;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  /* Subtle HUD Corner Markings */
+  &::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 24px;
+    width: 60px;
+    height: 2px;
+    background: var(--cyber-gradient);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--secondary);
+  }
+
+  @media all and ($mobile) {
+    padding: 1.5rem 1.25rem;
+    border-radius: 12px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. TYPOGRAPHY & HEADINGS (FUTURISTIC DISPLAY)
+   -------------------------------------------------------------------------- */
+
+.page-title {
+  font-family: var(--headerFont);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  & a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--cyber-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition:
+      opacity 0.2s ease,
+      filter 0.2s ease;
+
+    &::before {
+      content: "◈";
+      -webkit-text-fill-color: var(--secondary);
+      color: var(--secondary);
+      font-size: 1rem;
+      filter: drop-shadow(0 0 6px var(--secondary));
+    }
+
+    &:hover {
+      opacity: 0.85;
+      filter: brightness(1.2);
+    }
+  }
+}
+
+/* Document Article Title */
+.article-title {
+  font-family: var(--headerFont);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.8rem 0;
+  background: var(--cyber-text-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.25;
+
+  @media all and ($mobile) {
+    font-size: 1.8rem;
+  }
+}
+
+/* Subheadings with Sci-Fi Accents */
+article {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--headerFont);
+    color: var(--dark);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 44px;
+      height: 2px;
+      background: var(--cyber-gradient);
+      box-shadow: 0 0 8px var(--secondary);
+      border-radius: 2px;
+    }
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin-top: 1.8rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Content Meta Telemetry Badge (p[show-comma]) */
+.content-meta {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-family: var(--codeFont);
+  font-size: 0.82rem;
+  color: var(--cyber-meta-text);
+  padding: 0.35rem 0.85rem;
+  background: var(--cyber-meta-bg);
+  border: 1px solid var(--cyber-meta-border);
+  border-radius: 6px;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+
+  & time,
+  & span {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+  }
+
+  & time::before {
+    content: "SYS.TIME // ";
+    color: var(--secondary);
+    font-weight: 600;
+    opacity: 0.95;
+    margin-right: 0.35rem;
+  }
+
+  /* Override default comma with clean futuristic separator */
+  &[show-comma="true"] > *:not(:last-child)::after {
+    content: " ·";
+    color: var(--secondary);
+    font-weight: 700;
+    margin-left: 0.2rem;
+    margin-right: 0.35rem;
+  }
+}
+
+/* Breadcrumbs HUD Indicator */
+.breadcrumbs {
+  font-family: var(--codeFont);
+  font-size: 0.82rem;
+  color: var(--gray);
+  margin-bottom: 0.75rem;
+
+  & a {
+    color: var(--secondary);
+    font-weight: 500;
+    transition:
+      color 0.2s ease,
+      text-shadow 0.2s ease;
+
+    &:hover {
+      color: var(--tertiary);
+      text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. CONTROL DECK & COMMAND SEARCH
+   -------------------------------------------------------------------------- */
+
+.flex-component {
+  margin-top: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/* Search Launcher */
+.search {
+  & .search-button {
+    background: var(--cyber-button-bg);
+    border: 1px solid var(--cyber-button-border);
+    border-radius: 8px;
+    padding: 0.45rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--cyber-button-text);
+    width: 100%;
+
+    & p {
+      font-family: var(--codeFont);
+      font-size: 0.85rem;
+      margin: 0;
+      color: var(--cyber-button-text);
+      opacity: 0.85;
+    }
+
+    & svg {
+      stroke: var(--secondary);
+      filter: drop-shadow(0 0 3px var(--secondary));
+      width: 15px;
+      height: 15px;
+    }
+
+    &:hover {
+      border-color: var(--secondary);
+      background: var(--cyber-button-hover-bg);
+      box-shadow: 0 0 12px var(--cyber-button-border);
+      transform: translateY(-1px);
+
+      & p {
+        color: var(--dark);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* Fullscreen Command HUD Search Modal */
+.search-container {
+  background: var(--cyber-search-overlay-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+
+  & .search-space {
+    background: var(--cyber-search-box-bg) !important;
+    border: 1px solid var(--cyber-border-highlight) !important;
+    box-shadow:
+      0 0 40px -10px rgba(56, 189, 248, 0.25),
+      var(--cyber-card-shadow) !important;
+    border-radius: 14px !important;
+    padding: 1.25rem !important;
+
+    & .search-bar {
+      background: var(--cyber-search-input-bg) !important;
+      border: 1px solid var(--cyber-border) !important;
+      border-radius: 8px !important;
+      font-family: var(--codeFont) !important;
+      color: var(--dark) !important;
+      padding: 0.75rem 1rem !important;
+      font-size: 1rem !important;
+      transition: all 0.2s ease !important;
+
+      &::placeholder {
+        color: var(--gray);
+      }
+
+      &:focus {
+        border-color: var(--secondary) !important;
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.25) !important;
+        outline: none !important;
+      }
+    }
+
+    & .search-layout {
+      & .result-card {
+        border: 1px solid transparent;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        padding: 0.6rem 0.8rem;
+
+        &:hover,
+        &:focus {
+          background: var(--cyber-search-result-hover);
+          border-left: 3px solid var(--secondary);
+          transform: translateX(4px);
+        }
+
+        & h3 {
+          font-family: var(--headerFont);
+          color: var(--dark);
+        }
+      }
+    }
+  }
+}
+
+/* Control Buttons (Darkmode / Readermode) */
+button.darkmode,
+button.readermode {
+  background: var(--cyber-button-bg);
+  border: 1px solid var(--cyber-button-border);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: var(--secondary);
+
+  & svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    stroke: currentColor;
+    transition:
+      transform 0.3s ease,
+      filter 0.3s ease;
+  }
+
+  &:hover {
+    border-color: var(--secondary);
+    background: var(--cyber-button-hover-bg);
+    box-shadow: 0 0 12px var(--cyber-button-border);
+    color: var(--tertiary);
+    transform: translateY(-1px);
+
+    & svg {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 4px var(--tertiary));
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. EXPLORER HUD NAVIGATION
+   -------------------------------------------------------------------------- */
+
+.explorer {
+  margin-top: 1rem;
+
+  & button.desktop-explorer {
+    margin-bottom: 0.6rem;
+    padding: 0;
+
+    & h2 {
+      font-family: var(--codeFont);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      &::before {
+        content: "SYS.DIR //";
+        color: var(--secondary);
+        font-weight: 600;
+      }
+    }
+
+    & .fold {
+      color: var(--secondary);
+      filter: drop-shadow(0 0 4px var(--secondary));
+    }
+  }
+
+  & .explorer-content {
+    /* Folder indentation guideline */
+    & .folder-outer > ul {
+      border-left: 1px dashed rgba(56, 189, 248, 0.25) !important;
+      margin-left: 8px !important;
+      padding-left: 0.85rem !important;
+    }
+
+    & .folder-container {
+      padding: 0.15rem 0;
+
+      & .folder-icon {
+        color: var(--secondary);
+        filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.4));
+        transition:
+          transform 0.2s ease,
+          color 0.2s ease;
+
+        &:hover {
+          color: var(--tertiary);
+          filter: drop-shadow(0 0 6px var(--tertiary));
+        }
+      }
+
+      & .folder-button span,
+      & div > a {
+        font-family: var(--bodyFont);
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--darkgray);
+        transition:
+          color 0.2s ease,
+          text-shadow 0.2s ease;
+
+        &:hover {
+          color: var(--secondary);
+          text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+        }
+      }
+    }
+
+    /* File items */
+    & ul li > a {
+      font-size: 0.88rem;
+      color: var(--darkgray);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      display: inline-block;
+      transition: all 0.2s ease;
+      position: relative;
+
+      &:hover {
+        color: var(--secondary);
+        background: var(--cyber-button-hover-bg);
+        transform: translateX(2px);
+      }
+
+      /* Active / Current File Highlight */
+      &.active,
+      &.is-active {
+        color: var(--dark) !important;
+        background: var(--cyber-search-result-hover) !important;
+        border-left: 3px solid var(--secondary) !important;
+        padding-left: 0.6rem !important;
+        box-shadow: 0 0 14px rgba(56, 189, 248, 0.15) !important;
+        font-weight: 600 !important;
+      }
+    }
+  }
+}
+
+:root[saved-theme="dark"] .explorer .explorer-content ul li > a.active,
+:root[saved-theme="dark"] .explorer .explorer-content ul li > a.is-active {
+  color: #f8fafc !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. HOLOGRAPHIC RADAR GRAPH HUD
+   -------------------------------------------------------------------------- */
+
+.graph {
+  & h3 {
+    font-family: var(--codeFont);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+
+    &::before {
+      content: "RADAR // MATRIX";
+      color: var(--tertiary);
+      font-weight: 600;
+    }
+
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--tertiary);
+      box-shadow: 0 0 10px var(--tertiary);
+      animation: radar-pulse 2.2s infinite ease-in-out;
+    }
+  }
+
+  & .graph-outer {
+    border: 1px solid var(--cyber-border);
+    border-radius: 12px;
+    background: var(--cyber-graph-bg);
+    box-shadow: var(--cyber-graph-shadow);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s ease;
+
+    &:hover {
+      border-color: var(--cyber-border-highlight);
+    }
+  }
+
+  & .global-graph-icon {
+    border: 1px solid var(--cyber-border);
+    background: var(--cyber-graph-icon-bg);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    color: var(--secondary);
+    padding: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: var(--secondary);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+      color: var(--tertiary);
+      transform: scale(1.05);
+    }
+  }
+
+  & .global-graph-outer {
+    backdrop-filter: blur(16px);
+    background: var(--cyber-search-overlay-bg);
+
+    & .global-graph-container {
+      border: 1px solid var(--cyber-border-highlight);
+      background: var(--cyber-card-bg);
+      box-shadow: var(--cyber-card-shadow);
+      border-radius: 14px;
+    }
+  }
+}
+
+@keyframes radar-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. TERMINAL CODE BLOCKS & SYNTAX STYLING
+   -------------------------------------------------------------------------- */
+
+pre:has(> code) {
+  background: #060a12 !important;
+  border: 1px solid rgba(56, 189, 248, 0.22) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6) !important;
+  position: relative;
+  padding: 2.6rem 1.25rem 1.25rem 1.25rem !important;
+  overflow-x: auto;
+
+  /* Terminal macOS/HUD style 3 LED status dots */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.9rem;
+    left: 1rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ef4444;
+    box-shadow:
+      14px 0 0 #f59e0b,
+      28px 0 0 #10b981;
+  }
+
+  /* Terminal title banner */
+  &::after {
+    content: "TERMINAL.CONSOLE // EXEC";
+    position: absolute;
+    top: 0.75rem;
+    right: 3rem;
+    font-family: var(--codeFont);
+    font-size: 0.68rem;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+  }
+
+  & code {
+    font-family: var(--codeFont) !important;
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+    color: #e2e8f0 !important;
+  }
+}
+
+/* Copy code button */
+.clipboard-button {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border: 1px solid var(--cyber-border) !important;
+  border-radius: 6px !important;
+  color: var(--secondary) !important;
+  top: 0.65rem !important;
+  right: 0.75rem !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    border-color: var(--tertiary) !important;
+    box-shadow: 0 0 10px var(--tertiary) !important;
+    color: var(--tertiary) !important;
+  }
+}
+
+/* Inline Code Capsule */
+code:not(pre code) {
+  background: rgba(56, 189, 248, 0.08) !important;
+  border: 1px solid rgba(56, 189, 248, 0.18) !important;
+  border-radius: 5px !important;
+  padding: 0.15em 0.4em !important;
+  color: var(--secondary) !important;
+  font-family: var(--codeFont) !important;
+  font-size: 0.88em !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. SCI-FI HUD CALLOUTS & TELEMETRY ALERTS
+   -------------------------------------------------------------------------- */
+
+.callout {
+  background: var(--cyber-card-bg) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--cyber-border) !important;
+  border-left: 4px solid var(--color) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.25) !important;
+  margin: 1.5rem 0 !important;
+  padding: 1rem 1.25rem !important;
+  position: relative;
+  overflow: hidden;
+
+  /* Accent highlight sheen */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, transparent 50%, var(--color) 100%);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+
+  & .callout-title {
+    font-family: var(--headerFont);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. INTERACTIVE ELEMENTS (LINKS, TAGS, TABLES, BLOCKQUOTES)
+   -------------------------------------------------------------------------- */
+
+/* Internal Wikilinks */
+a.internal {
+  background: var(--cyber-button-hover-bg);
+  border-bottom: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  color: var(--secondary);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    background: var(--cyber-button-hover-bg);
+    border-bottom-color: var(--tertiary);
+    color: var(--tertiary);
+    box-shadow: 0 0 10px rgba(0, 245, 212, 0.3);
+  }
+}
+
+/* External Link Hover */
+a.external:hover {
+  color: var(--tertiary);
+  text-shadow: 0 0 8px rgba(0, 245, 212, 0.3);
+}
+
+/* Tag Pills */
+a.tag-link {
+  background: var(--cyber-button-hover-bg);
+  border: 1px solid var(--cyber-border);
+  border-radius: 9999px;
+  padding: 0.15em 0.65em;
+  font-family: var(--codeFont);
+  font-size: 0.8rem;
+  color: var(--tertiary);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--tertiary);
+    box-shadow: 0 0 12px var(--cyber-border-highlight);
+    transform: translateY(-1px);
+  }
+}
+
+/* High-Tech Data Tables */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--cyber-table-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1.75rem 0;
+  width: 100%;
+  background: var(--cyber-table-bg);
+
+  & th {
+    background: var(--cyber-table-th-bg);
+    border-bottom: 2px solid var(--cyber-border-highlight);
+    font-family: var(--headerFont);
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    color: var(--secondary);
+    padding: 0.75rem 1rem;
+  }
+
+  & tr:nth-child(even) {
+    background: rgba(128, 128, 128, 0.04);
+  }
+
+  & td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--cyber-border);
+  }
+
+  & tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+/* Sci-Fi Blockquote */
+blockquote {
+  border-left: 3px solid var(--secondary) !important;
+  background: linear-gradient(90deg, var(--cyber-button-hover-bg) 0%, transparent 100%);
+  border-radius: 0 10px 10px 0;
+  padding: 0.9rem 1.35rem !important;
+  margin: 1.5rem 0 !important;
+  box-shadow: inset 2px 0 8px -2px var(--secondary);
+}
+
+/* Dividers */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--cyber-border-highlight) 50%,
+    transparent 100%
+  );
+  margin: 2.5rem 0;
+}
+
+/* --------------------------------------------------------------------------
+   10. TOC & BACKLINKS
+   -------------------------------------------------------------------------- */
+
+.toc {
+  margin-top: 1.5rem;
+
+  & button.toc-header {
+    font-family: var(--codeFont);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    &::before {
+      content: "INDEX // TOC";
+      color: var(--secondary);
+      font-weight: 600;
+    }
+  }
+
+  & ul li a {
+    font-size: 0.88rem;
+    color: var(--darkgray);
+    transition: all 0.2s ease;
+
+    &:hover,
+    &.in-view {
+      color: var(--secondary);
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
+      transform: translateX(2px);
+    }
+  }
+}
+
+.backlinks {
+  margin-top: 1.5rem;
+
+  & h3 {
+    font-family: var(--codeFont);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray);
+
+    &::before {
+      content: "LINKS // BACK";
+      color: var(--tertiary);
+      font-weight: 600;
+      margin-right: 0.4rem;
+    }
+  }
+
+  & ul li a {
+    font-size: 0.88rem;
+    color: var(--secondary);
+
+    &:hover {
+      color: var(--tertiary);
+      text-shadow: 0 0 8px rgba(0, 245, 212, 0.35);
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. FOOTER TELEMETRY
+   -------------------------------------------------------------------------- */
+
+footer {
+  border-top: 1px solid var(--cyber-border);
+  margin-top: 3rem;
+  padding: 1.8rem 0;
+  font-family: var(--codeFont);
+  font-size: 0.8rem;
+  color: var(--gray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  & p {
+    margin: 0;
+  }
+
+  & ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.25rem;
+
+    & li a {
+      color: var(--secondary);
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: var(--tertiary);
+        text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
+      }
+    }
+  }
+}
