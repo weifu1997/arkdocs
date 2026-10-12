@@ -452,8 +452,25 @@ export async function handleBuild(argv) {
       argv.baseDir = "/" + argv.baseDir
     }
 
+    let inferredBaseDir = ""
+    try {
+      const cfgRaw = fs.readFileSync(path.join(process.cwd(), "quartz.config.yaml"), "utf-8")
+      const match = cfgRaw.match(/baseUrl:\s*([^\s#]+)/)
+      if (match) {
+        const rawUrl = match[1].replace(/['"]/g, "")
+        const parsedUrl = new URL(`https://${rawUrl}`)
+        if (parsedUrl.pathname && parsedUrl.pathname !== "/") {
+          inferredBaseDir = parsedUrl.pathname.replace(/\/$/, "")
+        }
+      }
+    } catch {}
+
     await build(clientRefresh)
     const server = http.createServer(async (req, res) => {
+      const effectivePrefix =
+        argv.baseDir ||
+        (inferredBaseDir && req.url?.startsWith(inferredBaseDir) ? inferredBaseDir : "")
+
       if (argv.baseDir && !req.url?.startsWith(argv.baseDir)) {
         console.log(
           styleText(
@@ -467,7 +484,9 @@ export async function handleBuild(argv) {
       }
 
       // strip baseDir prefix
-      req.url = req.url?.slice(argv.baseDir.length)
+      if (effectivePrefix) {
+        req.url = req.url?.slice(effectivePrefix.length) || "/"
+      }
 
       const serve = async () => {
         const release = await buildMutex.acquire()
@@ -495,18 +514,18 @@ export async function handleBuild(argv) {
           status >= 200 && status < 300
             ? styleText("green", `[${status}]`)
             : styleText("red", `[${status}]`)
-        console.log(statusString + styleText("gray", ` ${argv.baseDir}${req.url}`))
+        console.log(statusString + styleText("gray", ` ${effectivePrefix}${req.url}`))
         release()
       }
 
       const redirect = (newFp) => {
-        newFp = argv.baseDir + newFp
+        newFp = effectivePrefix + newFp
         res.writeHead(302, {
           Location: newFp,
         })
         console.log(
           styleText("yellow", "[302]") +
-            styleText("gray", ` ${argv.baseDir}${req.url} -> ${newFp}`),
+            styleText("gray", ` ${effectivePrefix}${req.url} -> ${newFp}`),
         )
         res.end()
       }

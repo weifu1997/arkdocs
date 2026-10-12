@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: zh-CN
-  baseUrl: mysite.github.io/arkdocs
+  baseUrl: weifu1997.github.io/arkdocs
   ignorePatterns:
     - private
     - templates
