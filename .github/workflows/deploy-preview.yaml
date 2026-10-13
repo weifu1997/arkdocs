@@ -13,9 +13,9 @@ permissions:
 
 jobs:
   deploy-preview:
-    if: ${{ github.repository == 'jackyzha0/quartz' && github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    name: Deploy Preview to Cloudflare Pages
+    name: Deploy ArkDocs preview to Cloudflare Pages
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v8
@@ -26,12 +26,26 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
+      - name: Check Cloudflare credentials
+        id: cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "Cloudflare credentials are not configured; skipping deployment."
+          fi
+
       - name: Deploy to Cloudflare Pages
+        if: steps.cloudflare.outputs.available == 'true'
         uses: AdrianGonz97/refined-cf-pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          projectName: quartz
+          projectName: arkdocs
           deploymentName: Branch Preview
           directory: ${{ steps.preview-build-artifact.outputs.download-path }}

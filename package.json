@@ -14,8 +14,11 @@
   "scripts": {
     "dev": "npx quartz build --serve --baseDir /arkdocs",
     "quartz": "./quartz/bootstrap-cli.mjs",
-    "docs": "npx quartz build --serve -d docs",
+    "docs": "npx quartz build --serve -d content",
     "check": "tsc --noEmit && npx prettier . --check",
+    "check:types": "tsc --noEmit",
+    "check:format": "npx prettier scripts package.json .github/workflows --check",
+    "check:content": "node scripts/check-content.mjs",
     "format": "npx prettier . --write",
     "test": "tsx --test",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",

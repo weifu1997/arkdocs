@@ -3,6 +3,7 @@ name: Deploy v5 Preview
 on:
   push:
     branches:
+      - main
       - v5
   workflow_dispatch:
 
@@ -12,9 +13,8 @@ permissions:
 
 jobs:
   deploy-v5:
-    if: ${{ github.repository == 'jackyzha0/quartz' }}
     runs-on: ubuntu-latest
-    name: Deploy v5 to Cloudflare Pages
+    name: Deploy ArkDocs to Cloudflare Pages
     steps:
       - uses: actions/checkout@v6
         with:
@@ -41,24 +41,42 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-plugins-
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Install Quartz plugins
-        run: npx quartz plugin install
+      - name: Check types
+        run: npm run check:types
 
-      - name: Check types and style
-        run: npm run check
+      - name: Check workflow and script formatting
+        run: npm run check:format
 
-      - name: Build Quartz
-        run: npx quartz build -d docs -v
+      - name: Check content and internal links
+        run: npm run check:content
+
+      - name: Build ArkDocs
+        run: npx quartz build -d content -v
+
+      - name: Check Cloudflare credentials
+        id: cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "Cloudflare credentials are not configured; skipping deployment."
+          fi
 
       - name: Deploy to Cloudflare Pages
+        if: steps.cloudflare.outputs.available == 'true'
         uses: AdrianGonz97/refined-cf-pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          projectName: quartz
+          projectName: arkdocs
           deploymentName: v5 Branch Preview
-          branch: v5
+          branch: ${{ github.ref_name }}
           directory: public

@@ -2,22 +2,17 @@ name: Build and Test
 
 on:
   pull_request:
-    branches:
-      - v5
   push:
-    branches:
-      - v5
   workflow_dispatch:
 
 jobs:
   build-and-test:
-    if: ${{ github.repository == 'jackyzha0/quartz' }}
     strategy:
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     permissions:
-      contents: write
+      contents: read
     steps:
       - uses: actions/checkout@v6
         with:
@@ -44,40 +39,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-plugins-
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Install Quartz plugins
-        run: npx quartz plugin install
+      - name: Check types
+        run: npm run check:types
 
-      - name: Check types and style
-        run: npm run check
+      - name: Check workflow and script formatting
+        run: npm run check:format
+
+      - name: Check content and internal links
+        run: npm run check:content
 
       - name: Test
         run: npm test
 
-      - name: Ensure Quartz builds, check bundle info
-        run: npx quartz build --bundleInfo -d docs
-
-  publish-tag:
-    if: ${{ github.repository == 'jackyzha0/quartz' && github.ref == 'refs/heads/v5' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-      - name: Get package version
-        run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> $GITHUB_ENV
-      - name: Create release tag
-        uses: pkgdeps/git-tag-action@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          github_repo: ${{ github.repository }}
-          version: ${{ env.PACKAGE_VERSION }}
-          git_commit_sha: ${{ github.sha }}
-          git_tag_prefix: "v"
+      - name: Build ArkDocs content
+        run: npx quartz build --bundleInfo -d content
