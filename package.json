@@ -21,6 +21,8 @@
     "check:content": "node scripts/check-content.mjs",
     "format": "npx prettier . --write",
     "test": "tsx --test",
+    "test:content-discovery": "tsx --test test/content-discovery/*.test.ts",
+    "test:content-quality": "tsx --test test/content-quality/*.test.mjs",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
     "install-plugins": "npx tsx ./quartz/plugins/loader/install-plugins.ts",
     "prebuild": "npm run install-plugins"

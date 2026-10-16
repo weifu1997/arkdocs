@@ -192,6 +192,10 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
             relativePath: vpRelativePath,
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
+            // Mark virtual pages so downstream emitters (e.g. the public search
+            // index) can distinguish synthesized folder/tag/search pages from
+            // real markdown content.
+            virtual: true,
           })
           if (vpSlug !== "404") {
             ctx.virtualPages.push([tree, vfile])
@@ -286,6 +290,10 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
             relativePath: vpRelativePath,
             frontmatter: { title: vp.title, tags: [] },
             ...vp.data,
+            // Mark virtual pages so downstream emitters (e.g. the public search
+            // index) can distinguish synthesized folder/tag/search pages from
+            // real markdown content.
+            virtual: true,
           })
           if (vpSlug !== "404") {
             ctx.virtualPages.push([tree, vfile])

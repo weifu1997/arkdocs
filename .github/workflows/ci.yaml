@@ -48,8 +48,18 @@ jobs:
       - name: Check workflow and script formatting
         run: npm run check:format
 
-      - name: Check content and internal links
+      - name: Check content and internal links on content/
         run: npm run check:content
+
+      - name: Run content-quality CLI against the fixtures
+        run: npm run check:content -- --root fixtures/content-quality --format json --output reports/content-quality.json
+        continue-on-error: true
+
+      - name: Test public search discovery
+        run: npm run test:content-discovery
+
+      - name: Test content quality checker
+        run: npm run test:content-quality
 
       - name: Test
         run: npm test

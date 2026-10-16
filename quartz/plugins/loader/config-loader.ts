@@ -492,13 +492,18 @@ export async function loadQuartzConfig(
 
   // Import built-in plugins
   const builtinPlugins = await import("../index")
+  // The public /search feature ships both a content index emitter and a
+  // page type; importing the module registers the /search body component with
+  // the shared component registry.
+  const publicSearch = await import("../publicSearch")
   const builtinTransformers: unknown[] = []
   const builtinEmitters = [
     builtinPlugins.ComponentResources(),
     builtinPlugins.Assets(),
     builtinPlugins.Static(),
+    publicSearch.PublicSearchIndex(),
   ]
-  const builtinPageTypes = [builtinPlugins.PageTypes.NotFoundPageType()]
+  const builtinPageTypes = [builtinPlugins.PageTypes.NotFoundPageType(), publicSearch.PublicSearchPageType()]
 
   const plugins: PluginTypes = {
     transformers: [...builtinTransformers, ...(await instantiate(transformers, "transformer"))],

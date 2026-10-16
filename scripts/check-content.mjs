@@ -1,178 +1,152 @@
+/**
+ * ArkDocs 作者本地内容质量检查 CLI。
+ *
+ * 用法：
+ *   npm run check:content                                   # 扫描仓库 content/，输出中文摘要
+ *   npm run check:content -- --root <dir>                   # 扫描独立目录
+ *   npm run check:content -- --format json                  # JSON 写到 stdout
+ *   npm run check:content -- --format json --output reports/report.json
+ *
+ * 退出码：0 无 error（可只有 warning）；1 存在 error；2 参数错误。
+ */
+
 import fs from "node:fs"
 import path from "node:path"
 import process from "node:process"
-import YAML from "yaml"
+import { runContentCheck } from "./contentCheck.mjs"
 
-const root = process.cwd()
-const contentDir = path.resolve(root, process.argv[2] ?? "content")
+const SCHEMA_VERSION = 1
 
-function walk(dir) {
-  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const fullPath = path.join(dir, entry.name)
-    return entry.isDirectory() ? walk(fullPath) : [fullPath]
-  })
+function parseArgs(argv) {
+  const options = { root: "content", format: "text", output: null, outputFlagSeen: false }
+  const positionals = []
+  let sawHelp = false
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i]
+    if (arg === "--help" || arg === "-h") {
+      sawHelp = true
+      continue
+    }
+    if (arg === "--root") {
+      const next = argv[++i]
+      if (next === undefined || next === null || next.startsWith("--")) {
+        fatal("错误：--root 缺少参数值")
+      }
+      options.root = next
+      continue
+    }
+    if (arg.startsWith("--root=")) {
+      options.root = arg.slice("--root=".length)
+      continue
+    }
+    if (arg === "--format") {
+      const next = argv[++i]
+      if (next === undefined || next === null || next.startsWith("--")) {
+        fatal("错误：--format 缺少参数值")
+      }
+      options.format = next
+      continue
+    }
+    if (arg.startsWith("--format=")) {
+      options.format = arg.slice("--format=".length)
+      continue
+    }
+    if (arg === "--output") {
+      options.outputFlagSeen = true
+      const next = argv[++i]
+      if (next !== undefined && next !== null && !next.startsWith("--")) {
+        options.output = next
+        i++
+      }
+      continue
+    }
+    if (arg.startsWith("--output=")) {
+      options.output = arg.slice("--output=".length)
+      continue
+    }
+    positionals.push(arg)
+  }
+  return { options, positionals, sawHelp }
 }
 
-function slugify(value) {
-  return value
-    .replaceAll("\\", "/")
-    .replace(/\.(md|markdown)$/i, "")
-    .split("/")
-    .filter(Boolean)
-    .map((segment) =>
-      segment
-        .replace(/index$/i, "index")
-        .replace(/\s/g, "-")
-        .toLowerCase(),
+function fatal(message) {
+  process.stderr.write(`${message}\n`)
+  process.exit(2)
+}
+
+function main() {
+  const { options, positionals, sawHelp } = parseArgs(process.argv.slice(2))
+
+  if (sawHelp) {
+    process.stdout.write(
+      `用法：npm run check:content [--root <dir>] [--format text|json] [--output <file>]\n` +
+        `退出码：0 成功；1 存在 error；2 参数错误\n`,
     )
-    .join("/")
-    .replace(/\/index$/, "")
-}
-
-function parseDocument(filePath) {
-  const relativePath = path.relative(contentDir, filePath).replaceAll(path.sep, "/")
-  const source = fs.readFileSync(filePath, "utf8")
-  if (!source.startsWith("---\n")) {
-    return { relativePath, source, frontmatter: null, body: source }
+    process.exit(0)
+  }
+  if (positionals.length > 0) {
+    fatal(`错误：不支持的位置参数：${positionals.join(" ")}`)
+  }
+  if (options.format !== "text" && options.format !== "json") {
+    fatal(`错误：--format 必须是 text 或 json，收到：${options.format}`)
+  }
+  if (options.output && options.format !== "json") {
+    fatal(`错误：--output 仅在 --format json 时可用（未指定 --format json）`)
+  }
+  if (options.root === "" || options.root === undefined) {
+    fatal("错误：--root 缺少参数值")
+  }
+  if (options.outputFlagSeen && options.output === null) {
+    fatal("错误：--output 缺少参数值")
   }
 
-  const end = source.indexOf("\n---", 4)
-  if (end === -1) {
-    return {
-      relativePath,
-      source,
-      frontmatter: null,
-      body: source,
-      frontmatterError: "未找到 Frontmatter 结束标记",
-    }
+  const root = path.resolve(process.cwd(), options.root)
+  if (!fs.existsSync(root)) {
+    fatal(`错误：扫描根目录不存在：${options.root}（解析为 ${root}）`)
+  }
+  if (!fs.statSync(root).isDirectory()) {
+    fatal(`错误：扫描根目录不是目录：${root}`)
   }
 
-  const raw = source.slice(4, end)
-  try {
-    const frontmatter = YAML.parse(raw)
-    return { relativePath, source, frontmatter, body: source.slice(end + 4) }
-  } catch (error) {
-    return {
-      relativePath,
-      source,
-      frontmatter: null,
-      body: source.slice(end + 4),
-      frontmatterError: error instanceof Error ? error.message : String(error),
-    }
-  }
-}
+  const result = runContentCheck({ root, ignorePatterns: [] })
 
-function normalizeTarget(target, currentPath) {
-  const withoutAnchor = target.split("#", 1)[0].split("?", 1)[0]
-  if (!withoutAnchor) return ""
-  const decoded = decodeURIComponent(withoutAnchor)
-  const resolved = decoded.startsWith("/")
-    ? decoded.slice(1)
-    : path.posix.join(path.posix.dirname(currentPath), decoded)
-  return slugify(resolved.replace(/^\.\//, ""))
-}
+  const errors = result.stats.errors
+  const warnings = result.stats.warnings
 
-function targetCandidates(target, currentPath) {
-  const withoutAnchor = target.split("#", 1)[0].split("?", 1)[0]
-  if (!withoutAnchor) return []
-  const decoded = decodeURIComponent(withoutAnchor)
-  const direct = slugify(decoded.replace(/^\.\//, "").replace(/^\//, ""))
-  const relative = normalizeTarget(decoded, currentPath)
-  const candidates = new Set([direct, relative])
-  if (!direct.includes("/")) {
-    for (const slug of validSlugs) if (slug.endsWith(`/${direct}`)) candidates.add(slug)
-  }
-  return [...candidates].filter(Boolean)
-}
-
-function isExternal(target) {
-  return /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(target)
-}
-
-const files = walk(contentDir).filter((filePath) => /\.(md|markdown)$/i.test(filePath))
-const documents = files.map(parseDocument)
-const errors = []
-const slugs = new Map()
-const tagSlugs = new Set()
-
-for (const document of documents) {
-  if (document.frontmatterError) {
-    errors.push(`${document.relativePath}: Frontmatter ${document.frontmatterError}`)
-    continue
-  }
-  if (!document.frontmatter || typeof document.frontmatter !== "object") {
-    errors.push(`${document.relativePath}: 缺少有效 Frontmatter`)
-    continue
-  }
-  if (typeof document.frontmatter.title !== "string" || !document.frontmatter.title.trim()) {
-    errors.push(`${document.relativePath}: title 必须是非空字符串`)
+  const report = {
+    schemaVersion: SCHEMA_VERSION,
+    scanRoot: result.scanRoot,
+    stats: {
+      ...result.stats,
+    },
+    summary: { errors, warnings },
+    issues: result.issues,
   }
 
-  const slug = slugify(document.relativePath)
-  if (slugs.has(slug)) {
-    errors.push(`${document.relativePath}: 与 ${slugs.get(slug)} 产生重复 slug ${slug}`)
-  } else {
-    slugs.set(slug, document.relativePath)
-  }
-  const tags = Array.isArray(document.frontmatter.tags) ? document.frontmatter.tags : []
-  for (const tag of tags) {
-    if (typeof tag === "string" && tag.trim()) tagSlugs.add(`tags/${slugify(tag.trim())}`)
-  }
-}
-
-// Quartz emits virtual folder and tag pages, so include them in link validation.
-const validSlugs = new Set(slugs.keys())
-for (const document of documents) {
-  const segments = document.relativePath.split("/")
-  for (let index = 1; index < segments.length; index += 1) {
-    validSlugs.add(segments.slice(0, index).join("/").toLowerCase())
-  }
-}
-for (const tagSlug of tagSlugs) validSlugs.add(tagSlug)
-
-for (const document of documents) {
-  const checkLink = (rawTarget, kind) => {
-    if (!rawTarget || isExternal(rawTarget)) return
-    const [targetPath, anchor] = rawTarget.split("#", 2)
-    if (/\.(?:png|jpe?g|gif|svg|webp|canvas|base|pdf|mp4|mp3|wav|webm|ogg)$/i.test(targetPath))
-      return
-
-    const candidates = targetCandidates(targetPath, document.relativePath)
-    const resolved = candidates.find((candidate) => validSlugs.has(candidate))
-    if (!resolved) {
-      errors.push(`${document.relativePath}: ${kind} 指向不存在的页面 ${rawTarget}`)
-      return
-    }
-    // Heading anchors are normalized by Quartz's markdown pipeline and may
-    // differ from GitHub's slugger for legacy content, so page resolution is
-    // the hard failure gate here.
-  }
-
-  const body = document.body
-    .replace(/```[\s\S]*?```/g, "")
-    .replace(/~~~[\s\S]*?~~~/g, "")
-    .replace(/`[^`]*`/g, "")
-  for (const match of body.matchAll(/!?\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g)) {
-    const target = match[1].trim().replaceAll("\\", "")
-    // Documentation examples intentionally use placeholder links such as [[Page]].
-    if (
-      !/^(?:页面|文件路径|图片路径|My Note|my note|MY NOTE|Page|TODO|DONE|video|audio|pdf|>)$/.test(
-        target,
+  if (options.format === "json") {
+    const json = JSON.stringify(report, null, 2)
+    if (options.output) {
+      const outputPath = path.resolve(process.cwd(), options.output)
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true })
+      fs.writeFileSync(outputPath, json + "\n", "utf8")
+      process.stderr.write(
+        `JSON 报告已写入 ${options.output}：${errors} 个错误，${warnings} 个警告\n`,
       )
-    ) {
-      checkLink(target, "Wikilink")
+    } else {
+      process.stdout.write(json + "\n")
+    }
+  } else {
+    process.stderr.write(
+      `检查扫描根目录：${options.root}\n` + `发现 ${errors} 个错误，${warnings} 个警告\n`,
+    )
+    for (const issue of result.issues) {
+      const where = issue.line ? `${issue.file}:${issue.line}` : issue.file
+      const target = issue.target ? ` -> ${issue.target}` : ""
+      process.stderr.write(`  [${issue.ruleId}] ${where}${target}\n`)
     }
   }
-  for (const match of body.matchAll(/!?\[[^\]]*\]\(([^)\s]+)(?:\s+[^)]*)?\)/g)) {
-    const target = match[1].trim().replace(/^<|>$/g, "").replaceAll("\\", "")
-    if (target !== "link") checkLink(target, "Markdown 链接")
-  }
+
+  process.exit(errors > 0 ? 1 : 0)
 }
 
-if (errors.length > 0) {
-  console.error(`内容检查失败：发现 ${errors.length} 个问题`)
-  for (const error of errors) console.error(`- ${error}`)
-  process.exitCode = 1
-} else {
-  console.log(`内容检查通过：${documents.length} 篇文档，${validSlugs.size} 个可链接页面`)
-}
+main()
