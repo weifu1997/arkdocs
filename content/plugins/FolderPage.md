@@ -9,7 +9,7 @@ enabled: true
 required: false
 ---
 
-该插件属于页面类型插件，负责为文件夹生成索引归档页，为包含多个内容文件的各个目录创建聚合列表。默认采用 `default` [[layout#Page Frames|页面框架]]（三栏布局）。详见 [[features/folder and tag listings|文件夹与标签列表]]。
+该插件属于页面类型插件，负责为文件夹生成索引归档页，为包含多个内容文件的各个目录创建聚合列表。默认采用 `default` [[layout#页面框架（Page Frames）|页面框架]]（三栏布局）。详见 [[features/folder and tag listings|文件夹与标签列表]]。
 
 例如：[[advanced/|进阶板块]]
 

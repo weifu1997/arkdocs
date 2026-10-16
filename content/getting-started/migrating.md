@@ -216,7 +216,7 @@ If you're coming from Quartz 3 (the Hugo-based version), follow the same steps a
 1. **Hugo is gone**: Quartz now uses a Node-based static-site generation process. No more Go templates or `hugo-obsidian`.
 2. **Full hot-reload**: The development server (`npx quartz build --serve`) re-processes all content on every change.
 3. **JSX instead of Go templates**: Layout components are written in JSX (JavaScript XML), which is significantly easier to customize.
-4. **New plugin system**: See [[configuration#Plugins|Plugins]] for details on the extensible plugin architecture.
+4. **New plugin system**: See [[configuration#插件体系（Plugins）|Plugins]] for details on the extensible plugin architecture.
 
 ### Things to update
 

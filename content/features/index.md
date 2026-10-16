@@ -2,7 +2,7 @@
 title: 功能列表
 ---
 
-Quartz 开箱即用，提供丰富功能。大多数功能由 [[configuration#插件|插件]] 驱动，可以在 `quartz.config.yaml` 中配置、启用或禁用。
+Quartz 开箱即用，提供丰富功能。大多数功能由 [[configuration#插件体系（Plugins）|插件]] 驱动，可以在 `quartz.config.yaml` 中配置、启用或禁用。
 
 ## 内容功能
 

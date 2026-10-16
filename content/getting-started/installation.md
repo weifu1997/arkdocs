@@ -85,7 +85,7 @@ npx quartz plugin install --from-config
 > npx quartz plugin install --latest
 > ```
 >
-> 详见 [[troubleshooting#全新克隆后插件构建失败]]。
+> 详见 [[troubleshooting#Plugins fail to build on a fresh clone]]。
 
 ## 5. 预览站点
 

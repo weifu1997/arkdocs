@@ -90,7 +90,7 @@ Quartz 5 introduces **page types** — plugins that define how different kinds o
 - **Canvas pages** — interactive JSON Canvas renderings
 - **Bases pages** — database-style views of your content
 
-Each page type can use a different [[layout#Page Frames|page frame]] for fundamentally different HTML structures (three-column, full-width, minimal, etc.).
+Each page type can use a different [[layout#页面框架（Page Frames）|page frame]] for fundamentally different HTML structures (three-column, full-width, minimal, etc.).
 
 ## Layout System
 

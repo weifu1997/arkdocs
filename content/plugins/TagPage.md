@@ -9,7 +9,7 @@ enabled: true
 required: false
 ---
 
-该插件属于页面类型插件，负责为内容中使用的每个独立标签生成专属的聚合归档页。默认采用 `default` [[layout#Page Frames|页面框架]]（三栏布局）。详见 [[features/folder and tag listings|文件夹与标签列表]]。
+该插件属于页面类型插件，负责为内容中使用的每个独立标签生成专属的聚合归档页。默认采用 `default` [[layout#页面框架（Page Frames）|页面框架]]（三栏布局）。详见 [[features/folder and tag listings|文件夹与标签列表]]。
 
 > [!note] 提示
 > 关于如何添加、移除或配置插件，请参阅 [[configuration#插件体系（Plugins）|配置]] 页面。

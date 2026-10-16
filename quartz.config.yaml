@@ -273,6 +273,14 @@ layout:
         left: []
         right: []
     content: {}
+    search:
+      exclude:
+        - article-title
+        - content-meta
+        - breadcrumbs
+        - note-properties
+      positions:
+        header: []
     folder:
       exclude:
         - reader-mode

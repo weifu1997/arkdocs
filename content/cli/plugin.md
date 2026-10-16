@@ -251,7 +251,7 @@ plugins:
     enabled: true
 ```
 
-对象源字段的完整参考见 [[configuration#高级源选项|高级源选项]]。
+对象源字段的完整参考见 [[configuration#高级源路径配置（Advanced Source Options）|高级源选项]]。
 
 > [!note]
 > `plugin add` CLI 命令适用于字符串源。要使用带 `subdir` 的对象源格式，请直接编辑 `quartz.config.yaml`，然后运行 `npx quartz plugin install --from-config` 进行安装。

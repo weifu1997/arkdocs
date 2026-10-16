@@ -82,7 +82,7 @@ Quartz v5 引入了全新的分布式社区插件体系。插件是独立的 Git
 - **过滤器（Filters）**：负责内容条件筛选（剔除草稿、过滤私有内容等）；
 - **发射器（Emitters）**：负责内容归约汇总与资产输出（生成 RSS、Sitemap、别名重定向、社交封面图等）；
 - **页面类型（Page Types）**：定义不同类型页面的专属渲染逻辑（文章内容页、文件夹聚合页、标签聚合页、404 页）。系统内的 `PageTypeDispatcher` 发射器会根据内容特征将页面分发给对应的页面类型插件处理；
-- **Bases 视图（Bases Views）**：为 `bases-page` 数据库插件提供多维视图渲染器。插件可通过 `ViewRegistry` 注册全新的视图展现方式（如时间线、看板等）。详见 [[making plugins#Bases 视图开发|制作插件]]。
+- **Bases 视图（Bases Views）**：为 `bases-page` 数据库插件提供多维视图渲染器。插件可通过 `ViewRegistry` 注册全新的视图展现方式（如时间线、看板等）。详见 [[making plugins#5. Bases 数据库视图开发（Bases Views）|制作插件]]。
 
 需要注意的是，这些分类**并非互斥**——单个插件可以既是转换器同时又提供前端组件（如 `obsidian-flavored-markdown`），也可以既是页面类型同时又自带专属页面框架（如 `canvas-page`）。
 
@@ -115,4 +115,4 @@ Quartz v5 引入了全新的分布式社区插件体系。插件是独立的 Git
 - `registry.ts` —— 管理由插件注册的自定义框架的单例 `FrameRegistry`；
 - `index.ts` —— 框架解析调度函数 `resolveFrame()`。
 
-页面框架会被挂载为 `.page` 元素上的 `data-frame` 属性，方便在样式表中进行精确的作用域样式定制。有关用户侧配置与开发者插件扩展，请分别参阅 [[layout#页面框架（Page Frames）|页面布局文档]] 与 [[making plugins#提供自定义页面框架|制作插件指南]]。
+页面框架会被挂载为 `.page` 元素上的 `data-frame` 属性，方便在样式表中进行精确的作用域样式定制。有关用户侧配置与开发者插件扩展，请分别参阅 [[layout#页面框架（Page Frames）|页面布局文档]] 与 [[making plugins#提供自定义页面框架（Providing Custom Frames）|制作插件指南]]。

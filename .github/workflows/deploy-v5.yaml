@@ -51,9 +51,20 @@ jobs:
         run: npm run check:format
 
       - name: Check content and internal links
-        run: npm run check:content
+        id: content-check
+        continue-on-error: true
+        run: npm run check:content -- --format json --output reports/content-quality.json
+
+      - name: Upload content quality report
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: content-quality-report-deploy-v5
+          path: reports/content-quality.json
+          if-no-files-found: warn
 
       - name: Build ArkDocs
+        if: always() && steps.content-check.outcome == 'success'
         run: npx quartz build -d content -v
 
       - name: Check Cloudflare credentials

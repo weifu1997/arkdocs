@@ -8,7 +8,7 @@ tags:
 
 ## 1. 过滤器插件（Filter Plugins）
 
-[[making plugins#过滤器（Filters）|过滤器插件]] 能够根据设定的特定元数据条件筛选剔除内容。默认情况下，Quartz 启用了 [[RemoveDrafts]] 插件，它会自动过滤并隐藏所有在 Frontmatter 中标记了 `draft: true` 的笔记。
+[[making plugins#2. 过滤器插件（Filters）|过滤器插件]] 能够根据设定的特定元数据条件筛选剔除内容。默认情况下，Quartz 启用了 [[RemoveDrafts]] 插件，它会自动过滤并隐藏所有在 Frontmatter 中标记了 `draft: true` 的笔记。
 
 如果你希望采取“白名单”机制，仅发布明确标记公开的文章，可以使用 [[ExplicitPublish]] 插件。它会过滤掉所有笔记，唯独保留在 Frontmatter 中显式声明了 `publish: true` 的文章。
 

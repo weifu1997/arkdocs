@@ -50,7 +50,7 @@ npx quartz build --serve
 ```
 
 > [!tip]
-> 如果全新克隆后构建出错，可以尝试 `npx quartz plugin install --latest`，将插件刷新到最新版本。详见 [[troubleshooting#全新克隆后插件构建失败]]。
+> 如果全新克隆后构建出错，可以尝试 `npx quartz plugin install --latest`，将插件刷新到最新版本。详见 [[troubleshooting#Plugins fail to build on a fresh clone]]。
 
 ## 🔧 功能
 

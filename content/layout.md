@@ -205,7 +205,7 @@ layout:
 
 **1. 插件自带框架（推荐用于可复用框架）：**
 
-插件可以通过在 `package.json` 中声明并在 `./frames` 子路径导出自己的框架。详见[[making plugins#提供自定义页面框架|制作插件]]指南。安装包含框架的插件后，其框架会自动注册到 Frame Registry，并可通过名称直接引用。
+插件可以通过在 `package.json` 中声明并在 `./frames` 子路径导出自己的框架。详见[[making plugins#提供自定义页面框架（Providing Custom Frames）|制作插件]]指南。安装包含框架的插件后，其框架会自动注册到 Frame Registry，并可通过名称直接引用。
 
 **2. 核心源码框架（用于项目本地专属框架）：**
 
