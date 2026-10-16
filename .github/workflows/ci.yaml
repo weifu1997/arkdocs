@@ -48,11 +48,25 @@ jobs:
       - name: Check workflow and script formatting
         run: npm run check:format
 
-      - name: Check content and internal links
-        run: npm run check:content
+      - name: Test public content discovery
+        run: npm run test:content-discovery
+
+      - name: Test content quality checker
+        run: npm run test:content-quality
 
       - name: Test
         run: npm test
+
+      - name: Run content quality check with JSON report
+        run: npm run check:content -- --format json --output reports/content-quality.json
+
+      - name: Upload content quality report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: content-quality-report-${{ matrix.os }}
+          path: reports/content-quality.json
+          if-no-files-found: error
 
       - name: Build ArkDocs content
         run: npx quartz build --bundleInfo -d content
