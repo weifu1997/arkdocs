@@ -20,7 +20,9 @@
     "check:format": "npx prettier scripts package.json .github/workflows --check",
     "check:content": "node scripts/check-content.mjs",
     "format": "npx prettier . --write",
-    "test": "tsx --test",
+    "test": "node --import tsx/esm --import ./fixtures/content-discovery/test-loader.mjs --test",
+    "test:content-discovery": "node --import tsx/esm --import ./fixtures/content-discovery/test-loader.mjs --test fixtures/content-discovery/content-discovery.test.ts fixtures/content-discovery/search-route.test.ts",
+    "test:content-quality": "tsx --test fixtures/content-quality/content-quality.test.ts",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
     "install-plugins": "npx tsx ./quartz/plugins/loader/install-plugins.ts",
     "prebuild": "npm run install-plugins"
