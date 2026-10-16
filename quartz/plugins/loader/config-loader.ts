@@ -497,8 +497,14 @@ export async function loadQuartzConfig(
     builtinPlugins.ComponentResources(),
     builtinPlugins.Assets(),
     builtinPlugins.Static(),
+    // Emits static/searchIndex.json: the published-only index for /search
+    builtinPlugins.SearchIndex(),
   ]
-  const builtinPageTypes = [builtinPlugins.PageTypes.NotFoundPageType()]
+  // Built before the 404 page type; the 404 matcher never matches real pages.
+  const builtinPageTypes = [
+    builtinPlugins.SearchPageType(),
+    builtinPlugins.PageTypes.NotFoundPageType(),
+  ]
 
   const plugins: PluginTypes = {
     transformers: [...builtinTransformers, ...(await instantiate(transformers, "transformer"))],

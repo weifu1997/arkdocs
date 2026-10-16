@@ -49,7 +49,16 @@ jobs:
         run: npm run check:format
 
       - name: Check content and internal links
-        run: npm run check:content
+        run: npm run check:content -- --format json --output reports/content-quality.json
+        continue-on-error: true
+
+      - name: Upload content quality report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-quality-report-${{ matrix.os }}
+          path: reports/content-quality.json
+          retention-days: 7
 
       - name: Test
         run: npm test

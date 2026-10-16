@@ -48,3 +48,8 @@ export * from "./types"
 export * from "./config"
 export * as PageTypes from "./pageTypes"
 export * as PluginLoader from "./loader"
+
+// Built-in local plugins for the public /search page and its index
+export { SearchPageType } from "./pageTypes/searchPageType"
+export { SearchIndex } from "./emitters/searchIndex"
+export * from "./search/searchData"

@@ -19,6 +19,8 @@
     "check:types": "tsc --noEmit",
     "check:format": "npx prettier scripts package.json .github/workflows --check",
     "check:content": "node scripts/check-content.mjs",
+    "test:content-discovery": "tsx --test tests/content-discovery.test.ts",
+    "test:content-quality": "tsx --test tests/content-quality.test.ts",
     "format": "npx prettier . --write",
     "test": "tsx --test",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
